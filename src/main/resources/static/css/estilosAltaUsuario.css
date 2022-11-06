@@ -1,0 +1,183 @@
+:root {
+--blue: #007bff;
+--white: #fff;
+--gray: #aab1b7;
+--gray-dark: #343a40;
+--light: #f8f9fa;
+--dark: black;
+--red: #f02121;
+--green: #05f515;
+--font: 'Nunito Sans', sans-serif;
+}
+
+body{
+width: 95%;
+position: relative;
+font-family: var(--font);
+background-color: #007bff;
+display: inline;
+justify-content: center;
+/*background-image:url(../img/santaFe-background.png);
+background-size: cover;
+background-repeat:no-repeat;
+background-position: center center;*/
+}
+
+.container{
+width: 60%;
+height: auto;
+margin: auto;
+background-color: var(--light);
+border-radius: 10px;
+box-shadow: 0 0 25px 0 rgba(0 0 0 / 0.9);
+margin-top: 50px;
+margin-bottom: 50px;
+padding-bottom: 30px;
+}
+
+.container h2{
+text-transform: uppercase;
+text-align: center;
+padding-top: 30px;
+font-weight: 700;
+}
+
+.container h4{
+text-align: center;
+font-weight: 300;
+font-size: 0.9rem;
+padding: 20px;
+
+}
+
+/*estilos de prueba*/
+
+.container_fields{
+width: 60%;
+/* background-color: palevioletred; */
+display: grid;
+grid-gap: 10px;
+margin-left: auto;
+margin-right: auto;
+margin-bottom: 20px;
+padding-bottom: 20px;
+grid-template-columns: repeat(2, 1fr);
+grid-template-rows: repeat(2, 1fr);
+justify-items:center; /*acomodar elementos de forma horizontal*/
+align-items: center; /*acomodar elementos de forma verticalmente*/
+}
+
+.container_fields .fields{
+/* background-color: lightgreen; */
+padding: 10px;
+/* border: 1px solid rgb(6, 6, 6); */
+/*No se utiliza width y height en los contenedores*/
+display: grid;
+justify-self: stretch; /*Abarca el ancho de la celda sin salirse de ella*/
+align-self:stretch; /*Abarca el alto de la celda sin salirse de ella*/
+align-content:start;
+}
+
+.fields .field_label{
+height: auto;
+text-align: left;
+/* background-color: violet; */
+font-weight: 600;
+color: var(--dark);
+}
+
+.fields .field_input{
+width: auto;
+padding: .4em 1.4em .3em .8em;
+border-radius: 5px;
+border: 2px solid var(--gray);
+-webkit-transition: 0.5s;
+transition: 0.5s;
+}
+.fields .field_input:focus{
+border: 2px solid var(--blue);
+outline: none;
+}
+
+.fields .group_document{
+padding: .4em 1.4em .3em .8em;
+border-radius: 5px;
+border: 2px solid var(--gray);
+-webkit-transition: 0.5s;
+transition: 0.5s;
+}
+.fields .group_document:focus{
+border: 2px solid var(--blue);
+outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.container_fields .button{
+grid-column: 1/3;
+}
+
+.button{
+width: 150px;
+background: var(--blue);
+color: var(--white);
+padding: 1%;
+border: none;
+border-radius: 5px;
+text-transform: uppercase;
+}
+
+/*Validations styles*/
+.error_message {
+margin-top: 5px;
+margin-bottom: 0;
+display: none;
+font-size: 0.8rem;
+}
+
+.error_message i{
+margin-top: 5px;
+color: var(--red);
+}
+
+.container_fields .incomplete_field{
+    grid-column: 1/3;
+}
+
+.incomplete_field{
+    margin-top: 5px;
+    margin-bottom: 0;
+    display: none;
+    font-size: 0.8rem;
+}
+.incomplete_field i{
+    margin-bottom: 10px;
+    color: var(--red);
+}
+
+.container_fields .success_message{
+    grid-column: 1/3;
+}
+
+.success_message{
+    margin-top: 5px;
+    margin-bottom: 0;
+    display: none;
+    font-size: 0.8rem;
+}
+
+.success_message i{
+    margin-bottom: 10px;
+    color: var(--green);
+}
+
+.message_active {
+    display: block;
+}
+
+  
+  

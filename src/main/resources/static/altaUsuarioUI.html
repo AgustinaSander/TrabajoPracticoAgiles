@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alta Usuario</title>
+    <!--GoogleFonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <!--CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/estilosAltaUsuario.css" />
+    <!--FontAwesome-->
+    <script
+      src="https://kit.fontawesome.com/0ab9ff7f01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section class="container">
+      <h2>Dar de alta un Usuario</h2>
+      <h4>Complete los siguientes campos para dar de alta un usuario</h4>
+      <form action="" class="fields_to_complete" id="fields_to_complete" name="form">
+        <div class="container_fields">     
+            <div class="fields" id="field_name">
+              <label for="name" class="field_label">Nombre (*)</label>
+              <input class="field_input" type="text" name="name" />
+              <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> No se admiten caracteres especiales. Longitud máxima 30 caracteres</p>
+            </div>
+  
+            <div class="fields" id="field_surname">
+              <label for="surname" class="field_label">Apellido (*)</label>           
+              <input class="field_input" type="text" name="surname" />       
+              <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> No se admiten caracteres especiales. Longitud máxima 30 caracteres</p>
+            </div>
+  
+            <div class="fields" id="field_type_document">
+              <label for="type_document" class="field_label">Tipo N° documento (*)</label>
+              <select class="group_document" name="type_document" id="type_document">
+                  <option value="SELECCIONE" selected>SELECCIONE</option>
+                  <option value="DNI">DNI</option>
+                  <option value="PASAPORTE">PASAPORTE</option>
+                  <option value="LU">LU</option>
+                  <option value="LE">LE</option>
+              </select>
+            </div>
+  
+            <div class="fields" id="field_dni">
+              <label for="n_document" class="field_label">N° documento (*)</label>
+              <input class="field_input" type="number" name="dni" />            
+              <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> Ingrese entre 8 y 10 digitos</p>
+            </div>
+
+            <div class="fields" id="field_email">
+                <label for="email" class="field_label">E-mail (*)</label>
+                <input class="field_input" type="email" name="email" />            
+                <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> El correo ingresado no tiene el formato adecuado</p>
+            </div>
+
+            <div class="fields" id="field_password">
+                <label for="password" class="field_label">Contraseña (*)</label>
+                <input class="field_input" type="password" name="password" />            
+                <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> La contraseña debe tener entre 6 y 15 caracteres. Entre ellos al menos un dígito, una minúscula y una mayúscula.</p>
+            </div>
+
+            <p class="incomplete_field" id="incomplete_field" ><i class="fa-solid fa-circle-exclamation"></i> Los campos (*) son obligatorios</p>
+
+            <button type="submit" class="button" id="button">
+                <i class="fa-sharp fa-solid fa-floppy-disk"></i> Guardar
+            </button>
+
+            <p class="success_message" id="success_message"><i class="fa-solid fa-circle-check"></i> El usuario a sido dado de alta con exito</p>
+
+        </div>
+      </form>
+      <script src="../static/js/altaUsuarioValidaciones.js"></script>
+    </section>
+  </body>
+</html>
