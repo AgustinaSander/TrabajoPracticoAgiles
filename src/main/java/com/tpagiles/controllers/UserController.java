@@ -30,7 +30,7 @@ public class UserController {
 
     @PostMapping("api/user")
     public void createUser(@RequestBody UserDto userDto){
-        gestorUser.altaUsuario(userDto);
+        gestorUser.createUser(userDto);
     }
 
 /*

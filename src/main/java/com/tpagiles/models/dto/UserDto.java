@@ -32,6 +32,6 @@ public class UserDto {
 
 	public User convertUserObject() {
 		EnumTypeIdentification typeEnum = EnumTypeIdentification.valueOf(type);
-		return new User(0, name, surname, email, typeEnum, identification, password, null);
+		return new User(name, surname, email, typeEnum, identification, password);
 	}
 }
