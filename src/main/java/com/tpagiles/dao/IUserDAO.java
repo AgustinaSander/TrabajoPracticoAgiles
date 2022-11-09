@@ -7,7 +7,8 @@ public interface IUserDAO {
 
     //void deleteUser(Long id);
 
-    User createUser(User usuario);
+    User createUser(User user);
+    User findById(int id);
 
     //User findUserByEmail(User usuario);
 }
