@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.tpagiles.models.User;
 import com.tpagiles.repositories.UserRepository;
 
+import java.util.Optional;
+
 @Service
 public class UserDAOImpl implements IUserDAO{
 
@@ -15,6 +17,12 @@ public class UserDAOImpl implements IUserDAO{
 	@Override
 	public User createUser(User user) {
 		return userRepository.save(user);
+	}
+
+	@Override
+	public User findById(int id){
+		Optional<User> user = userRepository.findById(id);
+		return user.isPresent() ? user.get() : null;
 	}
 
 	/*
