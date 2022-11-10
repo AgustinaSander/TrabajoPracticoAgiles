@@ -1,11 +1,13 @@
 package com.tpagiles.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.tpagiles.models.User;
 import com.tpagiles.repositories.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,19 +27,9 @@ public class UserDAOImpl implements IUserDAO{
 		return user.isPresent() ? user.get() : null;
 	}
 
-	/*
-    @Override
-	public User findUserByEmail(User user) {
-        List<User> users = userRepository.findUserByEmail(user.getEmail());
-		System.out.println(users);
-        if(users.isEmpty()) {
-            return null;
-        }
-
-        String passwordHashed = users.get(0).getPassword();
-        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-        return argon2.verify(passwordHashed, user.getPassword()) ? users.get(0) : null;
-    }
+	public List<User> findByIdentification(String identification) {
+		return userRepository.findByIdentification(identification);
+	}
 
 	@Override
 	public List<User> findAllUsers() {
@@ -45,6 +37,15 @@ public class UserDAOImpl implements IUserDAO{
 		return users;
 	}
 
+	public void deleteUser(int id) throws Exception {
+		try{
+			userRepository.deleteById(id);
+		} catch(EmptyResultDataAccessException e){
+			throw new Exception("Unexistent user with id "+id);
+		}
+
+	}
+/*
 	@Override
 	public void deleteUser(Long id) {
 		userRepository.deleteById(id);
