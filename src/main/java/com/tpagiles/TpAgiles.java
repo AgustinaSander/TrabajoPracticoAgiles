@@ -53,7 +53,7 @@ public class TpAgiles {
       licenseTypeRepository.save(new LicenseType(6,"F","Automotores especialmente adaptados para discapacitados.",17, 40.0,45.0,50.0,60.0));
       licenseTypeRepository.save(new LicenseType(7,"G","Tractores agrícolas y maquinaria especial agrícola.",17, 20.0,25.0,30.0,40.0));
 
-      UserDto userDto = new UserDto(1,"Agustina", "Sander", "asander00@hotmail.com", EnumTypeIdentification.DNI.name(), "42331387", "hola");
+      UserDto userDto = new UserDto("Agustina", "Sander", "asander00@hotmail.com", EnumTypeIdentification.DNI.name(), "42331387", "hola");
       User userCreated = gestorUser.createUser(userDto);
 
       AddressDto addressDto = new AddressDto("Castelli", "1621", "","", "Santa Fe", "Santa Fe");
@@ -71,6 +71,10 @@ public class TpAgiles {
       licenseHolderDto.setOrganDonor(false);
       licenseHolderDto.setAddressDto(addressDto);
       gestorTitular.updateLicenseHolder(licenseHolderCreated.getId(), licenseHolderDto);
+
+      //Update user
+      userDto.setEmail("nuevaomail@hotmail.com");
+      gestorUser.updateUser(userCreated.getId(), userDto);
     }
   }
 
