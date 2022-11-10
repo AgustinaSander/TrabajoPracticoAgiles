@@ -10,6 +10,7 @@ import com.tpagiles.utils.JWTUtil;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +37,22 @@ public class UserController {
             e.printStackTrace();
         }
     }
+
+    @DeleteMapping("api/user/{id}")
+    public void deleteUser(@PathVariable int id){
+        try {
+            gestorUser.deleteUser(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @GetMapping("api/users")
+    public List<User> getUsers(){
+        return gestorUser.findAll();
+    }
+
+
 
 /*
     @GetMapping("api/user")

@@ -3,6 +3,7 @@ package com.tpagiles.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "license")
@@ -25,6 +26,7 @@ public class License {
     String comments;
     @ManyToOne
     User user;
+    Date expirationDate;
 
     public License(EnumState state, LicenseHolder licenseHolder, LicenseType type, String comments, User user){
         this.state = state;

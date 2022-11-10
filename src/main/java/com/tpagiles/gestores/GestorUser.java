@@ -68,4 +68,12 @@ public class GestorUser {
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
         return argon2.verify(passwordHashed, password) ? existentUsers.get(0) : null;
     }
+
+    public List<User> findAll(){
+        return userDAO.findAllUsers();
+    }
+
+    public void deleteUser(int id) throws Exception {
+        userDAO.deleteUser(id);
+    }
 }
