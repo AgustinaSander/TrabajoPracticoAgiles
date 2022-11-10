@@ -3,6 +3,7 @@ package com.tpagiles.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -16,23 +17,24 @@ public class License {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    int id;
+    private int id;
     @Enumerated(EnumType.STRING)
-    EnumState state;
+    private EnumState state;
     @ManyToOne
-    LicenseHolder licenseHolder;
+    private LicenseHolder licenseHolder;
     @ManyToOne
-    LicenseType type;
-    String comments;
+    private LicenseType type;
+    private String comments;
     @ManyToOne
-    User user;
-    Date expirationDate;
+    private User user;
+    private LocalDate expirationDate;
 
-    public License(EnumState state, LicenseHolder licenseHolder, LicenseType type, String comments, User user){
+    public License(EnumState state, LicenseHolder licenseHolder, LicenseType type, String comments, User user, LocalDate expirationDate){
         this.state = state;
         this.licenseHolder = licenseHolder;
         this.type = type;
         this.comments = comments;
         this.user = user;
+        this.expirationDate = expirationDate;
     }
 }
