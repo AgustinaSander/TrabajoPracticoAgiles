@@ -1,11 +1,14 @@
 package com.tpagiles.dao;
 
+import com.tpagiles.models.Person;
+import com.tpagiles.models.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tpagiles.models.User;
 import com.tpagiles.repositories.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,20 +28,32 @@ public class UserDAOImpl implements IUserDAO{
 		return user.isPresent() ? user.get() : null;
 	}
 
+	public List<User> findByIdentification(String identification) {
+		return userRepository.findByIdentification(identification);
+	}
+
 	/*
-    @Override
-	public User findUserByEmail(User user) {
-        List<User> users = userRepository.findUserByEmail(user.getEmail());
-		System.out.println(users);
-        if(users.isEmpty()) {
-            return null;
-        }
+	@Override
+	public User findByTypeAndIdentification(String type, String identification) {
+		List<Person> persons = userRepository.findByTypeAndIdentification(type, identification);
+		User user = new User();
+		if(persons.size() > 0){
+			Person person = persons.get(0);
+			user.setId(person.getId());
+			user.setName(person.getName());
+			user.setType(person.getType());
+			user.setIdentification(person.getIdentification());
+			user.setSurname(person.getSurname());
+			user.setEmail(person.getEmail());
 
-        String passwordHashed = users.get(0).getPassword();
-        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-        return argon2.verify(passwordHashed, user.getPassword()) ? users.get(0) : null;
-    }
+			Optional<User> user2 = userRepository.findById(person.getId());
+			return user2.get();
+		}
 
+		return null;
+	}*/
+
+	/*
 	@Override
 	public List<User> findAllUsers() {
 		List<User> users = (List<User>) userRepository.findAll();

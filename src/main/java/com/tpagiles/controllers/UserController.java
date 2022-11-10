@@ -30,7 +30,11 @@ public class UserController {
 
     @PostMapping("api/user")
     public void createUser(@RequestBody UserDto userDto){
-        gestorUser.createUser(userDto);
+        try {
+            gestorUser.createUser(userDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 /*

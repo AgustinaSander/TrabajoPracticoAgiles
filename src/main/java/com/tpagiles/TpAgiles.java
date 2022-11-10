@@ -30,7 +30,7 @@ import java.util.List;
 @SpringBootApplication
 @Import({ClassConfig.class})
 public class TpAgiles {
-
+ /*
   @Autowired
   GestorUser gestorUser;
   @Autowired
@@ -44,6 +44,7 @@ public class TpAgiles {
   class DataSetup implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception{
+      /*
       //Ver si lo borro y lo pongo solo en la bd
       licenseTypeRepository.save(new LicenseType(1,"A","Ciclomotores, motocicletas y triciclos motorizados.",17, 20.0,25.0,30.0,40.0));
       licenseTypeRepository.save(new LicenseType(2,"B","Automóviles y camionetas con acoplado.",17, 20.0,25.0,30.0,40.0));
@@ -75,9 +76,10 @@ public class TpAgiles {
       //Update user
       userDto.setEmail("nuevaomail@hotmail.com");
       gestorUser.updateUser(userCreated.getId(), userDto);
+
     }
   }
-
+          */
   public static void main(String[] args) {
     SpringApplication.run(TpAgiles.class, args);
   }

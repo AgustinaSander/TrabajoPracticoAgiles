@@ -12,17 +12,25 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GestorUser {
     @Autowired
     UserDAOImpl userDAO;
 
-    public User createUser(UserDto userDto){
-        User user = userDto.convertUserObject();
-        String hash = createPassword(userDto.getPassword());
-        user.setPassword(hash);
-        return userDAO.createUser(user);
+    public User createUser(UserDto userDto) throws Exception {
+        String identification = userDto.getIdentification();
+        List<User> users = userDAO.findByIdentification(identification);
+        List<User> existentUsers = users.stream().filter(u -> u.getType() == EnumTypeIdentification.valueOf(userDto.getType()))
+                .collect(Collectors.toList());
+        if(existentUsers.size() == 0){
+            User user = userDto.convertUserObject();
+            String hash = createPassword(userDto.getPassword());
+            user.setPassword(hash);
+            return userDAO.createUser(user);
+        }
+        throw new Exception("User with type and identification already exists.");
     }
 
     public User findById(int id){
@@ -48,4 +56,16 @@ public class GestorUser {
         return argon2.hash(1,1024,1, password);
     }
 
+
+    public User findByTypeAndIdentification(String type, String identification, String password) throws Exception {
+        List<User> users = userDAO.findByIdentification(identification);
+        List<User> existentUsers = users.stream().filter(u -> u.getType() == EnumTypeIdentification.valueOf(type))
+                .collect(Collectors.toList());
+        if(existentUsers.size()==0)
+            throw new Exception("The user with type " + type + " and identification "+identification+" no longer exists.");
+
+        String passwordHashed = existentUsers.get(0).getPassword();
+        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        return argon2.verify(passwordHashed, password) ? existentUsers.get(0) : null;
+    }
 }
