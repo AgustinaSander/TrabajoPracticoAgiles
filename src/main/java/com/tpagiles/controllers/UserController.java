@@ -6,6 +6,8 @@ import com.tpagiles.models.dto.UserDto;
 import com.tpagiles.utils.JWTUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,12 +28,14 @@ public class UserController {
     }
 
     @PostMapping("api/user")
-    public void createUser(@RequestBody UserDto userDto){
+    public ResponseEntity createUser(@RequestBody UserDto userDto){
+        User user;
         try {
-            gestorUser.createUser(userDto);
-        } catch (Exception e) {
-            e.printStackTrace();
+            user = gestorUser.createUser(userDto);
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
         }
+        return ResponseEntity.ok(user);
     }
 
     @DeleteMapping("api/user/{id}")

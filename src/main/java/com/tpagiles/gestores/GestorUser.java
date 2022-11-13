@@ -30,7 +30,7 @@ public class GestorUser {
             user.setPassword(hash);
             return userDAO.createUser(user);
         }
-        throw new Exception("User with type and identification already exists.");
+        throw new Exception("Ya existe un usuario con ese tipo y numero de identificacion.");
     }
 
     public User findById(int id){

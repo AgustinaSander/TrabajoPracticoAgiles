@@ -64,12 +64,6 @@ fields.addEventListener('submit', (e) =>{
 
         //GUARDAR USUARIO
         saveUser();
-
-        document.getElementById('success_message').classList.add('message_active');
-        setTimeout(() =>{
-            document.getElementById('success_message').classList.remove('message_active');
-        },5000);
-        //fields.reset();
     }else{
         document.getElementById('incomplete_field').classList.add('message_active');
     }
@@ -93,4 +87,22 @@ async function saveUser(){
         },
         body: JSON.stringify(userInfo)
     });
+
+    if(request.ok){
+        document.getElementById('success_message').classList.add('message_active');
+        setTimeout(() =>{
+            document.getElementById('success_message').classList.remove('message_active');
+        },5000);
+        fields.reset();
+    } else {
+        request.text().then(text => {
+            let errorMessage = document.getElementById('error_message');
+            errorMessage.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i>' + text;
+            errorMessage.classList.add('message_active');
+            setTimeout(() =>{
+                errorMessage.classList.remove('message_active');
+                errorMessage.innerHTML = '';
+            },5000);
+        });
+    }
 };
