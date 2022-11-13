@@ -1,21 +1,19 @@
 package com.tpagiles.controllers;
 
-import com.tpagiles.dao.IUserDAO;
-import com.tpagiles.dao.UserDAOImpl;
 import com.tpagiles.gestores.GestorUser;
 import com.tpagiles.models.User;
 import com.tpagiles.models.dto.UserDto;
 import com.tpagiles.utils.JWTUtil;
 
-import de.mkammerer.argon2.Argon2;
-import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -30,12 +28,14 @@ public class UserController {
     }
 
     @PostMapping("api/user")
-    public void createUser(@RequestBody UserDto userDto){
+    public ResponseEntity createUser(@RequestBody UserDto userDto){
+        User user;
         try {
-            gestorUser.createUser(userDto);
-        } catch (Exception e) {
-            e.printStackTrace();
+            user = gestorUser.createUser(userDto);
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
         }
+        return ResponseEntity.ok(user);
     }
 
     @DeleteMapping("api/user/{id}")
