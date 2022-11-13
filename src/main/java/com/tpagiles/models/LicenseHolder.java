@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Getter
@@ -28,5 +29,9 @@ public class LicenseHolder extends Person{
         this.bloodType = bloodType;
         this.rhFactor = rhFactor;
         this.isOrganDonor = isOrganDonor;
+    }
+
+    public int getAge() {
+        return Period.between(birthDate, LocalDate.now()).getYears();
     }
 }

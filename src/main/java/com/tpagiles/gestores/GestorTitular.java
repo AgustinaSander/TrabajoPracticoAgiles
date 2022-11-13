@@ -1,6 +1,7 @@
 package com.tpagiles.gestores;
 
 import com.tpagiles.dao.AddressDAOImpl;
+import com.tpagiles.dao.LicenseDAOImpl;
 import com.tpagiles.dao.LicenseHolderDAOImpl;
 import com.tpagiles.models.*;
 
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EnumType;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GestorTitular {
@@ -17,6 +20,8 @@ public class GestorTitular {
     LicenseHolderDAOImpl licenseHolderDAO;
     @Autowired
     AddressDAOImpl addressDAO;
+    @Autowired
+    LicenseDAOImpl licenseDAO;
 
     public LicenseHolder createLicenseHolder(LicenseHolderDto licenseHolderDto){
         LicenseHolder licenseHolder = licenseHolderDto.convertLicenseHolderObject();
@@ -71,5 +76,21 @@ public class GestorTitular {
 
     public LicenseHolder findById(int id){
         return licenseHolderDAO.findById(id);
+    }
+
+
+    public List<LicenseHolder> findAllowLicenseHoldersByLicenseType(String type){
+        int minAge = licenseDAO.getMinAgeByType(type);
+        return getLicenseHoldersOlderThan(minAge);
+    }
+
+    public List<LicenseHolder> findAll(){
+        return licenseHolderDAO.findAllLicenseHolders();
+    }
+
+    public List<LicenseHolder> getLicenseHoldersOlderThan(int age){
+        List<LicenseHolder> holders = findAll();
+        List<LicenseHolder> olders = holders.stream().filter(h -> h.getAge() >= age).collect(Collectors.toList());
+        return olders;
     }
 }
