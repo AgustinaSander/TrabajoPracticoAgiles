@@ -41,6 +41,7 @@ document.getElementById("button").addEventListener('click', (e) =>{
 
 async function searchUsers(){
     //POR AHORA SOLO QUE ME TRAIGA TODOS
+    // FALTA: Pasar de alguna forma los filtros, ver que pasa si no encuentra ninguno (que salga algun mensaje)
     const request = await fetch("http://localhost:8080/api/users",{
             method: 'GET',
             headers: {'Content-Type':'application/json'},
@@ -52,6 +53,7 @@ async function searchUsers(){
 }
 
 function updateUsersList(users){
+    //FALTA : Identificar los li de alguna forma, ver de ponerles como value el id del user (no pude por las comillas)
     let ul = document.getElementById('list-users');
     ul.innerHTML = '';
     for(u of users){
