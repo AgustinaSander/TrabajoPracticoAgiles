@@ -1,10 +1,12 @@
 package com.tpagiles.dao;
 
 import com.tpagiles.models.LicenseHolder;
+import com.tpagiles.models.User;
 import com.tpagiles.repositories.LicenseHolderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,5 +27,10 @@ public class LicenseHolderDAOImpl implements ILicenseHolderDAO{
 
     public LicenseHolder updateLicenseHolder(LicenseHolder updatedLicenseHolder) {
         return licenseHolderRepository.save(updatedLicenseHolder);
+    }
+
+    public List<LicenseHolder> findAllLicenseHolders() {
+        List<LicenseHolder> licenseHolders = (List<LicenseHolder>) licenseHolderRepository.findAll();
+        return licenseHolders;
     }
 }

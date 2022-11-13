@@ -36,4 +36,8 @@ public class GestorLicencia {
     private LocalDate generateExpirationDate(LicenseHolder licenseHolder){
         return LocalDate.now().plusYears(4);
     }
+
+    public int getMinAgeByType(String type) {
+        return licenseDAO.getMinAgeByType(type);
+    }
 }
