@@ -21,6 +21,9 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Query("SELECT u FROM User u, Person p WHERE p.identification = :identification AND p.id = u.id")
     List<User> findByIdentification(String identification);
 
+    @Query("SELECT u FROM User u, Person p WHERE p.type = :type AND p.id = u.id")
+    List<User> findByType(String type);
+
     /*
     @Query("SELECT p FROM Person p WHERE p.type = :type AND p.identification = :identification")
     List<Person> findByTypeAndIdentification(@Param("type") String type, @Param("identification") String identification);

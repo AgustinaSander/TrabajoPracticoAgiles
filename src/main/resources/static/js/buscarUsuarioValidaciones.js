@@ -41,7 +41,13 @@ document.getElementById("button").addEventListener('click', (e) =>{
 
 async function searchUsers(){
     //POR AHORA SOLO QUE ME TRAIGA TODOS
-    // FALTA: Pasar de alguna forma los filtros, ver que pasa si no encuentra ninguno (que salga algun mensaje)
+
+    //PARA FILTRAR HAY QUE PEGARLE A LA URL http://localhost:8080/api/users/filter y
+    // pasar en el body un json que tenga los atributos de la clase USERFILTER.
+    //Si no tiene algun filtro directamente no se crea el objeto con esa propiedad
+
+    // FALTA: ver que pasa si no encuentra ninguno (que salga algun mensaje)
+
     const request = await fetch("http://localhost:8080/api/users",{
             method: 'GET',
             headers: {'Content-Type':'application/json'},

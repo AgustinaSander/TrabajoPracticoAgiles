@@ -3,8 +3,10 @@ package com.tpagiles.controllers;
 import com.tpagiles.gestores.GestorUser;
 import com.tpagiles.models.User;
 import com.tpagiles.models.dto.UserDto;
+import com.tpagiles.models.dto.UserFilter;
 import com.tpagiles.utils.JWTUtil;
 
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,9 +54,13 @@ public class UserController {
         return gestorUser.findAll();
     }
 
-
+    @GetMapping("api/users/filter")
+    public List<User> getFilteredUsers(@RequestBody UserFilter filters){
+        return gestorUser.findAllWithFilters(filters);
+    }
 
 /*
+SOLO ESTA PARA VER LO DEL TOKEN SI DESPUES LO PONEMOS
     @GetMapping("api/user")
     public List<User> getUsers(@RequestHeader(value="Authorization") String token){
         if(!validateToken(token)) return null;

@@ -5,12 +5,14 @@ import com.tpagiles.models.*;
 import com.tpagiles.models.dto.AddressDto;
 import com.tpagiles.models.dto.LicenseHolderDto;
 import com.tpagiles.models.dto.UserDto;
+import com.tpagiles.models.dto.UserFilter;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -75,5 +77,34 @@ public class GestorUser {
 
     public void deleteUser(int id) throws Exception {
         userDAO.deleteUser(id);
+    }
+
+    public List<User> findAllWithFilters(UserFilter filters) {
+        List<User> users = findAll();
+        if(filters.getIdentification() != null){
+            users = users.stream().filter(u -> u.getIdentification().equals(filters.getIdentification()))
+                    .collect(Collectors.toList());
+        }
+        if(filters.getType() != null){
+            users = users.stream().filter(u -> u.getType().name().equals(filters.getType()))
+                    .collect(Collectors.toList());
+        }
+        if(filters.getName() != null){
+            users = users.stream().filter(u -> u.getName().equals(filters.getName()))
+                    .collect(Collectors.toList());
+        }
+        if(filters.getSurname() != null){
+            users = users.stream().filter(u -> u.getSurname().equals(filters.getSurname()))
+                    .collect(Collectors.toList());
+        }
+        return users;
+    }
+
+    private List<User> findByType(String type) {
+        return userDAO.findByType(type);
+    }
+
+    private List<User> findByIdentification(String identification) {
+        return userDAO.findByIdentification(identification);
     }
 }
