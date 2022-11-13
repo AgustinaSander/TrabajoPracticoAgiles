@@ -1,21 +1,17 @@
 package com.tpagiles.controllers;
 
-import com.tpagiles.dao.IUserDAO;
-import com.tpagiles.dao.UserDAOImpl;
 import com.tpagiles.gestores.GestorUser;
 import com.tpagiles.models.User;
 import com.tpagiles.models.dto.UserDto;
 import com.tpagiles.utils.JWTUtil;
 
-import de.mkammerer.argon2.Argon2;
-import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class UserController {
 
     @Autowired
