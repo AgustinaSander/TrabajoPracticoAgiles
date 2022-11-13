@@ -33,10 +33,10 @@ public class UserDAOImpl implements IUserDAO{
 
 	@Override
 	public List<User> findAllUsers() {
-		List<User> users = (List<User>) userRepository.findAll();
-		return users;
+		return (List<User>) userRepository.findAll();
 	}
 
+	@Override
 	public void deleteUser(int id) throws Exception {
 		try{
 			userRepository.deleteById(id);
@@ -44,6 +44,11 @@ public class UserDAOImpl implements IUserDAO{
 			throw new Exception("Unexistent user with id "+id);
 		}
 
+	}
+
+	@Override
+	public List<User> findByType(String type) {
+		return userRepository.findByType(type);
 	}
 /*
 	@Override

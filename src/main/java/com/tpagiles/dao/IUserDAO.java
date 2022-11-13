@@ -9,4 +9,8 @@ public interface IUserDAO {
     User createUser(User user);
     User findById(int id);
     List<User> findAllUsers();
+
+    void deleteUser(int id) throws Exception;
+
+    List<User> findByType(String type);
 }
