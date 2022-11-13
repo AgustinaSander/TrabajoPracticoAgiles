@@ -33,3 +33,31 @@ const validation_field = (expressions, input, field) =>{
 inputs.forEach((input) => {
     input.addEventListener('blur', validation)
 });
+
+document.getElementById("button").addEventListener('click', (e) =>{
+    e.preventDefault();
+    searchUsers();
+});
+
+async function searchUsers(){
+    //POR AHORA SOLO QUE ME TRAIGA TODOS
+    const request = await fetch("http://localhost:8080/api/users",{
+            method: 'GET',
+            headers: {'Content-Type':'application/json'},
+    });
+
+    let users = await request.json();
+
+    updateUsersList(users);
+}
+
+function updateUsersList(users){
+    let ul = document.getElementById('list-users');
+    ul.innerHTML = '';
+    for(u of users){
+        ul.innerHTML += `<li class="list-group-item">
+            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" checked>
+            <label class="form-check-label" for="firstRadio">${u.name} ${u.surname}</label>
+        </li>`;
+    }
+}
