@@ -33,4 +33,8 @@ public class LicenseHolderDAOImpl implements ILicenseHolderDAO{
         List<LicenseHolder> licenseHolders = (List<LicenseHolder>) licenseHolderRepository.findAll();
         return licenseHolders;
     }
+
+    public List<LicenseHolder> findByIdentification(String identification) {
+        return licenseHolderRepository.findByIdentification(identification);
+    }
 }

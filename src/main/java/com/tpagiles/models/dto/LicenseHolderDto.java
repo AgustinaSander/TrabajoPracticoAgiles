@@ -1,10 +1,7 @@
 package com.tpagiles.models.dto;
 
 import com.tpagiles.models.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.apache.tomcat.jni.Local;
 
 import java.time.LocalDate;
@@ -13,6 +10,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class LicenseHolderDto {
     private int id;
     private String name;
@@ -43,7 +41,7 @@ public class LicenseHolderDto {
         EnumTypeIdentification typeEnum = EnumTypeIdentification.valueOf(type);
         EnumBloodType bloodTypeEnum = EnumBloodType.valueOf(bloodType);
         EnumRHFactor rhFactorEnum = EnumRHFactor.valueOf(rhFactor);
-        Address address = addressDto.convertAddressObject();
+        Address address = addressDto!= null ? addressDto.convertAddressObject() : null;
 
         return new LicenseHolder(name, surname, email, typeEnum, identification, birthDate, address, bloodTypeEnum, rhFactorEnum, isOrganDonor);
     }
