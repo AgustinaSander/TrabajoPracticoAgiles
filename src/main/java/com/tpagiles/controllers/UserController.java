@@ -54,7 +54,7 @@ public class UserController {
         return gestorUser.findAll();
     }
 
-    @GetMapping("api/users/filter")
+    @PostMapping("api/users")
     public List<User> getFilteredUsers(@RequestBody UserFilter filters){
         return gestorUser.findAllWithFilters(filters);
     }

@@ -40,22 +40,24 @@ document.getElementById("button").addEventListener('click', (e) =>{
 });
 
 async function searchUsers(){
-    //POR AHORA SOLO QUE ME TRAIGA TODOS
+    let filters = {};
+    if(inputs[0].value != "") filters.name = inputs[0].value;
+    if(inputs[1].value != "") filters.surname = inputs[1].value;
+    if(document.getElementById("type_document").value != "SELECCIONE") filters.type = document.getElementById("type_document").value;
+    if(inputs[2].value != "") filters.identification = inputs[2].value;
 
-    //PARA FILTRAR HAY QUE PEGARLE A LA URL http://localhost:8080/api/users/filter y
-    // pasar en el body un json que tenga los atributos de la clase USERFILTER.
-    //Si no tiene algun filtro directamente no se crea el objeto con esa propiedad
-
-    // FALTA: ver que pasa si no encuentra ninguno (que salga algun mensaje)
+    console.log(filters)
 
     const request = await fetch("http://localhost:8080/api/users",{
-            method: 'GET',
-            headers: {'Content-Type':'application/json'},
+            method: 'POST',
+            headers: {'Content-Type':'application/json; charset=UTF-8'},
+            body: JSON.stringify(filters)
     });
 
-    let users = await request.json();
-
-    updateUsersList(users);
+    if(request.ok){
+        let users = await request.json();
+        updateUsersList(users);
+    }
 }
 
 function updateUsersList(users){
