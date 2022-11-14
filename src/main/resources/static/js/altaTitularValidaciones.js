@@ -6,8 +6,9 @@ const expressions =  {
     name: /^[a-zA-ZÀ-ÿ\s]{0,30}$/,
     surname:/^[a-zA-ZÀ-ÿ\s]{0,30}$/,
     dni: /^\d{8,10}$/,
-    email:/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{0,})$/i,
-    password: /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,15}$/
+    email:/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{0,})$/i, 
+    address_street: /^[a-zA-ZÀ-ÿ\s]{0,30}$/,
+    address_number: /^\d{0,5}$/
 }
 
 /*Agregar tipo de documento */
@@ -16,7 +17,8 @@ const complete_fields = {
     surname: false,
     dni: false,
     email: false,
-    password: false
+    address_street: false,
+    address_number: false
 }
 
 const validation = (e) => {
@@ -33,9 +35,12 @@ const validation = (e) => {
         case "email":
             validation_field(expressions.email, e.target, 'email')
             break;
-        case "password":
-            validation_field(expressions.password, e.target, 'password')
+        case "address_street":
+            validation_field(expressions.street, e.target, 'address_street')
             break;
+        case "address_number":
+            validation_field(expressions.number, e.target, 'address_number')
+            break;  
     }
 }
 
@@ -58,8 +63,9 @@ fields.addEventListener('submit', (e) =>{
 
     let type_document;
     type_document = document.form.type_document.selectedIndex != 0;
+
     
-    if(complete_fields.name && complete_fields.surname && complete_fields.dni && complete_fields.email && complete_fields.password  && type_document){ 
+    if(complete_fields.name && complete_fields.surname && complete_fields.dni && complete_fields.email && type_document){ 
         fields.reset();
         document.getElementById('incomplete_field').classList.remove('message_active');
         document.getElementById('success_message').classList.add('message_active');

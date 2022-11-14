@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alta Titular</title>
+    <!--GoogleFonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <!--CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/estilosAltaTitular.css" />
+    <!--FontAwesome-->
+    <script
+      src="https://kit.fontawesome.com/0ab9ff7f01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section class="container">
+      <h2>Dar de alta un Titular</h2>
+      <h4>Complete los siguientes campos para dar de alta un titular</h4>
+      <form action="" class="fields_to_complete" id="fields_to_complete" name="form">
+        <div class="container_fields">     
+            <div class="fields" id="field_name">
+              <label for="name" class="field_label">Nombre (*)</label>
+              <input class="field_input" type="text" name="name" />
+              <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> No se admiten caracteres especiales. Longitud máxima 30 caracteres</p>
+            </div>
+  
+            <div class="fields" id="field_surname">
+              <label for="surname" class="field_label">Apellido (*)</label>           
+              <input class="field_input" type="text" name="surname" />       
+              <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> No se admiten caracteres especiales. Longitud máxima 30 caracteres</p>
+            </div>
+  
+            <div class="fields" id="field_type_document">
+              <label for="type_document" class="field_label">Tipo N° documento (*)</label>
+              <select class="group_document" name="type_document" id="type_document">
+                  <option value="SELECCIONE" selected>SELECCIONE</option>
+                  <option value="DNI">DNI</option>
+                  <option value="PASAPORTE">PASAPORTE</option>
+                  <option value="LU">LU</option>
+                  <option value="LE">LE</option>
+              </select>
+            </div>
+  
+            <div class="fields" id="field_dni">
+              <label for="n_document" class="field_label">N° documento (*)</label>
+              <input class="field_input" type="number" name="dni" />            
+              <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> Ingrese entre 8 y 10 digitos</p>
+            </div>
+
+            <div class="fields" id="field_email">
+                <label for="email" class="field_label">E-mail (*)</label>
+                <input class="field_input" type="email" name="email" />            
+                <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> El correo ingresado no tiene el formato adecuado</p>
+            </div>
+
+            <div class="fields" id="field_birthday">
+                <label for="birthday" class="field_label">Fecha de nacimiento (*)</label>
+                <input class="field_input" type="date" name="birthday" min="1920-01-01" max="2999-12-31"/>     
+                <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> La fecha ingresada es incorrecta</p>
+            </div>
+
+            <div class="fields" id="field_address_street">
+                <label for="street" class="field_label">Calle (*)</label>
+                <input class="field_input" type="text" name="street" />            
+                <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> La calle ingresada no tiene el formato adecuado</p>
+            </div>
+
+            <div class="fields" id="field_address_number">
+                <label for="number" class="field_label">N° (*)</label>
+                <input class="field_input" type="number" name="number" />            
+                <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> El número ingresado no tiene el formato adecuado</p>
+            </div>
+
+            <div class="fields" id="field_address_floor">
+                <label for="floor" class="field_label">Piso </label>
+                <input class="field_input" type="number" name="floor" />            
+                <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> El piso ingresado no tiene el formato adecuado</p>
+            </div>
+
+            <div class="fields" id="field_address_apartment">
+                <label for="apartment" class="field_label">Departamento </label>
+                <input class="field_input" type="char" name="apartment" />            
+                <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> El departamento ingresado no tiene el formato adecuado</p>
+            </div>
+
+            <div class="fields" id="field_address_city">
+              <label for="city" class="field_label">Localidad </label>
+              <input class="field_input" type="char" name="city" value="Santa Fe" readonly />        
+            </div>
+
+            <div class="fields" id="field_address_province">
+              <label for="province" class="field_label">Provincia </label>
+              <input class="field_input" type="char" name="province" value="Santa Fe" readonly />            
+            </div>
+
+            <div class="fields" id="field_blood">
+                <label for="blood" class="field_label">Grupo sanguíneo (*) </label>        
+                <select class="group_blood" name="type_blood" id="type_blood" onchange="validarInputs()">
+                    <option disabled selected>SELECCIONE</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="AB">AB</option>
+                    <option value="0">O</option>
+                </select>
+            </div>
+
+            <div class="fields" id="field_rh">
+                <label for="rh" class="field_label">RH (*) </label>        
+                <select class="group_blood" name="type_rh" id="type_rh" onchange="validarInputs()">
+                    <option disabled selected>SELECCIONE</option>
+                    <option value="POSITIVO">+</option>
+                    <option value="NEGATIVO">-</option>
+                </select>
+            </div>
+
+            <p class="incomplete_field" id="incomplete_field" ><i class="fa-solid fa-circle-exclamation"></i> Los campos (*) son obligatorios</p>
+
+            <button type="submit" class="button" id="button">
+                <i class="fa-sharp fa-solid fa-floppy-disk"></i> Guardar
+            </button>
+
+            <p class="success_message" id="success_message"><i class="fa-solid fa-circle-check"></i> El titular ha sido dado de alta con exito</p>
+
+        </div>
+      </form>
+      <script src="../static/js/altaTitularValidaciones.js"></script>
+    </section>
+  </body>
+</html>

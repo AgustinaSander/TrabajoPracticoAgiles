@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Alta Usuario</title>
+    <title>Modificar Usuario</title>
     <!--GoogleFonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,7 +14,7 @@
     />
     <!--CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/estilosAltaUsuario.css" />
+    <link rel="stylesheet" href="./css/estilosModificarUsuario.css" />
     <!--FontAwesome-->
     <script
       src="https://kit.fontawesome.com/0ab9ff7f01.js"
@@ -23,8 +23,8 @@
   </head>
   <body>
     <section class="container">
-      <h2>Dar de alta un Usuario</h2>
-      <h4>Complete los siguientes campos para dar de alta un usuario</h4>
+      <h2>Modificar Usuario</h2>
+      <h4>Complete los campos a modificar</h4>
       <form action="" class="fields_to_complete" id="fields_to_complete" name="form">
         <div class="container_fields">     
             <div class="fields" id="field_name">
@@ -68,17 +68,24 @@
                 <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> La contraseña debe tener entre 6 y 15 caracteres. Entre ellos al menos un dígito, una minúscula y una mayúscula.</p>
             </div>
 
+            
             <p class="incomplete_field" id="incomplete_field" ><i class="fa-solid fa-circle-exclamation"></i> Los campos (*) son obligatorios</p>
 
-            <button type="submit" class="button" id="button">
+            
+            <button type="submit" class="button" id="button_save">
                 <i class="fa-sharp fa-solid fa-floppy-disk"></i> Guardar
             </button>
 
-            <p class="success_message" id="success_message"><i class="fa-solid fa-circle-check"></i> El usuario ha sido dado de alta con exito</p>
+            <p class="success_message" id="success_message"><i class="fa-solid fa-circle-check"></i> El usuario a sido dado de alta con exito</p>
+
+            <button type="submit" class="button" id="button_cancel">
+                <i class="fa-sharp fa-solid fa-floppy-disk"></i> Cancelar
+            </button>
+            
 
         </div>
       </form>
-      <script src="../static/js/altaUsuarioValidaciones.js"></script>
+      <script src="../static/js/modificarUsuarioValidaciones.js"></script>
     </section>
   </body>
 </html>
