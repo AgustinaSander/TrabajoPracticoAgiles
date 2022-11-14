@@ -40,20 +40,13 @@ public class LicenseHolderController {
         return ResponseEntity.ok(licenseHolder);
     }
 
-    /*
-    @DeleteMapping("api/user/{id}")
-    public void deleteUser(@PathVariable int id){
-        try {
-            gestorUser.deleteUser(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @GetMapping("api/licenseholders")
+    public List<LicenseHolder> getLicenseHolders(){
+        return gestorTitular.findAll();
     }
 
-    @GetMapping("api/users")
-    public List<User> getUsers(){
-        return gestorUser.findAll();
-    }
+    /*
+
 
     @GetMapping("api/users/filter")
     public List<User> getFilteredUsers(@RequestBody UserFilter filters){
