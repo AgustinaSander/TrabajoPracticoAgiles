@@ -61,14 +61,17 @@ async function searchUsers(){
 }
 
 function updateUsersList(users){
-    let ul = document.getElementById('list-users');
-    ul.innerHTML = '';
-    for(u of users){
-        ul.innerHTML += `<li class="list-group-item">
-            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" checked>
-            <label class="form-check-label" for="firstRadio">${u.name} ${u.surname}</label>
-            <button class="btn btn-primary" style="float:right;" onclick="updateUser(`+u.id+`)"><i class="fa-regular fa-pen-to-square"></i></button>
-        </li>`;
+    let tbody = document.getElementById('list-users');
+    tbody.innerHTML = '';
+    for(const [index, u] of users.entries()){
+        tbody.innerHTML += `<tr>
+            <td>${index+1}</td>
+            <td>${u.name} ${u.surname}</td>
+            <td>${u.surname}</td>
+            <td>${u.type}</td>
+            <td>${u.identification}</td>
+            <td><button class="btn btn-primary" style="float:right;" onclick="updateUser(`+u.id+`)"><i class="fa-regular fa-pen-to-square"></i></button></td>
+        </tr>`;
     }
 };
 
