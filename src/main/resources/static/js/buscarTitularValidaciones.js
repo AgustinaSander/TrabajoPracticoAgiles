@@ -59,13 +59,18 @@ async function searchLicenseHolders(){
 }
 
 function updateLicenseHoldersList(licenseholders){
-    //FALTA : Identificar los li de alguna forma, ver de ponerles como value el id del licenseholder (no pude por las comillas)
     let ul = document.getElementById('list-licenseholders');
     ul.innerHTML = '';
     for(l of licenseholders){
         ul.innerHTML += `<li class="list-group-item">
             <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" checked>
             <label class="form-check-label" for="firstRadio">${l.name} ${l.surname}</label>
+            <button class="btn btn-primary" style="float:right;" onclick="updateLicenseHolder(`+l.id+`)"><i class="fa-regular fa-pen-to-square"></i></button>
         </li>`;
     }
+}
+
+function updateLicenseHolder(id){
+    console.log(id);
+    //window.location.href = "/TpAgiles/static/modificarUsuarioUI.html?id="+id;
 }

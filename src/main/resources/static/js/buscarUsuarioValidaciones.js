@@ -73,6 +73,5 @@ function updateUsersList(users){
 };
 
 function updateUser(id){
-    console.log(id);
     window.location.href = "/TpAgiles/static/modificarUsuarioUI.html?id="+id;
 }
