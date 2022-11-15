@@ -7,6 +7,7 @@ import com.tpagiles.models.*;
 
 import com.tpagiles.models.dto.AddressDto;
 import com.tpagiles.models.dto.LicenseHolderDto;
+import com.tpagiles.models.dto.PersonFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -100,5 +101,26 @@ public class GestorTitular {
         List<LicenseHolder> holders = findAll();
         List<LicenseHolder> olders = holders.stream().filter(h -> h.getAge() >= age).collect(Collectors.toList());
         return olders;
+    }
+
+    public List<LicenseHolder> findAllWithFilters(PersonFilter filters) {
+        List<LicenseHolder> licenseHolders = findAll();
+        if(filters.getIdentification() != null){
+            licenseHolders = licenseHolders.stream().filter(u -> u.getIdentification().equals(filters.getIdentification()))
+                    .collect(Collectors.toList());
+        }
+        if(filters.getType() != null){
+            licenseHolders = licenseHolders.stream().filter(u -> u.getType().name().equals(filters.getType()))
+                    .collect(Collectors.toList());
+        }
+        if(filters.getName() != null){
+            licenseHolders = licenseHolders.stream().filter(u -> u.getName().equals(filters.getName()))
+                    .collect(Collectors.toList());
+        }
+        if(filters.getSurname() != null){
+            licenseHolders = licenseHolders.stream().filter(u -> u.getSurname().equals(filters.getSurname()))
+                    .collect(Collectors.toList());
+        }
+        return licenseHolders;
     }
 }

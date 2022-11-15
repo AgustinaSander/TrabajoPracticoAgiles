@@ -87,19 +87,19 @@
         <div class="container_fields">     
             <div class="fields" id="field_name">
               <label for="name" class="field_label">Nombre</label>
-              <input class="field_input" type="text" name="name" />
+              <input class="field_input" type="text" name="name" id="name"/>
               <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> No se admiten caracteres especiales. Longitud máxima 30 caracteres</p>
             </div>
   
             <div class="fields" id="field_surname">
               <label for="surname" class="field_label">Apellido</label>           
-              <input class="field_input" type="text" name="surname" />       
+              <input class="field_input" type="text" name="surname" id="surname"/>
               <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> No se admiten caracteres especiales. Longitud máxima 30 caracteres</p>
             </div>
   
             <div class="fields" id="field_type_document">
               <label for="type_document" class="field_label">Tipo N° documento</label>
-              <select class="group_document" name="lenguajes" id="lang">
+              <select class="group_document" name="lenguajes" id="type_document">
                   <option value="SELECCIONE" selected>SELECCIONE</option>
                   <option value="DNI">DNI</option>
                   <option value="PASAPORTE">PASAPORTE</option>
@@ -110,7 +110,7 @@
   
             <div class="fields" id="field_dni">
               <label for="n_document" class="field_label">N° documento</label>
-              <input class="field_input" type="number" name="dni" />            
+              <input class="field_input" type="number" name="dni" id="n_document"/>
               <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> Ingrese entre 8 y 10 digitos</p>
             </div>
 
@@ -155,7 +155,7 @@
       <div class="type_license">
         <h4>Seleccione tipo de licencia a emitir</h4>
         <label for="type_license" class="field_label">Seleccione tipo licencia </label>
-        <select class="group_input" name="lenguajes" id="lang">
+        <select class="group_input" name="lenguajes" id="type_license">
           <option value="CLASE A" selected>SELECCIONE</option>
           <option value="CLASE A">CLASE A</option>
           <option value="CLASE B">CLASE B</option>

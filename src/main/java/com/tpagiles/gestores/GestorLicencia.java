@@ -19,7 +19,7 @@ public class GestorLicencia {
     @Autowired
     GestorTitular gestorTitular;
 
-    public License emitLicense(int idLicenseHolder, int idUser, int idLicenseType){
+    public License emitLicense(int idLicenseHolder, int idUser, int idLicenseType) throws Exception {
         //FALTA VALIDAR SI TIENE UNA LICENCIA VIGENTE Y VER QUE HACER
         User user = gestorUser.findById(idUser);
         LicenseHolder licenseHolder = gestorTitular.findById(idLicenseHolder);

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class AuthController {
     @Autowired
     private GestorUser gestorUser;
