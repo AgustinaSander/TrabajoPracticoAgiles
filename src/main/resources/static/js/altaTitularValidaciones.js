@@ -7,7 +7,7 @@ const expressions =  {
     surname:/^[a-zA-ZÀ-ÿ\s]{0,30}$/,
     dni: /^\d{8,10}$/,
     email:/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{0,})$/i, 
-    address_street: /^[a-zA-ZÀ-ÿ\s]{0,30}$/,
+    address_street: /^[a-zA-Z0-9À-ÿ\s]{0,30}$/,
     address_number: /^\d{0,5}$/
 }
 
@@ -36,11 +36,11 @@ const validation = (e) => {
             validation_field(expressions.email, e.target, 'email')
             break;
         case "address_street":
-            validation_field(expressions.street, e.target, 'address_street')
+            validation_field(expressions.address_street, e.target, 'address_street')
             break;
         case "address_number":
-            validation_field(expressions.number, e.target, 'address_number')
-            break;  
+            validation_field(expressions.address_number, e.target, 'address_number')
+            break;
     }
 }
 
@@ -62,9 +62,35 @@ fields.addEventListener('submit', (e) =>{
     e.preventDefault();
 
     let type_document;
+    let type_blood;
+    let type_rh;
+    let donor;
     type_document = document.form.type_document.selectedIndex != 0;
+    type_blood = document.form.type_blood.selectedIndex != 0;
+    rh = document.form.type_rh.selectedIndex != 0;
+    donor = document.form.donor.selectedIndex != 0;
 
-    if(complete_fields.name && complete_fields.surname && complete_fields.dni && complete_fields.email && type_document){
+    let birthday = document.getElementById("birthday");
+    let field_birthday;
+    field_birthday = validation_date(birthday.value);
+
+    function validation_date(date){
+        //Se valida que se encuentre entre el 01/01/1870 y el dia actual incluidos
+        let partes = date.split('-');
+        let fechaDate = new Date(partes[0], partes[1] - 1, partes[2]);
+        if(fechaDate >= new Date(1920,0,01) && fechaDate < new Date()){
+            document.querySelector("#field_birthday .error_message").classList.remove('message_active');
+            return true;
+        }
+        document.querySelector("#field_birthday .error_message").classList.add('message_active');
+        return false;
+    }
+
+    console.log(field_birthday);
+
+    if(complete_fields.name && complete_fields.surname && complete_fields.dni && complete_fields.email && type_document &&
+    complete_fields.address_street && complete_fields.address_number && type_blood && rh && donor && field_birthday){
+        fields.reset();
         document.getElementById('incomplete_field').classList.remove('message_active');
 
         //GUARDAR TITULAR
