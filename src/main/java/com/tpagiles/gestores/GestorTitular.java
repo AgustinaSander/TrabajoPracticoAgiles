@@ -23,7 +23,7 @@ public class GestorTitular {
     @Autowired
     LicenseDAOImpl licenseDAO;
 
-    public LicenseHolder createLicenseHolder(LicenseHolderDto licenseHolderDto) {
+    public LicenseHolder createLicenseHolder(LicenseHolderDto licenseHolderDto) throws Exception {
         String identification = licenseHolderDto.getIdentification();
         List<LicenseHolder> licenseHolders = licenseHolderDAO.findByIdentification(identification);
         List<LicenseHolder> existentLicenseHolder = licenseHolders.stream().filter(u -> u.getType() == EnumTypeIdentification.valueOf(licenseHolderDto.getType()))
@@ -37,11 +37,7 @@ public class GestorTitular {
             //Create licenseholder
             return licenseHolderDAO.createLicenseHolder(licenseHolder);
         }
-        else{
-            System.out.println("Ya existe un titular con ese tipo y numero de identificacion.");
-            return null;
-        }
-        //throw new Exception("Ya existe un titular con ese tipo y numero de identificacion.");
+        throw new Exception("Ya existe un titular con ese tipo y numero de identificacion.");
     }
 
     public LicenseHolder updateLicenseHolder(int id, LicenseHolderDto licenseHolderDto) throws Exception {

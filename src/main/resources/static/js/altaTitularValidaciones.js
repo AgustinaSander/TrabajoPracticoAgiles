@@ -63,17 +63,63 @@ fields.addEventListener('submit', (e) =>{
 
     let type_document;
     type_document = document.form.type_document.selectedIndex != 0;
-
+    console.log(inputs);
     
-    if(complete_fields.name && complete_fields.surname && complete_fields.dni && complete_fields.email && type_document){ 
-        fields.reset();
+    if(complete_fields.name && complete_fields.surname && complete_fields.dni && complete_fields.email && type_document){
         document.getElementById('incomplete_field').classList.remove('message_active');
-        document.getElementById('success_message').classList.add('message_active');
-        setTimeout(() =>{
-            document.getElementById('success_message').classList.remove('message_active');
-        },5000);
+
+        //GUARDAR TITULAR
+        saveLicenseHolder();
     }else{
         document.getElementById('incomplete_field').classList.add('message_active');
     }
 
 });
+
+async function saveLicenseHolder(){
+    let licenseHolderInfo = {
+        name: inputs[0].value,
+        surname: inputs[1].value,
+        type: document.getElementById("type_document").value,
+        identification: inputs[2].value,
+        email: inputs[3].value,
+        birthDate: inputs[4].value,
+        addressDto: {
+            street: inputs[5].value,
+            number: inputs[6].value,
+            floor: inputs[7].value,
+            department: inputs[8].value,
+            locality: inputs[9].value,
+            province: inputs[10].value
+            },
+        bloodType: document.getElementById("type_blood").value,
+        rhFactor: document.getElementById("type_rh").value,
+        isOrganDonor: "false"
+    };
+
+    const request = await fetch("http://localhost:8080/api/licenseholder",{
+        method: 'POST',
+        headers: {
+            'Content-Type':'application/json; charset=UTF-8'
+        },
+        body: JSON.stringify(licenseHolderInfo)
+    });
+
+    if(request.ok){
+        document.getElementById('success_message').classList.add('message_active');
+        setTimeout(() =>{
+            document.getElementById('success_message').classList.remove('message_active');
+        },5000);
+        fields.reset();
+    } else {
+        request.text().then(text => {
+            let errorMessage = document.getElementById('error_message');
+            errorMessage.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i>' + text;
+            errorMessage.classList.add('message_active');
+            setTimeout(() =>{
+                errorMessage.classList.remove('message_active');
+                errorMessage.innerHTML = '';
+            },5000);
+        });
+    }
+};
