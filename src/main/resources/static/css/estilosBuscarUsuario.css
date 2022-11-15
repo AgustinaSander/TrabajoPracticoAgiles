@@ -169,6 +169,12 @@ body{
     text-transform: uppercase;
   }
 
+
   footer{
     background-color: #f8f9fa;
   }
+
+#logout:hover{
+    cursor:pointer;
+}
+

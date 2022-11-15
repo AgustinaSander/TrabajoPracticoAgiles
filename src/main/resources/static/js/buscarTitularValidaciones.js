@@ -77,3 +77,8 @@ function updateLicenseHolder(id){
     console.log(id);
     //window.location.href = "/TpAgiles/static/modificarUsuarioUI.html?id="+id;
 }
+
+document.getElementById("logout").addEventListener("click",(e)=>{
+    localStorage.clear();
+    window.location.href = "/TpAgiles/static/login.html";
+});

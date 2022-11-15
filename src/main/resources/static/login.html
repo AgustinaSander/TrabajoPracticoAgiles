@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iniciar Sesion</title>
+    <!--GoogleFonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <!--CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/login.css" />
+    <!--FontAwesome-->
+    <script
+      src="https://kit.fontawesome.com/0ab9ff7f01.js"
+      crossorigin="anonymous"
+    ></script>
+
+  </head>
+  <body>
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+              <a class="navbar-brand" href="#">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-vcard" viewBox="0 0 16 16">
+                      <path d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5ZM9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8Zm1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z"/>
+                      <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96c.026-.163.04-.33.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1.006 1.006 0 0 1 1 12V4Z"/>
+                  </svg>
+              </a>
+
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                          <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </nav>
+      <div class="container">
+          <h2>Iniciar Sesion</h2>
+          <form action="" class="fields_to_complete" name="form" id="fields_to_complete_login">
+            <div class="container_fields">
+                <div class="fields_login" id="field_type_document_login">
+                  <label for="type_document_login" class="field_label">Tipo N° documento (*)</label>
+                  <select class="group_document" name="type_document" id="type_document_login">
+                      <option value="SELECCIONE" selected>SELECCIONE</option>
+                      <option value="DNI">DNI</option>
+                      <option value="PASAPORTE">PASAPORTE</option>
+                      <option value="LU">LU</option>
+                      <option value="LE">LE</option>
+                  </select>
+                </div>
+
+                <div class="fields" id="field_dni_login">
+                  <label for="n_document_login" class="field_label">N° documento (*)</label>
+                  <input class="field_input" type="number" name="dni" id="n_document_login"/>
+                </div>
+
+                <div class="fields" id="field_password_login">
+                    <label for="password_login" class="field_label">Contraseña (*)</label>
+                    <input class="field_input" type="password" name="password" id="password_login"/>
+                </div>
+
+                <button type="submit" class="button" id="button_login">
+                    Iniciar Sesion
+                </button>
+
+                <p class="error_message" id="error_message"></p>
+            </div>
+          </form>
+
+          <script src="../static/js/login.js"></script>
+          <!--Bootstrap js-->
+          <script
+                  src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+                  integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+                  crossorigin="anonymous"
+          ></script>
+      </div>
+  </body>
+</html>

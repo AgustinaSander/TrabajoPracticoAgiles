@@ -105,3 +105,8 @@ async function saveUser(){
         });
     }
 };
+
+document.getElementById("logout").addEventListener("click",(e)=>{
+    localStorage.clear();
+    window.location.href = "/TpAgiles/static/login.html";
+});
