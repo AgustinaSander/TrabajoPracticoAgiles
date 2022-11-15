@@ -57,17 +57,10 @@ inputs.forEach((input) => {
     input.addEventListener('blur', validation)
 });
 
-/*
-fields.addEventListener('submit', (e) =>{
-    e.preventDefault();
-
-    let type_document;
-    type_document = document.form.type_document.selectedIndex != 0;
-    
-
-
+document.getElementById("button_cancel").addEventListener('click', (e) =>{
+   window.location.href = "/TpAgiles/static/buscarUsuarioUI.html";
 });
-*/
+
 
 document.getElementById("button_save").addEventListener('click', (e) =>{
     e.preventDefault();
