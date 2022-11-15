@@ -57,18 +57,17 @@ padding: 20px;
 /*estilos de prueba*/
 
 .container_fields{
-width: 60%;
-/* background-color: palevioletred; */
-display: grid;
-grid-gap: 10px;
-margin-left: auto;
-margin-right: auto;
-margin-bottom: 20px;
-padding-bottom: 20px;
-grid-template-columns: repeat(2, 1fr);
-grid-template-rows: repeat(2, 1fr);
-justify-items:center; /*acomodar elementos de forma horizontal*/
-align-items: center; /*acomodar elementos de forma verticalmente*/
+    width: 60%;
+    display: grid;
+    grid-gap: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    justify-items:center; /*acomodar elementos de forma horizontal*/
+    align-items: center; /*acomodar elementos de forma verticalmente*/
 }
 
 .container_fields .fields{
