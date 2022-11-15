@@ -3,12 +3,10 @@ package com.tpagiles.controllers;
 import com.tpagiles.gestores.GestorUser;
 import com.tpagiles.models.User;
 import com.tpagiles.models.dto.UserDto;
-import com.tpagiles.models.dto.UserFilter;
+import com.tpagiles.models.dto.PersonFilter;
 import com.tpagiles.utils.JWTUtil;
 
-import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,7 +53,7 @@ public class UserController {
     }
 
     @PostMapping("api/users")
-    public List<User> getFilteredUsers(@RequestBody UserFilter filters){
+    public List<User> getFilteredUsers(@RequestBody PersonFilter filters){
         return gestorUser.findAllWithFilters(filters);
     }
 

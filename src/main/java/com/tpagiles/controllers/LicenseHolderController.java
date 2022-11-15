@@ -1,12 +1,10 @@
 package com.tpagiles.controllers;
 
 import com.tpagiles.gestores.GestorTitular;
-import com.tpagiles.gestores.GestorUser;
 import com.tpagiles.models.LicenseHolder;
 import com.tpagiles.models.User;
 import com.tpagiles.models.dto.LicenseHolderDto;
-import com.tpagiles.models.dto.UserDto;
-import com.tpagiles.models.dto.UserFilter;
+import com.tpagiles.models.dto.PersonFilter;
 import com.tpagiles.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +42,10 @@ public class LicenseHolderController {
         return gestorTitular.findAll();
     }
 
+    @PostMapping("api/licenseholders")
+    public List<LicenseHolder> getFilteredLicenseHolders(@RequestBody PersonFilter filters){
+        return gestorTitular.findAllWithFilters(filters);
+    }
     /*
 
 

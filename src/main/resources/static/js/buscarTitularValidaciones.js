@@ -33,3 +33,39 @@ const validation_field = (expressions, input, field) =>{
 inputs.forEach((input) => {
     input.addEventListener('blur', validation)
 });
+
+document.getElementById("button").addEventListener('click', (e) =>{
+    e.preventDefault();
+    searchLicenseHolders();
+});
+
+async function searchLicenseHolders(){
+    let filters = {};
+    if(inputs[0].value != "") filters.name = inputs[0].value;
+    if(inputs[1].value != "") filters.surname = inputs[1].value;
+    if(document.getElementById("type_document").value != "SELECCIONE") filters.type = document.getElementById("type_document").value;
+    if(inputs[2].value != "") filters.identification = inputs[2].value;
+
+    const request = await fetch("http://localhost:8080/api/licenseholders",{
+            method: 'POST',
+            headers: {'Content-Type':'application/json; charset=UTF-8'},
+            body: JSON.stringify(filters)
+    });
+
+    if(request.ok){
+        let licenseholders = await request.json();
+        updateLicenseHoldersList(licenseholders);
+    }
+}
+
+function updateLicenseHoldersList(licenseholders){
+    //FALTA : Identificar los li de alguna forma, ver de ponerles como value el id del licenseholder (no pude por las comillas)
+    let ul = document.getElementById('list-licenseholders');
+    ul.innerHTML = '';
+    for(l of licenseholders){
+        ul.innerHTML += `<li class="list-group-item">
+            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" checked>
+            <label class="form-check-label" for="firstRadio">${l.name} ${l.surname}</label>
+        </li>`;
+    }
+}

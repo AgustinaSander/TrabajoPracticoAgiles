@@ -2,17 +2,13 @@ package com.tpagiles.gestores;
 
 import com.tpagiles.dao.UserDAOImpl;
 import com.tpagiles.models.*;
-import com.tpagiles.models.dto.AddressDto;
-import com.tpagiles.models.dto.LicenseHolderDto;
 import com.tpagiles.models.dto.UserDto;
-import com.tpagiles.models.dto.UserFilter;
+import com.tpagiles.models.dto.PersonFilter;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -79,7 +75,7 @@ public class GestorUser {
         userDAO.deleteUser(id);
     }
 
-    public List<User> findAllWithFilters(UserFilter filters) {
+    public List<User> findAllWithFilters(PersonFilter filters) {
         List<User> users = findAll();
         if(filters.getIdentification() != null){
             users = users.stream().filter(u -> u.getIdentification().equals(filters.getIdentification()))
