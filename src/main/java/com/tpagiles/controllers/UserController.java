@@ -47,6 +47,16 @@ public class UserController {
         }
     }
 
+    @GetMapping("api/user/{id}")
+    public User getUser(@PathVariable int id){
+        try{
+            return gestorUser.findById(id);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @GetMapping("api/users")
     public List<User> getUsers(){
         return gestorUser.findAll();
@@ -57,6 +67,16 @@ public class UserController {
         return gestorUser.findAllWithFilters(filters);
     }
 
+    @PostMapping("api/user/{id}")
+    public ResponseEntity updateUser(@PathVariable int id, @RequestBody UserDto userDto){
+        User user;
+        try{
+            user = gestorUser.updateUser(id, userDto);
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+        return ResponseEntity.ok(user);
+    }
 /*
 SOLO ESTA PARA VER LO DEL TOKEN SI DESPUES LO PONEMOS
     @GetMapping("api/user")

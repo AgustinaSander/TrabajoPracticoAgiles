@@ -31,8 +31,11 @@ public class GestorUser {
         throw new Exception("Ya existe un usuario con ese tipo y numero de identificacion.");
     }
 
-    public User findById(int id){
-        return userDAO.findById(id);
+    public User findById(int id) throws Exception {
+        User user = userDAO.findById(id);
+        if(user==null)
+            throw new Exception("The user with id " + id + " no longer exists.");
+        return user;
     }
 
     public User updateUser(int id, UserDto userDto) throws Exception {
@@ -40,13 +43,20 @@ public class GestorUser {
         if(user==null)
             throw new Exception("The user with id " + id + " no longer exists.");
 
-        user.setName(userDto.getName());
-        user.setSurname(userDto.getSurname());
-        user.setEmail(userDto.getEmail());
-        user.setType(EnumTypeIdentification.valueOf(userDto.getType()));
-        user.setIdentification(userDto.getIdentification());
-        user.setPassword(createPassword(userDto.getPassword()));
-        return userDAO.createUser(user);
+        List<User> users = userDAO.findByIdentification(userDto.getIdentification());
+        List<User> existentUsers = users.stream().filter(u -> u.getId() != id &&
+                        u.getType() == EnumTypeIdentification.valueOf(userDto.getType()))
+                .collect(Collectors.toList());
+        if(existentUsers.size() == 0){
+            user.setName(userDto.getName());
+            user.setSurname(userDto.getSurname());
+            user.setEmail(userDto.getEmail());
+            user.setType(EnumTypeIdentification.valueOf(userDto.getType()));
+            user.setIdentification(userDto.getIdentification());
+            user.setPassword(createPassword(userDto.getPassword()));
+            return userDAO.createUser(user);
+        }
+        throw new Exception("Ya existe un usuario con ese tipo y numero de identificacion.");
     }
 
     private String createPassword(String password){

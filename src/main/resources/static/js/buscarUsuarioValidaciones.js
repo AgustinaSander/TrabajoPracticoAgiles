@@ -61,13 +61,18 @@ async function searchUsers(){
 }
 
 function updateUsersList(users){
-    //FALTA : Identificar los li de alguna forma, ver de ponerles como value el id del user (no pude por las comillas)
     let ul = document.getElementById('list-users');
     ul.innerHTML = '';
     for(u of users){
         ul.innerHTML += `<li class="list-group-item">
             <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" checked>
             <label class="form-check-label" for="firstRadio">${u.name} ${u.surname}</label>
+            <button class="btn btn-primary" style="float:right;" onclick="updateUser(`+u.id+`)"><i class="fa-regular fa-pen-to-square"></i></button>
         </li>`;
     }
+};
+
+function updateUser(id){
+    console.log(id);
+    window.location.href = "/TpAgiles/static/modificarUsuarioUI.html?id="+id;
 }

@@ -46,12 +46,4 @@ public class LicenseHolderController {
     public List<LicenseHolder> getFilteredLicenseHolders(@RequestBody PersonFilter filters){
         return gestorTitular.findAllWithFilters(filters);
     }
-    /*
-
-
-    @GetMapping("api/users/filter")
-    public List<User> getFilteredUsers(@RequestBody UserFilter filters){
-        return gestorUser.findAllWithFilters(filters);
-    }
-     */
 }
