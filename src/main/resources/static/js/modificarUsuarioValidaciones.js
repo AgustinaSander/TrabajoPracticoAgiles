@@ -114,18 +114,23 @@ async function updateUser(){
 
 async function loadUser(){
     let userId = new URLSearchParams(window.location.search).get("id");
-    //GET USER INFO
-    const request = await fetch("http://localhost:8080/api/user/"+userId,{
-        method: 'GET',
-        headers: {'Content-Type':'application/json; charset=UTF-8'}
-    });
-
-   if(request.ok){
-        let user = await request.json();
-        loadUserData(user);
-   } else {
-        //IR AL INDEX PORQUE NO HAY ESE USUARIO
-   }
+    if(localStorage.idUser != null){
+        const request = await fetch("http://localhost:8080/api/user/"+localStorage.idUser,{
+            method: 'GET',
+            headers: {
+            'Content-Type':'application/json; charset=UTF-8',
+            'Authorization': localStorage.token
+            }
+        });
+        if(request.ok){
+                let user = await request.json();
+                loadUserData(user);
+        } else {
+            window.location.href = "/TpAgiles/static/login.html";
+        }
+    } else {
+        window.location.href = "/TpAgiles/static/login.html";
+    }
 }
 
 function loadUserData(user){
