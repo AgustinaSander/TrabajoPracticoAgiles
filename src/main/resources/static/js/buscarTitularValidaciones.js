@@ -59,14 +59,17 @@ async function searchLicenseHolders(){
 }
 
 function updateLicenseHoldersList(licenseholders){
-    let ul = document.getElementById('list-licenseholders');
-    ul.innerHTML = '';
-    for(l of licenseholders){
-        ul.innerHTML += `<li class="list-group-item">
-            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" checked>
-            <label class="form-check-label" for="firstRadio">${l.name} ${l.surname}</label>
-            <button class="btn btn-primary" style="float:right;" onclick="updateLicenseHolder(`+l.id+`)"><i class="fa-regular fa-pen-to-square"></i></button>
-        </li>`;
+    let tbody = document.getElementById('list-licenseholders');
+    tbody.innerHTML = '';
+    for(const [index, l] of licenseholders.entries()){
+       tbody.innerHTML += `<tr>
+           <td>${index+1}</td>
+           <td>${l.name}</td>
+           <td>${l.surname}</td>
+           <td>${l.type}</td>
+           <td>${l.identification}</td>
+           <td><button class="btn btn-primary" style="float:right;" onclick="updateLicenseHolder(`+l.id+`)"><i class="fa-regular fa-pen-to-square"></i></button></td>
+       </tr>`;
     }
 }
 

@@ -66,7 +66,7 @@ function updateUsersList(users){
     for(const [index, u] of users.entries()){
         tbody.innerHTML += `<tr>
             <td>${index+1}</td>
-            <td>${u.name} ${u.surname}</td>
+            <td>${u.name}</td>
             <td>${u.surname}</td>
             <td>${u.type}</td>
             <td>${u.identification}</td>
