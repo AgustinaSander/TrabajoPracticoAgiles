@@ -37,6 +37,10 @@ public class AuthController {
                 response.add(tokenJWT);
                 response.add(String.valueOf(u.getId()));
             }
+            else{
+                response.add("Los datos son incorrectos.");
+                return ResponseEntity.badRequest().body(response);
+            }
         } catch (Exception ex) {
             response.add("Los datos son incorrectos.");
             return ResponseEntity.badRequest().body(response);
