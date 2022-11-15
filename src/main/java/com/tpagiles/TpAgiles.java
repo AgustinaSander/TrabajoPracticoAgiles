@@ -79,7 +79,7 @@ public class TpAgiles {
         gestorLicencia.emitLicense(22,23,2);
       }
 */
-      gestorTitular.findAllowLicenseHoldersByLicenseType("A");
+     // gestorTitular.findAllowLicenseHoldersByLicenseType("A");
 
   }}
 

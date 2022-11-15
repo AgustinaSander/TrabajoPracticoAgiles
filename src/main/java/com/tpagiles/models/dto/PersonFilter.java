@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserFilter {
+public class PersonFilter {
     String name;
     String surname;
     String type;

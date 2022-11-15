@@ -165,4 +165,7 @@ body{
     height: auto;
     overflow-y: scroll;
   }
-  
+
+  #list-users{
+    text-transform: uppercase;
+  }

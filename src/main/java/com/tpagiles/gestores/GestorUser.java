@@ -2,17 +2,13 @@ package com.tpagiles.gestores;
 
 import com.tpagiles.dao.UserDAOImpl;
 import com.tpagiles.models.*;
-import com.tpagiles.models.dto.AddressDto;
-import com.tpagiles.models.dto.LicenseHolderDto;
 import com.tpagiles.models.dto.UserDto;
-import com.tpagiles.models.dto.UserFilter;
+import com.tpagiles.models.dto.PersonFilter;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,8 +31,11 @@ public class GestorUser {
         throw new Exception("Ya existe un usuario con ese tipo y numero de identificacion.");
     }
 
-    public User findById(int id){
-        return userDAO.findById(id);
+    public User findById(int id) throws Exception {
+        User user = userDAO.findById(id);
+        if(user==null)
+            throw new Exception("The user with id " + id + " no longer exists.");
+        return user;
     }
 
     public User updateUser(int id, UserDto userDto) throws Exception {
@@ -44,13 +43,20 @@ public class GestorUser {
         if(user==null)
             throw new Exception("The user with id " + id + " no longer exists.");
 
-        user.setName(userDto.getName());
-        user.setSurname(userDto.getSurname());
-        user.setEmail(userDto.getEmail());
-        user.setType(EnumTypeIdentification.valueOf(userDto.getType()));
-        user.setIdentification(userDto.getIdentification());
-        user.setPassword(createPassword(userDto.getPassword()));
-        return userDAO.createUser(user);
+        List<User> users = userDAO.findByIdentification(userDto.getIdentification());
+        List<User> existentUsers = users.stream().filter(u -> u.getId() != id &&
+                        u.getType() == EnumTypeIdentification.valueOf(userDto.getType()))
+                .collect(Collectors.toList());
+        if(existentUsers.size() == 0){
+            user.setName(userDto.getName());
+            user.setSurname(userDto.getSurname());
+            user.setEmail(userDto.getEmail());
+            user.setType(EnumTypeIdentification.valueOf(userDto.getType()));
+            user.setIdentification(userDto.getIdentification());
+            user.setPassword(createPassword(userDto.getPassword()));
+            return userDAO.createUser(user);
+        }
+        throw new Exception("Ya existe un usuario con ese tipo y numero de identificacion.");
     }
 
     private String createPassword(String password){
@@ -79,7 +85,7 @@ public class GestorUser {
         userDAO.deleteUser(id);
     }
 
-    public List<User> findAllWithFilters(UserFilter filters) {
+    public List<User> findAllWithFilters(PersonFilter filters) {
         List<User> users = findAll();
         if(filters.getIdentification() != null){
             users = users.stream().filter(u -> u.getIdentification().equals(filters.getIdentification()))

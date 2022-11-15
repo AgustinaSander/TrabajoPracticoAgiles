@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function(event) {
+    loadUser();
+});
+
 const fields = document.querySelector("#fields_to_complete");
 const inputs = document.querySelectorAll("#fields_to_complete input");
 
@@ -12,10 +16,10 @@ const expressions =  {
 
 /*Agregar tipo de documento */
 const complete_fields = {
-    name: false,
-    surname: false,
-    dni: false,
-    email: false,
+    name: true,
+    surname: true,
+    dni: true,
+    email: true,
     password: false
 }
 
@@ -53,21 +57,88 @@ inputs.forEach((input) => {
     input.addEventListener('blur', validation)
 });
 
+/*
 fields.addEventListener('submit', (e) =>{
     e.preventDefault();
 
     let type_document;
     type_document = document.form.type_document.selectedIndex != 0;
     
-    if(complete_fields.name && complete_fields.surname && complete_fields.dni && complete_fields.email && complete_fields.password  && type_document){ 
-        fields.reset();
-        document.getElementById('incomplete_field').classList.remove('message_active');
+
+
+});
+*/
+
+document.getElementById("button_save").addEventListener('click', (e) =>{
+    e.preventDefault();
+    if(complete_fields.name && complete_fields.surname && complete_fields.dni && complete_fields.email && complete_fields.password  && type_document){
+            document.getElementById('incomplete_field').classList.remove('message_active');
+            //UPDATE USER
+            updateUser();
+    }else{
+        document.getElementById('incomplete_field').classList.add('message_active');
+    }
+});
+
+async function updateUser(){
+    let userId = new URLSearchParams(window.location.search).get("id");
+    let userInfo = {
+            name: inputs[0].value,
+            surname: inputs[1].value,
+            type: document.getElementById("type_document").value,
+            identification: inputs[2].value,
+            email: inputs[3].value,
+            password: inputs[4].value,
+    }
+
+    const request = await fetch("http://localhost:8080/api/user/"+userId,{
+        method: 'POST',
+        headers: {
+            'Content-Type':'application/json; charset=UTF-8'
+        },
+        body: JSON.stringify(userInfo)
+    });
+
+    if(request.ok){
         document.getElementById('success_message').classList.add('message_active');
         setTimeout(() =>{
             document.getElementById('success_message').classList.remove('message_active');
         },5000);
-    }else{
-        document.getElementById('incomplete_field').classList.add('message_active');
+        fields.reset();
+        loadUser();
+    } else {
+        request.text().then(text => {
+            let errorMessage = document.getElementById('error_message');
+            errorMessage.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i>' + text;
+            errorMessage.classList.add('message_active');
+            setTimeout(() =>{
+                errorMessage.classList.remove('message_active');
+                errorMessage.innerHTML = '';
+            },5000);
+        });
     }
+}
 
-});
+async function loadUser(){
+    let userId = new URLSearchParams(window.location.search).get("id");
+    //GET USER INFO
+    const request = await fetch("http://localhost:8080/api/user/"+userId,{
+        method: 'GET',
+        headers: {'Content-Type':'application/json; charset=UTF-8'}
+    });
+
+   if(request.ok){
+        let user = await request.json();
+        loadUserData(user);
+   } else {
+        //IR AL INDEX PORQUE NO HAY ESE USUARIO
+   }
+}
+
+function loadUserData(user){
+    inputs[0].value = user.name;
+    inputs[1].value = user.surname;
+    inputs[2].value = user.identification;
+    inputs[3].value = user.email;
+    document.getElementById("type_document").value = user.type;
+}
