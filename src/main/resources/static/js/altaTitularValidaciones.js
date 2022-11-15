@@ -63,7 +63,6 @@ fields.addEventListener('submit', (e) =>{
 
     let type_document;
     type_document = document.form.type_document.selectedIndex != 0;
-    console.log(inputs);
     
     if(complete_fields.name && complete_fields.surname && complete_fields.dni && complete_fields.email && type_document){
         document.getElementById('incomplete_field').classList.remove('message_active');
@@ -94,7 +93,7 @@ async function saveLicenseHolder(){
             },
         bloodType: document.getElementById("type_blood").value,
         rhFactor: document.getElementById("type_rh").value,
-        isOrganDonor: "false"
+        isOrganDonor: document.getElementById("donor").value
     };
 
     const request = await fetch("http://localhost:8080/api/licenseholder",{
