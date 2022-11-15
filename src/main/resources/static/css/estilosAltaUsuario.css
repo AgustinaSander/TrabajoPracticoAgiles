@@ -10,18 +10,22 @@
 --font: 'Nunito Sans', sans-serif;
 }
 
+
 body{
 width: 95%;
+height: 100%;
 position: relative;
 font-family: var(--font);
-background-color: #007bff;
+/*background-color: #007bff;*/
 display: inline;
 justify-content: center;
-/*background-image:url(../img/santaFe-background.png);
-background-size: cover;
+background-image:url(../img/fondo_vehiculos.jpg);
+backdrop-filter: blur(5px);
+background-size: 100% 100%;
 background-repeat:no-repeat;
-background-position: center center;*/
+background-position: center center;
 }
+
 
 .container{
 width: 60%;
