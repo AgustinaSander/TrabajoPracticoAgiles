@@ -115,7 +115,7 @@ async function updateUser(){
 async function loadUser(){
     let userId = new URLSearchParams(window.location.search).get("id");
     if(localStorage.idUser != null){
-        const request = await fetch("http://localhost:8080/api/user/"+localStorage.idUser,{
+        const request = await fetch("http://localhost:8080/api/user/"+userId,{
             method: 'GET',
             headers: {
             'Content-Type':'application/json; charset=UTF-8',
