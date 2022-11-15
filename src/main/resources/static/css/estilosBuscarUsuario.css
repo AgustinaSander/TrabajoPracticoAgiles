@@ -17,9 +17,8 @@ body{
   /*background-color: #007bff;*/
   display: inline;
   justify-content: center;
-  background-image:url(../img/fondo_vehiculos.jpg);
-  backdrop-filter: blur(10px);
-  background-size: 100% 100%;
+  background-image:url(../img/fondo.png);
+  background-size: cover;
   background-repeat:no-repeat;
   background-position: center center;
 }
@@ -168,4 +167,8 @@ body{
 
   #list-users{
     text-transform: uppercase;
+  }
+
+  footer{
+    background-color: #f8f9fa;
   }
