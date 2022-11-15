@@ -120,6 +120,26 @@
         </div>
       </form>
 
+
+      <div class="show_results" id="show_results">
+        <h4>Resultados de la búsqueda: Seleccione un titular </h4>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Tipo N° documento</th>
+            <th>N° documento</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody id="list-licenseholders">
+          </tbody>
+        </table>
+      </div>
+
+      <!--
       <div class="show_results" id="show_results">
         <h4>Resultados de la búsqueda: Seleccione un titular </h4>
           <div class="container_radio_buttons">
@@ -150,21 +170,24 @@
               </li>
             </ul>
         </div>
-      </div>
+      </div>-->
 
       <div class="type_license">
         <h4>Seleccione tipo de licencia a emitir</h4>
-        <label for="type_license" class="field_label">Seleccione tipo licencia </label>
-        <select class="group_input" name="lenguajes" id="type_license">
-          <option value="CLASE A" selected>SELECCIONE</option>
-          <option value="CLASE A">CLASE A</option>
-          <option value="CLASE B">CLASE B</option>
-          <option value="CLASE C">CLASE C</option>
-          <option value="CLASE D">CLASE D</option>
-          <option value="CLASE E">CLASE E</option>
-          <option value="CLASE F">CLASE F</option>
-          <option value="CLASE G">CLASE G</option>
-        </select>
+        <div class="text-center" style="margin-bottom: 10px">
+          <label for="type_license" class="field_label">Seleccione tipo licencia </label>
+          <select class="group_input" name="lenguajes" id="type_license">
+            <option value="CLASE A" selected>SELECCIONE</option>
+            <option value="CLASE A">CLASE A</option>
+            <option value="CLASE B">CLASE B</option>
+            <option value="CLASE C">CLASE C</option>
+            <option value="CLASE D">CLASE D</option>
+            <option value="CLASE E">CLASE E</option>
+            <option value="CLASE F">CLASE F</option>
+            <option value="CLASE G">CLASE G</option>
+          </select>
+        </div>
+
         <ul class="list-group">
           <li class="list-group-item">
             <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">

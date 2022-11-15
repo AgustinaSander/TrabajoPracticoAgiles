@@ -169,12 +169,12 @@ transition: 0.5s;
 .list-group{
   width: auto;
   height: auto;
-  overflow-y: scroll;
+  /*overflow-y: scroll;*/
 }
 
 /*Type license*/
 .type_license{
-  width: auto;
+  width: 60%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 100px;
