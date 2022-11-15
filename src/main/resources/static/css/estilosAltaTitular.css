@@ -15,7 +15,6 @@ body{
     height: 100%;
     position: relative;
     font-family: var(--font);
-    /*background-color: #007bff;*/
     display: inline;
     justify-content: center;
     background-image:url(../img/fondo.png);
