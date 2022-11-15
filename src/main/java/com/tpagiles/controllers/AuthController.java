@@ -8,6 +8,7 @@ import com.tpagiles.utils.JWTUtil;
 
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,18 +23,28 @@ public class AuthController {
     private JWTUtil jwtUtil;
 
     @PostMapping("api/login")
-    public String loginUser(@RequestBody ObjectNode JSONObject) throws Exception {
+    public ResponseEntity<List<String>> loginUser(@RequestBody ObjectNode JSONObject) throws Exception {
         //Se loguea con type, identification y password
         String type = JSONObject.get("type").asText();
         String identification = JSONObject.get("identification").asText();
         String password = JSONObject.get("password").asText();
 
-        User u = gestorUser.findByTypeAndIdentification(type, identification, password);
-        if(u != null){
-            String tokenJWT = jwtUtil.create(String.valueOf(u.getId()), u.getIdentification());
-            return tokenJWT;
+        List<String> response = new ArrayList<>();
+        try {
+            User u = gestorUser.findByTypeAndIdentification(type, identification, password);
+            if (u != null) {
+                String tokenJWT = jwtUtil.create(String.valueOf(u.getId()), u.getIdentification());
+                response.add(tokenJWT);
+                response.add(String.valueOf(u.getId()));
+            }
+            else{
+                response.add("Los datos son incorrectos.");
+                return ResponseEntity.badRequest().body(response);
+            }
+        } catch (Exception ex) {
+            response.add("Los datos son incorrectos.");
+            return ResponseEntity.badRequest().body(response);
         }
-        return "FAIL";
-
+        return ResponseEntity.ok(response);
     }
 }

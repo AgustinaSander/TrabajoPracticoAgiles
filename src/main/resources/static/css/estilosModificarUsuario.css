@@ -181,8 +181,11 @@ body{
         display: block;
     }
 
-
     footer{
         background-color: #f8f9fa;
+    }
+    
+    #logout:hover{
+        cursor:pointer;
     }
       

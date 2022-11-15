@@ -184,7 +184,10 @@ transition: 0.5s;
   font-weight: 300;
 }
 
-
 footer{
   background-color: #f8f9fa;
+}
+
+#logout:hover{
+    cursor:pointer;
 }
