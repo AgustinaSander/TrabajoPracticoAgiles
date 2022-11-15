@@ -40,6 +40,51 @@ inputs.forEach((input) => {
 document.getElementById("logout").addEventListener("click",(e)=>{
     localStorage.clear();
     window.location.href = "/TpAgiles/static/login.html";
+    searchLicenseHolders();
 });
 
 
+/*Aca puede romperse*/
+
+async function searchLicenseHolders(){
+    let filters = {};
+    if(inputs[0].value != "") filters.name = inputs[0].value;
+    if(inputs[1].value != "") filters.surname = inputs[1].value;
+    if(document.getElementById("type_document").value != "SELECCIONE") filters.type = document.getElementById("type_document").value;
+    if(inputs[2].value != "") filters.identification = inputs[2].value;
+
+    const request = await fetch("http://localhost:8080/api/licenseholders",{
+        method: 'POST',
+        headers: {'Content-Type':'application/json; charset=UTF-8'},
+        body: JSON.stringify(filters)
+    });
+
+    if(request.ok){
+        let licenseholders = await request.json();
+        updateLicenseHoldersList(licenseholders);
+    }
+}
+
+function updateLicenseHoldersList(licenseholders){
+    let tbody = document.getElementById('list-licenseholders');
+    tbody.innerHTML = '';
+    for(const [index, l] of licenseholders.entries()){
+        tbody.innerHTML += `<tr>
+           <td>${index+1}</td>
+           <td>${l.name}</td>
+           <td>${l.surname}</td>
+           <td>${l.type}</td>
+           <td>${l.identification}</td>
+       </tr>`;
+    }
+}
+
+function updateLicenseHolder(id){
+    console.log(id);
+    //window.location.href = "/TpAgiles/static/modificarUsuarioUI.html?id="+id;
+}
+
+document.getElementById("logout").addEventListener("click",(e)=>{
+    localStorage.clear();
+    window.location.href = "/TpAgiles/static/login.html";
+});

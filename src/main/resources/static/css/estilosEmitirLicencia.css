@@ -169,7 +169,7 @@ transition: 0.5s;
 .list-group{
   width: auto;
   height: auto;
-  overflow-y: scroll;
+  /*overflow-y: scroll;*/
 }
 
 /*Type license*/
