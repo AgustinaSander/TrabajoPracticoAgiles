@@ -135,3 +135,8 @@ function loadUserData(user){
     inputs[3].value = user.email;
     document.getElementById("type_document").value = user.type;
 }
+
+document.getElementById("logout").addEventListener("click",(e)=>{
+    localStorage.clear();
+    window.location.href = "/TpAgiles/static/login.html";
+});

@@ -183,5 +183,7 @@ color: var(--red);
     display: block;
 }
 
-  
+#logout:hover{
+    cursor:pointer;
+}
   

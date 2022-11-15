@@ -181,5 +181,7 @@ body{
         display: block;
     }
     
-      
+    #logout:hover{
+        cursor:pointer;
+    }
       

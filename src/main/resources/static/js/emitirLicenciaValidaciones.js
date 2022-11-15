@@ -37,12 +37,9 @@ inputs.forEach((input) => {
     input.addEventListener('blur', validation)
 });
 
-/*Show results*/
-
-// btn_search.addEventListener("click", show_titulares)
-
-// function show_titulares(){
-//     document.querySelector(`#show_results .show_results`).classList.add('show_results_active');
-// }
+document.getElementById("logout").addEventListener("click",(e)=>{
+    localStorage.clear();
+    window.location.href = "/TpAgiles/static/login.html";
+});
 
 

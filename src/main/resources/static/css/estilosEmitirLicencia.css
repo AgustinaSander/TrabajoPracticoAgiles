@@ -184,3 +184,7 @@ transition: 0.5s;
 .form-check-label{
   font-weight: 300;
 }
+
+#logout:hover{
+    cursor:pointer;
+}
