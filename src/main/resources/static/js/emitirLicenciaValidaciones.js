@@ -1,8 +1,11 @@
+document.addEventListener("DOMContentLoaded", function(event) {
+    if(localStorage.token == undefined){
+        window.location.href = "/TpAgiles/static/login.html";
+    }
+});
+
 const fields = document.querySelector("#fields_to_complete");
 const inputs = document.querySelectorAll("#fields_to_complete input");
-//const btn_search = document.querySelector("#button");
-//const results = document.querySelector("#show_results");
-
 
 /*Search fields validation*/
 const expressions =  {

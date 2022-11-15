@@ -1,6 +1,11 @@
+document.addEventListener("DOMContentLoaded", function(event) {
+    if(localStorage.token == undefined){
+        window.location.href = "/TpAgiles/static/login.html";
+    }
+});
+
 const fields = document.querySelector("#fields_to_complete");
 const inputs = document.querySelectorAll("#fields_to_complete input");
-
 
 const expressions =  {
     name: /^[a-zA-ZÀ-ÿ\s]{0,30}$/,
@@ -119,7 +124,7 @@ async function saveLicenseHolder(){
             },
         bloodType: document.getElementById("type_blood").value,
         rhFactor: document.getElementById("type_rh").value,
-        isOrganDonor: document.getElementById("donor").value == "SI" ? true: false;
+        isOrganDonor: document.getElementById("donor").value == "SI" ? true: false
     };
 
     const request = await fetch("http://localhost:8080/api/licenseholder",{

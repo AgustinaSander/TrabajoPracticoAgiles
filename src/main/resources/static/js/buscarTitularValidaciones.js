@@ -1,3 +1,9 @@
+document.addEventListener("DOMContentLoaded", function(event) {
+    if(localStorage.token == undefined){
+        window.location.href = "/TpAgiles/static/login.html";
+    }
+});
+
 const fields = document.querySelector("#fields_to_complete");
 const inputs = document.querySelectorAll("#fields_to_complete input");
 
