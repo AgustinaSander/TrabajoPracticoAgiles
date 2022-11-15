@@ -63,7 +63,7 @@ fields.addEventListener('submit', (e) =>{
 
     let type_document;
     type_document = document.form.type_document.selectedIndex != 0;
-    
+
     if(complete_fields.name && complete_fields.surname && complete_fields.dni && complete_fields.email && type_document){
         document.getElementById('incomplete_field').classList.remove('message_active');
 
