@@ -10,7 +10,6 @@ const expressions =  {
     password: /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,15}$/
 }
 
-/*Agregar tipo de documento */
 const complete_fields = {
     name: false,
     surname: false,

@@ -70,13 +70,13 @@
 
             <div class="fields" id="field_address_street">
                 <label for="street" class="field_label">Calle (*)</label>
-                <input id="street" class="field_input" type="text" name="street" />
+                <input id="street" class="field_input" type="text" name="address_street" />
                 <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> La calle ingresada no tiene el formato adecuado</p>
             </div>
 
             <div class="fields" id="field_address_number">
                 <label for="number" class="field_label">N° (*)</label>
-                <input id="number" class="field_input" type="number" name="number" />
+                <input id="number" class="field_input" type="number" name="address_number" />
                 <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> El número ingresado no tiene el formato adecuado</p>
             </div>
 
@@ -104,8 +104,8 @@
 
             <div class="fields" id="field_blood">
                 <label for="type_blood" class="field_label">Grupo sanguíneo (*) </label>
-                <select class="group_blood" name="type_blood" id="type_blood" onchange="validarInputs()">
-                    <option disabled selected>SELECCIONE</option>
+                <select class="group_blood" name="type_blood" id="type_blood">
+                    <option selected>SELECCIONE</option>
                     <option value="A">A</option>
                     <option value="B">B</option>
                     <option value="AB">AB</option>
@@ -116,7 +116,7 @@
             <div class="fields" id="field_rh">
                 <label for="type_rh" class="field_label">RH (*) </label>
                 <select class="group_blood" name="type_rh" id="type_rh">
-                    <option disabled selected>SELECCIONE</option>
+                    <option selected>SELECCIONE</option>
                     <option value="POSITIVO">+</option>
                     <option value="NEGATIVO">-</option>
                 </select>
@@ -125,7 +125,7 @@
             <div class="fields" id="field_donor">
                 <label for="donor" class="field_label">Es donante (*) </label>
                 <select class="group_document" name="donor" id="donor">
-                    <option disabled selected>SELECCIONE</option>
+                    <option selected>SELECCIONE</option>
                     <option value="SI">SI</option>
                     <option value="NO">NO</option>
                 </select>
