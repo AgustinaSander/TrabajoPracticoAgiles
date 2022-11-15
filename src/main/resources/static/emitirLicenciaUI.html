@@ -139,43 +139,9 @@
         </table>
       </div>
 
-      <!--
-      <div class="show_results" id="show_results">
-        <h4>Resultados de la búsqueda: Seleccione un titular </h4>
-          <div class="container_radio_buttons">
-            <ul class="list-group">
-              <li class="list-group-item">
-                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio" checked>
-                <label class="form-check-label" for="firstRadio">First radio</label>
-              </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="secondRadio">
-                <label class="form-check-label" for="secondRadio">Second radio</label>
-              </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="thirdRadio">
-                <label class="form-check-label" for="thirdRadio">Third radio</label>
-              </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio" checked>
-                <label class="form-check-label" for="firstRadio">First radio</label>
-              </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="secondRadio">
-                <label class="form-check-label" for="secondRadio">Second radio</label>
-              </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="thirdRadio">
-                <label class="form-check-label" for="thirdRadio">Third radio</label>
-              </li>
-            </ul>
-        </div>
-      </div>-->
-
-      <div class="type_license">
-        <h4>Seleccione tipo de licencia a emitir</h4>
-        <div class="text-center" style="margin-bottom: 10px">
-          <label for="type_license" class="field_label">Seleccione tipo licencia </label>
+      <div class="type_license" style="margin-top: 50px;">
+        <div class="text-center" style="margin-bottom: 10px" id="type_license_container">
+          <label for="type_license" class="field_label" style="margin-right:20px;">Seleccione tipo licencia </label>
           <select class="group_input" name="lenguajes" id="type_license">
             <option value="CLASE A" selected>SELECCIONE</option>
             <option value="CLASE A">CLASE A</option>
@@ -188,6 +154,7 @@
           </select>
         </div>
 
+        <h4>Observaciones</h4>
         <ul class="list-group">
           <li class="list-group-item">
             <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
@@ -202,12 +169,12 @@
             <label class="form-check-label" for="thirdCheckbox">Principiante durante 6 meses</label>
           </li>
           <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+            <input class="form-check-input me-1" type="checkbox" value="" id="fourthCheckbox">
             <label class="form-check-label" for="fourthCheckbox">Posee una discapacidad</label>
           </li>
         </ul>
       </div>
-      <div class="container_fields">
+      <div style="text-align:center;">
         <button class="button" id="buttonEmitir">Emitir</button>
       </div>
     </section>

@@ -91,8 +91,6 @@ fields.addEventListener('submit', (e) =>{
         return false;
     }
 
-    console.log(field_birthday);
-
     if(complete_fields.name && complete_fields.surname && complete_fields.dni && complete_fields.email && type_document &&
     complete_fields.address_street && complete_fields.address_number && type_blood && rh && donor && field_birthday){
         fields.reset();

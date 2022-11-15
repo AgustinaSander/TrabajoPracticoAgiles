@@ -40,14 +40,10 @@ inputs.forEach((input) => {
     input.addEventListener('blur', validation)
 });
 
-document.getElementById("logout").addEventListener("click",(e)=>{
-    localStorage.clear();
-    window.location.href = "/TpAgiles/static/login.html";
+document.getElementById("button").addEventListener('click', (e) =>{
+    e.preventDefault();
     searchLicenseHolders();
 });
-
-
-/*Aca puede romperse*/
 
 async function searchLicenseHolders(){
     let filters = {};
@@ -73,18 +69,13 @@ function updateLicenseHoldersList(licenseholders){
     tbody.innerHTML = '';
     for(const [index, l] of licenseholders.entries()){
         tbody.innerHTML += `<tr>
-           <td>${index+1}</td>
+           <td><input type="radio" name="holderSelection"></td>
            <td>${l.name}</td>
            <td>${l.surname}</td>
            <td>${l.type}</td>
            <td>${l.identification}</td>
        </tr>`;
     }
-}
-
-function updateLicenseHolder(id){
-    console.log(id);
-    //window.location.href = "/TpAgiles/static/modificarUsuarioUI.html?id="+id;
 }
 
 document.getElementById("logout").addEventListener("click",(e)=>{
