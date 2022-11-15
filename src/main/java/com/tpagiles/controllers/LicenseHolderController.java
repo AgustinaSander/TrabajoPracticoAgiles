@@ -30,7 +30,6 @@ public class LicenseHolderController {
 
     @PostMapping("api/licenseholder")
     public ResponseEntity createLicenseHolder(@RequestBody LicenseHolderDto licenseHolderDto){
-        System.out.println(licenseHolderDto);
         LicenseHolder licenseHolder;
         try {
             licenseHolder = gestorTitular.createLicenseHolder(licenseHolderDto);
