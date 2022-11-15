@@ -20,7 +20,7 @@ const complete_fields = {
     surname: true,
     dni: true,
     email: true,
-    password: false
+    password: true
 }
 
 const validation = (e) => {
