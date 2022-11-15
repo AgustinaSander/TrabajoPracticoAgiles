@@ -1,3 +1,9 @@
+document.addEventListener("DOMContentLoaded", function(event) {
+    if(localStorage.token == undefined){
+        window.location.href = "/TpAgiles/static/login.html";
+    }
+});
+
 const fields = document.querySelector("#fields_to_complete");
 const inputs = document.querySelectorAll("#fields_to_complete input");
 
@@ -74,8 +80,7 @@ function updateLicenseHoldersList(licenseholders){
 }
 
 function updateLicenseHolder(id){
-    console.log(id);
-    //window.location.href = "/TpAgiles/static/modificarUsuarioUI.html?id="+id;
+    window.location.href = "/TpAgiles/static/modificarTitularUI.html?id="+id;
 }
 
 document.getElementById("logout").addEventListener("click",(e)=>{

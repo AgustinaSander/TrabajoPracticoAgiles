@@ -48,8 +48,9 @@ public class UserController {
     }
 
     @GetMapping("api/user/{id}")
-    public User getUser(@PathVariable int id){
+    public User getUser(@RequestHeader(value="Authorization") String token, @PathVariable int id){
         try{
+            if(!validateToken(token)) return null;
             return gestorUser.findById(id);
         } catch (Exception e){
             e.printStackTrace();
