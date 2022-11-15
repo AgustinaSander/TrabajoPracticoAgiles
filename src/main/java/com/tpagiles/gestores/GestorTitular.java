@@ -3,15 +3,18 @@ package com.tpagiles.gestores;
 import com.tpagiles.dao.AddressDAOImpl;
 import com.tpagiles.dao.LicenseDAOImpl;
 import com.tpagiles.dao.LicenseHolderDAOImpl;
+import com.tpagiles.dao.LicenseTypeDAOImpl;
 import com.tpagiles.models.*;
 
 import com.tpagiles.models.dto.AddressDto;
 import com.tpagiles.models.dto.LicenseHolderDto;
 import com.tpagiles.models.dto.PersonFilter;
+import com.tpagiles.repositories.LicenseTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EnumType;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +22,8 @@ import java.util.stream.Collectors;
 public class GestorTitular {
     @Autowired
     LicenseHolderDAOImpl licenseHolderDAO;
+    @Autowired
+    LicenseTypeDAOImpl licenseTypeDAO;
     @Autowired
     AddressDAOImpl addressDAO;
     @Autowired
@@ -97,8 +102,40 @@ public class GestorTitular {
 
 
     public List<LicenseHolder> findAllowLicenseHoldersByLicenseType(String type){
-        int minAge = licenseDAO.getMinAgeByType(type);
+        int minAge = licenseTypeDAO.getMinAgeByType(type);
         return getLicenseHoldersOlderThan(minAge);
+    }
+
+    public List<LicenseType> findLicenseTypesForHolder(LicenseHolderDto licenseHolderDto){
+        //RECUPERAR DE LA BD TODOS LOS TIPOS DE LICENCIA
+        List<LicenseType> licenseTypes = licenseTypeDAO.findAllTypes();
+        int idTypeB = licenseTypes.stream().filter(l -> l.getName() == "B").collect(Collectors.toList()).get(0).getId();
+        //VERIFICAR SI CUMPLE CON LA EDAD MINIMA Y AGREGARLAS
+        List<LicenseType> licenseTypesAllow = licenseTypes.stream()
+                .filter(l -> l.getMinAge() <= licenseHolderDto.getAge())
+                .collect(Collectors.toList());
+        //SI C,D,E VER SI TIENE MAS DE 65 NO PUEDE SACARLA Y TIENE QUE HABER TENIDO UNA LICENCIA TIPO B POR UN ANO
+        boolean containsProfessionalType = licenseTypesAllow.stream()
+                .filter(l -> l.getName()=="C" || l.getName()=="D" || l.getName()=="E")
+                .collect(Collectors.toList())
+                .size() > 0;
+        if(containsProfessionalType){
+            //VERIFICO SI TIENE MENOS DE 65
+            if(licenseHolderDto.getAge() > 65){
+                licenseTypesAllow = licenseTypesAllow.stream()
+                        .filter(l -> l.getName()!="C" || l.getName()!="D" || l.getName()!="E")
+                        .collect(Collectors.toList());
+            } else {
+                //TENGO QUE BUSCAR TODAS LAS LICENCIAS DEL TIPO Y SI ENCUENTRO UNA B QUE LA TUVO POR ANO PUEDE SACARLA
+                List<License> previousLicenses = licenseDAO.findLicensesByTypeByHolderId(licenseHolderDto.getId(), idTypeB);
+                if(previousLicenses.size() == 0){
+                    licenseTypesAllow = licenseTypesAllow.stream()
+                            .filter(l -> l.getName()!="C" || l.getName()!="D" || l.getName()!="E")
+                            .collect(Collectors.toList());
+                }
+            }
+        }
+        return licenseTypes;
     }
 
     public List<LicenseHolder> findAll(){

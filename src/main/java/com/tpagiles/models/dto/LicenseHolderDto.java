@@ -5,6 +5,7 @@ import lombok.*;
 import org.apache.tomcat.jni.Local;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 @Getter
 @Setter
@@ -44,5 +45,9 @@ public class LicenseHolderDto {
         Address address = addressDto!= null ? addressDto.convertAddressObject() : null;
 
         return new LicenseHolder(name, surname, email, typeEnum, identification, birthDate, address, bloodTypeEnum, rhFactorEnum, isOrganDonor);
+    }
+
+    public int getAge() {
+        return Period.between(birthDate, LocalDate.now()).getYears();
     }
 }

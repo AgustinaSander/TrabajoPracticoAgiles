@@ -82,3 +82,7 @@ document.getElementById("logout").addEventListener("click",(e)=>{
     localStorage.clear();
     window.location.href = "/TpAgiles/static/login.html";
 });
+
+document.getElementById("buttonEmitir").addEventListener("click",(e)=>{
+
+}

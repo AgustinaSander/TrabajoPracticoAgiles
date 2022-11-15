@@ -1,6 +1,7 @@
 package com.tpagiles.gestores;
 
 import com.tpagiles.dao.LicenseDAOImpl;
+import com.tpagiles.dao.LicenseTypeDAOImpl;
 import com.tpagiles.models.*;
 import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import java.util.List;
 public class GestorLicencia {
     @Autowired
     LicenseDAOImpl licenseDAO;
+    @Autowired
+    LicenseTypeDAOImpl licenseTypeDAO;
 
     @Autowired
     GestorUser gestorUser;
@@ -30,7 +33,11 @@ public class GestorLicencia {
     }
 
     public LicenseType findLicenseTypeById(int id){
-        return licenseDAO.findLicenseTypeById(id);
+        return licenseTypeDAO.findLicenseTypeById(id);
+    }
+
+    public List<License> findLicensesByTypeByHolderId(int idLicenseHolder, int idLicenseType){
+        return licenseDAO.findLicensesByTypeByHolderId(idLicenseHolder, idLicenseType);
     }
 
     private LocalDate generateExpirationDate(LicenseHolder licenseHolder){
@@ -38,6 +45,6 @@ public class GestorLicencia {
     }
 
     public int getMinAgeByType(String type) {
-        return licenseDAO.getMinAgeByType(type);
+        return licenseTypeDAO.getMinAgeByType(type);
     }
 }
