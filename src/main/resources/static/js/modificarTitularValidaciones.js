@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function(event) {
+    loadLicenseHolder();
+});
+
 const fields = document.querySelector("#fields_to_complete");
 const inputs = document.querySelectorAll("#fields_to_complete input");
 
@@ -13,12 +17,12 @@ const expressions =  {
 
 /*Agregar tipo de documento */
 const complete_fields = {
-    name: false,
-    surname: false,
-    dni: false,
-    email: false,
-    address_street: false,
-    address_number: false
+    name: true,
+    surname: true,
+    dni: true,
+    email: true,
+    address_street: true,
+    address_number: true
 }
 
 const validation = (e) => {
@@ -86,22 +90,21 @@ fields.addEventListener('submit', (e) =>{
         return false;
     }
 
-    console.log(field_birthday);
-
     if(complete_fields.name && complete_fields.surname && complete_fields.dni && complete_fields.email && type_document &&
         complete_fields.address_street && complete_fields.address_number && type_blood && rh && donor && field_birthday){
-        fields.reset();
-        document.getElementById('incomplete_field').classList.remove('message_active');
 
-        //GUARDAR TITULAR
-        saveLicenseHolder();
+        document.getElementById('incomplete_field').classList.remove('message_active');
+        //MODIFICAR TITULAR
+        updateLicenseHolder();
+        loadLicenseHolder();
     }else{
         document.getElementById('incomplete_field').classList.add('message_active');
     }
 
 });
 
-async function saveLicenseHolder(){
+async function updateLicenseHolder(){
+    let idLicenseHolder = new URLSearchParams(window.location.search).get("id");
     let licenseHolderInfo = {
         name: inputs[0].value,
         surname: inputs[1].value,
@@ -109,20 +112,21 @@ async function saveLicenseHolder(){
         identification: inputs[2].value,
         email: inputs[3].value,
         birthDate: inputs[4].value,
-        addressDto: {
-            street: inputs[5].value,
-            number: inputs[6].value,
-            floor: inputs[7].value,
-            department: inputs[8].value,
-            locality: inputs[9].value,
-            province: inputs[10].value
-        },
         bloodType: document.getElementById("type_blood").value,
         rhFactor: document.getElementById("type_rh").value,
-        isOrganDonor: document.getElementById("donor").value
-    };
+        isOrganDonor: document.getElementById("donor").value =="SI" ? true : false,
+        addressDto: {
+            id: localStorage.idAddress,
+            street: inputs[5].value,
+            number: inputs[6].value
+        }
+    }
+    if(inputs[7].value != undefined) licenseHolderInfo.addressDto.floor = inputs[7].value;
+    if(inputs[8].value != undefined) licenseHolderInfo.addressDto.apartment = inputs[8].value;
+    if(inputs[9].value != undefined) licenseHolderInfo.addressDto.city = inputs[9].value;
+    if(inputs[10].value != undefined) licenseHolderInfo.addressDto.province = inputs[10].value;
 
-    const request = await fetch("http://localhost:8080/api/licenseholder",{
+    const request = await fetch("http://localhost:8080/api/licenseholder/"+idLicenseHolder,{
         method: 'POST',
         headers: {
             'Content-Type':'application/json; charset=UTF-8'
@@ -136,6 +140,7 @@ async function saveLicenseHolder(){
             document.getElementById('success_message').classList.remove('message_active');
         },5000);
         fields.reset();
+        loadLicenseHolder();
     } else {
         request.text().then(text => {
             let errorMessage = document.getElementById('error_message');
@@ -147,4 +152,50 @@ async function saveLicenseHolder(){
             },5000);
         });
     }
-};
+}
+
+async function loadLicenseHolder(){
+    let idLicenseHolder = new URLSearchParams(window.location.search).get("id");
+    if(localStorage.idUser != null){
+        const request = await fetch("http://localhost:8080/api/licenseholder/"+idLicenseHolder,{
+            method: 'GET',
+            headers: {
+            'Content-Type':'application/json; charset=UTF-8',
+            'Authorization': localStorage.token
+            }
+        });
+
+        if(request.ok){
+                let licenseholder = await request.json();
+                loadLicenseHolderData(licenseholder);
+        } else {
+            window.location.href = "/TpAgiles/static/login.html";
+        }
+    } else {
+        window.location.href = "/TpAgiles/static/login.html";
+    }
+}
+
+function loadLicenseHolderData(licenseholder){
+    localStorage.idAddress = licenseholder.address.id;
+    inputs[0].value = licenseholder.name;
+    inputs[1].value = licenseholder.surname;
+    inputs[2].value = licenseholder.identification;
+    inputs[3].value = licenseholder.email;
+    inputs[4].value = licenseholder.birthDate;
+    inputs[5].value = licenseholder.address.street;
+    inputs[6].value = licenseholder.address.number;
+    inputs[7].value = licenseholder.address.floor != undefined ? licenseholder.address.floor : "";
+    inputs[8].value = licenseholder.address.apartment != undefined ? licenseholder.address.apartment : "";
+    inputs[9].value = licenseholder.address.city != undefined ? licenseholder.address.city : "";
+    inputs[10].value = licenseholder.address.province != undefined ? licenseholder.address.province : "";
+    document.getElementById("type_blood").value = licenseholder.bloodType;
+    document.getElementById("type_rh").value = licenseholder.rhFactor;
+    document.getElementById("donor").value = licenseholder.isOrganDonor ? "SI" : "NO";
+    document.getElementById("type_document").value = licenseholder.type;
+}
+
+document.getElementById("logout").addEventListener("click",(e)=>{
+    localStorage.clear();
+    window.location.href = "/TpAgiles/static/login.html";
+});

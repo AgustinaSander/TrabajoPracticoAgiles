@@ -119,7 +119,7 @@ async function saveLicenseHolder(){
             },
         bloodType: document.getElementById("type_blood").value,
         rhFactor: document.getElementById("type_rh").value,
-        isOrganDonor: document.getElementById("donor").value
+        isOrganDonor: document.getElementById("donor").value == "SI" ? true: false;
     };
 
     const request = await fetch("http://localhost:8080/api/licenseholder",{

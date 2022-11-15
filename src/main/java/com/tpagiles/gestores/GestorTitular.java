@@ -47,20 +47,28 @@ public class GestorTitular {
         if(licenseHolder==null)
             throw new Exception("The license holder with id " + id + " no longer exists.");
 
-        AddressDto addressDto = licenseHolderDto.getAddressDto();
-        Address updatedAddress = updateAddress(addressDto.getId(), addressDto);
+        String identification = licenseHolderDto.getIdentification();
+        List<LicenseHolder> licenseHolders = licenseHolderDAO.findByIdentification(identification);
+        List<LicenseHolder> existentLicenseHolder = licenseHolders.stream().filter(l -> l.getId() != id && l.getType() == EnumTypeIdentification.valueOf(licenseHolderDto.getType()))
+                .collect(Collectors.toList());
 
-        licenseHolder.setName(licenseHolderDto.getName());
-        licenseHolder.setSurname(licenseHolderDto.getSurname());
-        licenseHolder.setEmail(licenseHolderDto.getEmail());
-        licenseHolder.setOrganDonor(licenseHolderDto.isOrganDonor());
-        licenseHolder.setBirthDate(licenseHolderDto.getBirthDate());
-        licenseHolder.setType(EnumTypeIdentification.valueOf(licenseHolderDto.getType()));
-        licenseHolder.setIdentification(licenseHolderDto.getIdentification());
-        licenseHolder.setAddress(updatedAddress);
-        licenseHolder.setBloodType(EnumBloodType.valueOf(licenseHolderDto.getBloodType()));
-        licenseHolder.setRhFactor(EnumRHFactor.valueOf(licenseHolderDto.getRhFactor()));
-        return licenseHolderDAO.createLicenseHolder(licenseHolder);
+        if(existentLicenseHolder.size() == 0) {
+            AddressDto addressDto = licenseHolderDto.getAddressDto();
+            Address updatedAddress = updateAddress(addressDto.getId(), addressDto);
+
+            licenseHolder.setName(licenseHolderDto.getName());
+            licenseHolder.setSurname(licenseHolderDto.getSurname());
+            licenseHolder.setEmail(licenseHolderDto.getEmail());
+            licenseHolder.setOrganDonor(licenseHolderDto.isOrganDonor());
+            licenseHolder.setBirthDate(licenseHolderDto.getBirthDate());
+            licenseHolder.setType(EnumTypeIdentification.valueOf(licenseHolderDto.getType()));
+            licenseHolder.setIdentification(licenseHolderDto.getIdentification());
+            licenseHolder.setAddress(updatedAddress);
+            licenseHolder.setBloodType(EnumBloodType.valueOf(licenseHolderDto.getBloodType()));
+            licenseHolder.setRhFactor(EnumRHFactor.valueOf(licenseHolderDto.getRhFactor()));
+            return licenseHolderDAO.createLicenseHolder(licenseHolder);
+        }
+        throw new Exception("Ya existe un titular con ese tipo y numero de identificacion.");
     }
 
     private Address updateAddress(int idAddress, AddressDto addressDto) throws Exception {
