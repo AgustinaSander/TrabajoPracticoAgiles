@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function(event) {
+    localStorage.clear();
+});
+
 const fieldsLogin = document.getElementById("fields_to_complete_login");
 const inputsLogin = document.querySelectorAll("#fields_to_complete_login input");
 
