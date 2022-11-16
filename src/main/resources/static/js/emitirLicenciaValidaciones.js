@@ -40,14 +40,10 @@ inputs.forEach((input) => {
     input.addEventListener('blur', validation)
 });
 
-document.getElementById("logout").addEventListener("click",(e)=>{
-    localStorage.clear();
-    window.location.href = "/TpAgiles/static/login.html";
+document.getElementById("button").addEventListener('click', (e) =>{
+    e.preventDefault();
     searchLicenseHolders();
 });
-
-
-/*Aca puede romperse*/
 
 async function searchLicenseHolders(){
     let filters = {};
@@ -73,21 +69,86 @@ function updateLicenseHoldersList(licenseholders){
     tbody.innerHTML = '';
     for(const [index, l] of licenseholders.entries()){
         tbody.innerHTML += `<tr>
-           <td>${index+1}</td>
+           <td><button class="btn btn-primary" onclick="selectLicenseHolder(`+l.id+`)"></td>
            <td>${l.name}</td>
            <td>${l.surname}</td>
            <td>${l.type}</td>
            <td>${l.identification}</td>
        </tr>`;
     }
+
 }
 
-function updateLicenseHolder(id){
-    console.log(id);
-    //window.location.href = "/TpAgiles/static/modificarUsuarioUI.html?id="+id;
+async function selectLicenseHolder(idLicenseHolder){
+
+    //CARGAR OPCIONES
+    const request = await fetch("http://localhost:8080/api/licenseholder/types/"+idLicenseHolder,{
+            method: 'GET',
+            headers: {'Content-Type':'application/json; charset=UTF-8'},
+    });
+
+    if(request.ok){
+        let licenseTypes = await request.json();
+        
+        if(licenseTypes.length == 0){
+            document.getElementById("emitir-container").style.display = "none";
+            document.getElementById("error_message").style.display = "block";
+        }
+        else{
+            document.getElementById("emitir-container").style.display = "block";
+            document.getElementById("error_message").style.display = "none";
+            let selectTypes = document.getElementById("type_license");
+            for(l of licenseTypes){
+                selectTypes.innerHTML += `<option value="${l.id}">CLASE ${l.name}</option>`
+            }
+
+            defineEmitEvent(idLicenseHolder);
+        }
+    }
 }
 
 document.getElementById("logout").addEventListener("click",(e)=>{
     localStorage.clear();
     window.location.href = "/TpAgiles/static/login.html";
 });
+
+function defineEmitEvent(idLicenseHolder){
+    document.getElementById("buttonEmitir").addEventListener("click",(e)=>{
+        let checkboxs = document.querySelectorAll(".checkboxGroup input");
+        let message = ""
+        for(c of checkboxs){
+            if(c.checked){
+                let msg = "/ "+ c.value;
+                message += msg;
+            }
+        }
+
+        let licenseInfo = {
+            idUser: localStorage.idUser,
+            idLicenseHolder: idLicenseHolder,
+            nameTypeLicense: document.getElementById("type_license").value,
+            comments: message
+        }
+
+        emitLicense(licenseInfo);
+
+    });
+}
+
+async function emitLicense(licenseInfo){
+    const request = await fetch("http://localhost:8080/api/license",{
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json; charset=UTF-8'
+            },
+            body: JSON.stringify(licenseInfo)
+    });
+
+    if(request.ok){
+        document.getElementById('success_message').style.display="block";
+        setTimeout(() =>{
+            document.getElementById('success_message').style.display="none";
+        },5000);
+        fields.reset();
+    }
+}

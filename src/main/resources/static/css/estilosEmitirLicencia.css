@@ -68,17 +68,14 @@ body{
 }
 
 .container_fields .fields{
-  /* background-color: lightgreen; */
   padding: 10px;
-  /* border: 1px solid rgb(6, 6, 6); */
-  /*No se utiliza width y height en los contenedores*/
   display: grid;
   justify-self: stretch; /*Abarca el ancho de la celda sin salirse de ella*/
   align-self:stretch; /*Abarca el alto de la celda sin salirse de ella*/
   align-content:start;
 }
 
-.fields .field_label{
+.fields .field_label, #type_license_container .field_label{
   height: auto;
   text-align: left;
   /* background-color: violet; */
@@ -94,19 +91,20 @@ border: 2px solid var(--gray);
 -webkit-transition: 0.5s;
 transition: 0.5s;
 }
+
 .fields .field_input:focus{
   border: 2px solid var(--blue);
   outline: none;
 }
 
-.fields .group_document{
+.fields .group_document, #type_license_container .group_input{
   padding: .4em 1.4em .3em .8em;
   border-radius: 5px;
   border: 2px solid var(--gray);
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
-.fields .group_document:focus{
+.fields .group_document:focus , #type_license_container .group_input:focus{
   border: 2px solid var(--blue);
   outline: none;
  }
@@ -148,7 +146,6 @@ transition: 0.5s;
   display: block;
 }
 
-/*Show Titulares*/
 .show_results{
   width: 80%;
   margin-left: auto;
@@ -156,9 +153,7 @@ transition: 0.5s;
   margin-bottom: 20px;
   /* display: none; */
 }
-/* .show_results_active{
-  display: block;
-} */
+
 .container_radio_buttons{
   height: auto;
   border-radius: 5px;
@@ -177,7 +172,7 @@ transition: 0.5s;
   width: 60%;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 }
 
 .form-check-label{

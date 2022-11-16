@@ -2,8 +2,10 @@ package com.tpagiles.controllers;
 
 import com.tpagiles.gestores.GestorTitular;
 import com.tpagiles.models.LicenseHolder;
+import com.tpagiles.models.LicenseType;
 import com.tpagiles.models.User;
 import com.tpagiles.models.dto.LicenseHolderDto;
+import com.tpagiles.models.dto.LicenseTypeDto;
 import com.tpagiles.models.dto.PersonFilter;
 import com.tpagiles.models.dto.UserDto;
 import com.tpagiles.utils.JWTUtil;
@@ -68,5 +70,10 @@ public class LicenseHolderController {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
         return ResponseEntity.ok(licenseHolder);
+    }
+
+    @GetMapping("api/licenseholder/types/{id}")
+    public List<LicenseType> findLicenseTypesForHolder(@PathVariable int id){
+        return gestorTitular.findLicenseTypesForHolder(id);
     }
 }
