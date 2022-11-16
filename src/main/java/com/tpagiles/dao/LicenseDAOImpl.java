@@ -12,8 +12,6 @@ import java.util.List;
 public class LicenseDAOImpl implements ILicenseDAO{
     @Autowired
     LicenseRepository licenseRepository;
-    @Autowired
-    LicenseTypeRepository licenseTypeRepository;
 
     @Override
     public License createLicense(License license) {

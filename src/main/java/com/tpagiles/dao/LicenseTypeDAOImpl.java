@@ -31,4 +31,10 @@ public class LicenseTypeDAOImpl extends ILicenseTypeDAO{
     public List<LicenseType> findAllTypes(){
         return (List<LicenseType>) licenseTypeRepository.findAll();
     }
+
+    @Override
+    public LicenseType findLicenseTypeByName(String name) {
+        Optional<LicenseType> type = licenseTypeRepository.findByName(name);
+        return type.isPresent() ? type.get() : null;
+    }
 }

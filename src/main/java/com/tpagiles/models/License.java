@@ -27,14 +27,16 @@ public class License {
     private String comments;
     @ManyToOne
     private User user;
+    private LocalDate fromDate;
     private LocalDate expirationDate;
 
-    public License(EnumState state, LicenseHolder licenseHolder, LicenseType type, String comments, User user, LocalDate expirationDate){
+    public License(EnumState state, LicenseHolder licenseHolder, LicenseType type, String comments, User user, LocalDate fromDate, LocalDate expirationDate){
         this.state = state;
         this.licenseHolder = licenseHolder;
         this.type = type;
         this.comments = comments;
         this.user = user;
         this.expirationDate = expirationDate;
+        this.fromDate = fromDate;
     }
 }

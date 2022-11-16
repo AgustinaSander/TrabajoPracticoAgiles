@@ -10,4 +10,6 @@ public abstract class ILicenseTypeDAO {
     public abstract int getMinAgeByType(String type);
 
     public abstract List<LicenseType> findAllTypes();
+
+    public abstract LicenseType findLicenseTypeByName(String name);
 }

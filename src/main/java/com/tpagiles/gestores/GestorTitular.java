@@ -106,36 +106,38 @@ public class GestorTitular {
         return getLicenseHoldersOlderThan(minAge);
     }
 
-    public List<LicenseType> findLicenseTypesForHolder(LicenseHolderDto licenseHolderDto){
+    public List<LicenseType> findLicenseTypesForHolder(int idLicenseHolder){
+        LicenseHolder licenseHolder = licenseHolderDAO.findById(idLicenseHolder);
         //RECUPERAR DE LA BD TODOS LOS TIPOS DE LICENCIA
         List<LicenseType> licenseTypes = licenseTypeDAO.findAllTypes();
-        int idTypeB = licenseTypes.stream().filter(l -> l.getName() == "B").collect(Collectors.toList()).get(0).getId();
+        int idTypeB = licenseTypes.stream().filter(l -> l.getName().equals("B")).collect(Collectors.toList()).get(0).getId();
+
         //VERIFICAR SI CUMPLE CON LA EDAD MINIMA Y AGREGARLAS
         List<LicenseType> licenseTypesAllow = licenseTypes.stream()
-                .filter(l -> l.getMinAge() <= licenseHolderDto.getAge())
+                .filter(l -> l.getMinAge() <= licenseHolder.getAge())
                 .collect(Collectors.toList());
         //SI C,D,E VER SI TIENE MAS DE 65 NO PUEDE SACARLA Y TIENE QUE HABER TENIDO UNA LICENCIA TIPO B POR UN ANO
         boolean containsProfessionalType = licenseTypesAllow.stream()
-                .filter(l -> l.getName()=="C" || l.getName()=="D" || l.getName()=="E")
+                .filter(l -> l.getName().equals("C") || l.getName().equals("D") || l.getName().equals("E"))
                 .collect(Collectors.toList())
                 .size() > 0;
         if(containsProfessionalType){
             //VERIFICO SI TIENE MENOS DE 65
-            if(licenseHolderDto.getAge() > 65){
+            if(licenseHolder.getAge() > 65){
                 licenseTypesAllow = licenseTypesAllow.stream()
-                        .filter(l -> l.getName()!="C" || l.getName()!="D" || l.getName()!="E")
+                        .filter(l -> !l.getName().equals("C") && !l.getName().equals("D") && !l.getName().equals("E"))
                         .collect(Collectors.toList());
             } else {
                 //TENGO QUE BUSCAR TODAS LAS LICENCIAS DEL TIPO Y SI ENCUENTRO UNA B QUE LA TUVO POR ANO PUEDE SACARLA
-                List<License> previousLicenses = licenseDAO.findLicensesByTypeByHolderId(licenseHolderDto.getId(), idTypeB);
+                List<License> previousLicenses = licenseDAO.findLicensesByTypeByHolderId(licenseHolder.getId(), idTypeB);
                 if(previousLicenses.size() == 0){
                     licenseTypesAllow = licenseTypesAllow.stream()
-                            .filter(l -> l.getName()!="C" || l.getName()!="D" || l.getName()!="E")
+                            .filter(l -> l.getName().equals("C") || l.getName().equals("D") || l.getName().equals("E"))
                             .collect(Collectors.toList());
                 }
             }
         }
-        return licenseTypes;
+        return licenseTypesAllow;
     }
 
     public List<LicenseHolder> findAll(){

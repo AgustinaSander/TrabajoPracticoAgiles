@@ -22,18 +22,21 @@ public class GestorLicencia {
     @Autowired
     GestorTitular gestorTitular;
 
-    public License emitLicense(int idLicenseHolder, int idUser, int idLicenseType) throws Exception {
-        //FALTA VALIDAR SI TIENE UNA LICENCIA VIGENTE Y VER QUE HACER
+    public License emitLicense(int idLicenseHolder, int idUser, String idTypeLicense, String comments) throws Exception {
         User user = gestorUser.findById(idUser);
         LicenseHolder licenseHolder = gestorTitular.findById(idLicenseHolder);
-        LicenseType licenseType = findLicenseTypeById(idLicenseType);
+        LicenseType licenseType = findLicenseTypeById(idTypeLicense);
         LocalDate expirationDate = generateExpirationDate(licenseHolder);
-        License license = new License(EnumState.VIGENTE, licenseHolder, licenseType, "", user, expirationDate);
+        License license = new License(EnumState.VIGENTE, licenseHolder, licenseType, comments, user, LocalDate.now(), expirationDate);
         return licenseDAO.createLicense(license);
     }
 
-    public LicenseType findLicenseTypeById(int id){
-        return licenseTypeDAO.findLicenseTypeById(id);
+    public LicenseType findLicenseTypeById(String id){
+        return licenseTypeDAO.findLicenseTypeById(Integer.valueOf(id));
+    }
+
+    public LicenseType findLicenseTypeByName(String name){
+        return licenseTypeDAO.findLicenseTypeByName(name);
     }
 
     public List<License> findLicensesByTypeByHolderId(int idLicenseHolder, int idLicenseType){
