@@ -153,3 +153,9 @@ async function emitLicense(licenseInfo){
         fields.reset();
     }
 }
+
+document.getElementById("goProfile").addEventListener("click",(e)=>{
+    e.preventDefault();
+    let url ="/TpAgiles/static/modificarUsuarioUI.html?id="+localStorage.idUser;
+    window.location.href = url;
+});
