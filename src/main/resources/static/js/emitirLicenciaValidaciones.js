@@ -98,6 +98,7 @@ async function selectLicenseHolder(idLicenseHolder){
             document.getElementById("emitir-container").style.display = "block";
             document.getElementById("error_message").style.display = "none";
             let selectTypes = document.getElementById("type_license");
+            selectTypes.innerHTML = "";
             for(l of licenseTypes){
                 selectTypes.innerHTML += `<option value="${l.id}">CLASE ${l.name}</option>`
             }
