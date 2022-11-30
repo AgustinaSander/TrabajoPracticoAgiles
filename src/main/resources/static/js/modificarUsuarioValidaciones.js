@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-    loadUser();
+    if(localStorage.token == undefined){
+        window.location.href = "/TpAgiles/static/login.html";
+    } else {
+        loadUser();
+    }
 });
 
 const fields = document.querySelector("#fields_to_complete");
