@@ -1,0 +1,116 @@
+:root {
+  --blue: #007bff;
+  --white: #fff;
+  --gray: #aab1b7;
+  --gray-dark: #343a40;
+  --light: #f8f9fa;
+  --dark: black;
+  --red: #f02121;
+  --font: 'Nunito Sans', sans-serif;
+  }
+
+body{
+  width: 95%;
+  height: 100%;
+  position: relative;
+  font-family: var(--font);
+  display: inline;
+  justify-content: center;
+  background-image:url(../img/fondo.png);
+  background-size: cover;
+  background-repeat:no-repeat;
+  background-position: center center;
+}
+
+.container{
+  width: 60%;
+  height: auto;
+  margin: auto;
+  background-color: var(--light);
+  border-radius: 10px;
+  box-shadow: 0 0 25px 0 rgba(0 0 0 / 0.9);
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding-bottom: 30px;
+}
+
+.container h2{
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 30px;
+  font-weight: 700;
+}
+
+.container h4{
+  text-align: center;
+  font-weight: 300;
+  font-size: 0.9rem;
+  padding: 20px;
+
+}
+.container_filter{
+  width: 60%;
+  display: grid;
+  grid-gap: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items:center; /*acomodar elementos de forma horizontal*/
+  align-items: center; /*acomodar elementos de forma verticalmente*/
+}
+.container_filters .fields{
+  padding: 10px;
+  display: grid;
+  justify-self: stretch; /*Abarca el ancho de la celda sin salirse de ella*/
+  align-self:stretch; /*Abarca el alto de la celda sin salirse de ella*/
+  align-content:start;
+}
+.fields .field_input{
+width: auto;
+padding: .4em 1.4em .3em .8em;
+border-radius: 5px;
+border: 2px solid var(--gray);
+-webkit-transition: 0.5s;
+transition: 0.5s;
+}
+
+.fields .field_input:focus{
+  border: 2px solid var(--blue);
+  outline: none;
+}
+
+.show_results{
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  /* display: none; */
+}
+
+.container_radio_buttons{
+  height: auto;
+  border-radius: 5px;
+  padding: 3px;
+  background-color: var(--gray-dark);
+}
+
+.list-group{
+  width: auto;
+  height: auto;
+  /*overflow-y: scroll;*/
+}
+
+
+.form-check-label{
+  font-weight: 300;
+}
+
+footer{
+  background-color: #f8f9fa;
+}
+
+#logout:hover{
+    cursor:pointer;
+}

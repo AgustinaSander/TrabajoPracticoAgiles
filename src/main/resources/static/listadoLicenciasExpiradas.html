@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Gestión de licencias</title>
+    <title>Listado licencias expiradas</title>
     <!--GoogleFonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&display=swap"
-            rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&display=swap"
+          rel="stylesheet"
     />
     <!--CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/estilosPantallaPrincipal.css" />
+    <link rel="stylesheet" href="./css/estilosListadoLicenciaExpirada.css" />
     <!--FontAwesome-->
     <script
             src="https://kit.fontawesome.com/0ab9ff7f01.js"
@@ -32,7 +32,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#" style="color: black">Inicio</a>
+                        <a class="nav-link active" aria-current="page" href="pantallaPrincipal.html" style="color: black">Inicio</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
@@ -71,37 +71,69 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="right: 0">
                         <li><a class="dropdown-item" href="modificarUsuarioUI.html">Ver perfil</a></li>
-                        <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                        <li class="dropdown-item" id="logout">Cerrar sesión</li>
                     </ul>
                 </ul>
             </div>
         </div>
     </nav>
-
     <section class="container">
-        <h2>Centro de vialidad</h2>
-        <h3>Licencia Nacional de Conducir</h3>
-        <h4>La Licencia Nacional de Conducir es un documento único que cada jurisdicción otorga para habilitar legalmente a conducir a una persona de acuerdo con la Ley 24449.</h4>
-        <h3>Sistema de gestion de licencias de conducir</h3>
-        <h4>Gestiona tus licencias con facilidad <br> Este sistema permite gestionar las licencias de conducir de todos los santafesinos  </h4>
-
-        <div class="grid-layout">
-            <div class="box">
-                <img class="logo-sf" src="./img/gob-santafe.png"/>
+        <h2>Listado licencias expiradas</h2>
+        <h4>Este es un listado de todas las licencias expiradas al dia de la fecha.<br> Ingrese un rango de fechas o un tipo de licencia para filtrar</h4>
+        <div class="container_filter">
+            <div class="fields" id="field_since">
+                <label for="since" class="field_label">Fecha desde:</label>
+                <br>
+                <input id="since" class="field_input" type="date" name="since" min="1920-01-01" max="2999-12-31"/>
             </div>
-            <div class="box">
-                <img class="logo-arg" src="./img/logo_argentina-blanco.png"/>
+            <div class="fields" id="field_until">
+                <label for="until" class="field_label">Fecha hasta:</label>
+                <br>
+                <input id="until" class="field_input" type="date" name="until" min="1920-01-01" max="2999-12-31"/>
+            </div>
+            <div class="fields">
+                <label for="type_license" class="field_label">Tipo de licencia</label>
+                <select class="field_input" name="lenguajes" id="type_license">
+                    <option value="SELECCIONE" selected>SELECCIONE</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="G">G</option>
+                </select>
             </div>
         </div>
-
+        <div class="show_results" id="show_results">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Fecha de expiración</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>N° documento</th>
+                    <th>Domicilio</th>
+                    <th>Fecha de emisión</th>
+                    <th>Tipo de clase</th>
+                    <th>Estado</th>
+                </tr>
+                </thead>
+                <tbody id="list-licenseholders">
+                </tbody>
+            </table>
+        </div>
     </section>
     <!-- Footer -->
     <footer class="text-center"> 2022 © | Design by TripleA</footer>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script> -->
+    <script src="../static/js/emitirLicenciaValidaciones.js"></script>
     <!--Bootstrap js-->
     <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             crossorigin="anonymous"
     ></script>
+
 </body>
 </html>
