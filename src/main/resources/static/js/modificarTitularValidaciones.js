@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-    loadLicenseHolder();
+    if(localStorage.token == undefined){
+        window.location.href = "/TpAgiles/static/login.html";
+    } else {
+        loadLicenseHolder();
+    }
 });
 
 const fields = document.querySelector("#fields_to_complete");
@@ -198,4 +202,10 @@ function loadLicenseHolderData(licenseholder){
 document.getElementById("logout").addEventListener("click",(e)=>{
     localStorage.clear();
     window.location.href = "/TpAgiles/static/login.html";
+});
+
+document.getElementById("goProfile").addEventListener("click",(e)=>{
+    e.preventDefault();
+    let url ="/TpAgiles/static/modificarUsuarioUI.html?id="+localStorage.idUser;
+    window.location.href = url;
 });

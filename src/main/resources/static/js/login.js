@@ -33,7 +33,7 @@ async function login(){
         let data = await request.json();
         localStorage.token = data[0];
         localStorage.idUser = data[1];
-        window.location.href = "/TpAgiles/static/buscarUsuarioUI.html";
+        window.location.href = "/TpAgiles/static/index.html";
     }
     else{
         request.json().then(text => {

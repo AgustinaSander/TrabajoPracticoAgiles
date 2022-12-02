@@ -35,7 +35,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="pantallaPrincipal.html" style="color: black">Inicio</a>
+              <a class="nav-link active" aria-current="page" href="index.html" style="color: black">Inicio</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
@@ -73,7 +73,7 @@
               </svg>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="right: 0">
-              <li><a class="dropdown-item" href="modificarUsuarioUI.html">Ver perfil</a></li>
+              <li><a class="dropdown-item" id="goProfile" href="">Ver perfil</a></li>
               <li class="dropdown-item" id="logout">Cerrar sesión</li>
             </ul>
           </ul>
@@ -89,13 +89,11 @@
             <div class="fields" id="field_name">
               <label for="name" class="field_label">Nombre</label>
               <input class="field_input" type="text" name="name" id="name"/>
-              <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> No se admiten caracteres especiales. Longitud máxima 30 caracteres</p>
             </div>
   
             <div class="fields" id="field_surname">
               <label for="surname" class="field_label">Apellido</label>           
               <input class="field_input" type="text" name="surname" id="surname"/>
-              <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> No se admiten caracteres especiales. Longitud máxima 30 caracteres</p>
             </div>
   
             <div class="fields" id="field_type_document">
@@ -112,7 +110,6 @@
             <div class="fields" id="field_dni">
               <label for="n_document" class="field_label">N° documento</label>
               <input class="field_input" type="number" name="dni" id="n_document"/>
-              <p class="error_message"><i class="fa-solid fa-circle-exclamation"></i> Ingrese entre 8 y 10 digitos</p>
             </div>
 
             <button class="button" id="button">
