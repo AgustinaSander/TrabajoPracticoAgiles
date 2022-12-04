@@ -43,7 +43,12 @@ inputs.forEach((input) => {
 document.getElementById("button").addEventListener('click', (e) =>{
     e.preventDefault();
     searchLicenseHolders();
+    showResults();
 });
+
+const showResults = () =>{
+    document.querySelector('#show_results').classList.add('show_results_active');
+}
 
 async function searchLicenseHolders(){
     let filters = {};
