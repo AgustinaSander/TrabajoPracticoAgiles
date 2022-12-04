@@ -147,11 +147,11 @@ body{
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
-    /* display: none; */
+    display: none;
   }
-  /* .show_results_active{
+  .show_results_active{
     display: block;
-  } */
+  }
   .container_radio_buttons{
     height: auto;
     border-radius: 5px;
@@ -168,7 +168,6 @@ body{
   #list-licenseholders{
       text-transform: uppercase;
     }
-
 
   footer{
     background-color: #f8f9fa;
