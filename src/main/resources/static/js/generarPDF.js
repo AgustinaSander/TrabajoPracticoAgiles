@@ -4,17 +4,15 @@ function createPDF(license){
 
     var opt = {
       margin:       1,
-      filename:     'myfile.pdf',
+      filename:     'license.pdf', //VER NOMBRE
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2 },
       jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
     };
     html2pdf().set(opt).from(licenseHTML).toPdf().output('blob').then((data) => {
         let fileURL = URL.createObjectURL(data);
-        //window.open(fileURL);
         document.getElementById("license-pdf").src = fileURL;
     })
-     //html2pdf().set(opt).from(licenseHTML).toPdf().output('../licenses/file_xxxx.pdf', 'F');
 }
 
 function setValues(license){

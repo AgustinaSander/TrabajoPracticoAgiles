@@ -115,6 +115,7 @@ async function emitLicense(licenseInfo){
     if(request.ok){
         let license = await request.json();
         createPDF(license);
+        createPayment(license);
         fields.reset();
     }
 }
@@ -125,3 +126,26 @@ document.getElementById("goProfile").addEventListener("click",(e)=>{
     window.location.href = url;
 });
 
+function createPayment(license){
+    //VER COSTOSSSSSSSSS
+    let payment = `<div>
+        <h1 style="font-weight: bold; text-align:center;font-size:18px;margin-bottom:50px;">Comprobante de Pago de Licencia</h1>
+        Nombre y Apellido: <b>${license.licenseHolder.name} ${license.licenseHolder.surname}</b> <br>
+        Tipo y N° de documento del titular: <b>${license.licenseHolder.type} ${license.licenseHolder.identification} </b><br>
+        Clase solicitada: <b>${license.type.name}</b>
+        Costos: VER COSTOSSSS! <br>
+        Fecha del sistema: <b>${license.fromDate}</b>
+    </div>`;
+
+    var opt = {
+          margin:       1,
+          filename:     'payment.pdf',
+          image:        { type: 'jpeg', quality: 0.98 },
+          html2canvas:  { scale: 2 },
+          jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+    html2pdf().set(opt).from(payment).toPdf().output('blob').then((data) => {
+        let fileURL = URL.createObjectURL(data);
+        document.getElementById("payment-pdf").src = fileURL;
+    })
+}
