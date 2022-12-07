@@ -43,8 +43,32 @@ public class GestorLicencia {
         return licenseDAO.findLicensesByTypeByHolderId(idLicenseHolder, idLicenseType);
     }
 
+    public List<License> findLicensesByHolderId(int idLicenseHolder){
+        return licenseDAO.findLicensesByHolderId(idLicenseHolder);
+    }
+
     public LocalDate generateExpirationDate(LicenseHolder licenseHolder){
-        return LocalDate.now().plusYears(4);
+        int expirationDay = licenseHolder.getBirthDate().getDayOfMonth();
+        int expirationMonth = licenseHolder.getBirthDate().getMonthValue();
+        int expirationYear;
+        int age = licenseHolder.getAge();
+        if(age > 70)
+            expirationYear = LocalDate.now().getYear()+1;
+        else if(age<=70 && age>=61)
+            expirationYear = LocalDate.now().getYear()+3;
+        else if(age<=60 && age>=47)
+            expirationYear = LocalDate.now().getYear()+4;
+        else if(age<=46 && age>=21)
+            expirationYear = LocalDate.now().getYear()+5;
+        else {
+            expirationYear = isFirstTimeGettingLicense(licenseHolder) ? LocalDate.now().getYear()+1 : LocalDate.now().getYear()+3;
+        }
+
+        return LocalDate.of(expirationYear, expirationMonth, expirationDay);
+    }
+
+    private boolean isFirstTimeGettingLicense(LicenseHolder licenseHolder) {
+        return findLicensesByHolderId(licenseHolder.getId()).size()==0;
     }
 
     public int getMinAgeByType(String type) {

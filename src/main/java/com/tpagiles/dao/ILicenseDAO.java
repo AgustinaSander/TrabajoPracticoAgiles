@@ -9,4 +9,6 @@ public interface ILicenseDAO {
     License createLicense(License license);
 
     List<License> findLicensesByTypeByHolderId(int idLicenseHolder, int idLicenseType);
+
+    List<License> findLicensesByHolderId(int idLicenseHolder);
 }
