@@ -81,6 +81,8 @@ document.getElementById("logout").addEventListener("click",(e)=>{
 });
 
 function defineEmitEvent(idLicenseHolder){
+    document.getElementById("buttonEmitir").classList.remove("disabled");
+
     document.getElementById("buttonEmitir").addEventListener("click",(e)=>{
         let checkboxs = document.querySelectorAll(".checkboxGroup input");
         let message = ""
