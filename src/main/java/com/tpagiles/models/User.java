@@ -16,6 +16,11 @@ import javax.persistence.*;
 public class User extends Person{
     private String password;
 
+    public User(int id, String name, String surname, String email, EnumTypeIdentification type, String identification, String password){
+        super(id, name, surname, email, type, identification);
+        this.password = password;
+    }
+
     public User(String name, String surname, String email, EnumTypeIdentification type, String identification, String password){
         super(name, surname, email, type, identification);
         this.password = password;

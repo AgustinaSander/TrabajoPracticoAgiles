@@ -22,6 +22,15 @@ public class LicenseHolder extends Person{
     private EnumRHFactor rhFactor;
     private boolean isOrganDonor;
 
+    public LicenseHolder(int id, String name, String surname, String email, EnumTypeIdentification type, String identification, LocalDate birthDate, Address address, EnumBloodType bloodType, EnumRHFactor rhFactor, boolean isOrganDonor){
+        super(id, name, surname, email, type, identification);
+        this.birthDate = birthDate;
+        this.address = address;
+        this.bloodType = bloodType;
+        this.rhFactor = rhFactor;
+        this.isOrganDonor = isOrganDonor;
+    }
+
     public LicenseHolder(String name, String surname, String email, EnumTypeIdentification type, String identification, LocalDate birthDate, Address address, EnumBloodType bloodType, EnumRHFactor rhFactor, boolean isOrganDonor){
         super(name, surname, email, type, identification);
         this.birthDate = birthDate;

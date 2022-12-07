@@ -43,7 +43,7 @@ public class GestorLicencia {
         return licenseDAO.findLicensesByTypeByHolderId(idLicenseHolder, idLicenseType);
     }
 
-    private LocalDate generateExpirationDate(LicenseHolder licenseHolder){
+    public LocalDate generateExpirationDate(LicenseHolder licenseHolder){
         return LocalDate.now().plusYears(4);
     }
 
