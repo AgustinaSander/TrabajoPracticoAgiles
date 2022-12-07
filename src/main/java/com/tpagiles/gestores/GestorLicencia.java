@@ -3,7 +3,6 @@ package com.tpagiles.gestores;
 import com.tpagiles.dao.LicenseDAOImpl;
 import com.tpagiles.dao.LicenseTypeDAOImpl;
 import com.tpagiles.models.*;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +31,7 @@ public class GestorLicencia {
     }
 
     public LicenseType findLicenseTypeById(String id){
-        return licenseTypeDAO.findLicenseTypeById(Integer.valueOf(id));
+        return licenseTypeDAO.findLicenseTypeById(Integer.parseInt(id));
     }
 
     public LicenseType findLicenseTypeByName(String name){
