@@ -113,10 +113,8 @@ async function emitLicense(licenseInfo){
     });
 
     if(request.ok){
-        document.getElementById('success_message').style.display="block";
-        setTimeout(() =>{
-            document.getElementById('success_message').style.display="none";
-        },5000);
+        let license = await request.json();
+        createPDF(license);
         fields.reset();
     }
 }
@@ -126,3 +124,4 @@ document.getElementById("goProfile").addEventListener("click",(e)=>{
     let url ="/TpAgiles/static/modificarUsuarioUI.html?id="+localStorage.idUser;
     window.location.href = url;
 });
+
