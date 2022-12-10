@@ -29,8 +29,9 @@ public class License {
     private User user;
     private LocalDate fromDate;
     private LocalDate expirationDate;
+    private double cost;
 
-    public License(EnumState state, LicenseHolder licenseHolder, LicenseType type, String comments, User user, LocalDate fromDate, LocalDate expirationDate){
+    public License(EnumState state, LicenseHolder licenseHolder, LicenseType type, String comments, User user, LocalDate fromDate, LocalDate expirationDate, double cost){
         this.state = state;
         this.licenseHolder = licenseHolder;
         this.type = type;
@@ -38,5 +39,6 @@ public class License {
         this.user = user;
         this.expirationDate = expirationDate;
         this.fromDate = fromDate;
+        this.cost = cost;
     }
 }

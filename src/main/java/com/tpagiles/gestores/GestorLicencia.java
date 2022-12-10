@@ -34,9 +34,27 @@ public class GestorLicencia {
             LicenseHolder licenseHolder = gestorTitular.findById(idLicenseHolder);
             LicenseType licenseType = findLicenseTypeById(idTypeLicense);
             LocalDate expirationDate = generateExpirationDate(licenseHolder);
-            License license = new License(EnumState.VIGENTE, licenseHolder, licenseType, comments, user, LocalDate.now(), expirationDate);
+            int yearPermission = expirationDate.getYear() - LocalDate.now().getYear();
+            double cost = calculateLicenseCost(yearPermission, licenseType);
+            License license = new License(EnumState.VIGENTE, licenseHolder, licenseType, comments, user, LocalDate.now(), expirationDate, cost);
             return licenseDAO.createLicense(license);
         }
+    }
+
+    private double calculateLicenseCost(int yearPermission, LicenseType licenseType) {
+        double cost = 0;
+        switch (yearPermission){
+            case 1: cost = licenseType.getPrice1();
+                    break;
+            case 3: cost = licenseType.getPrice2();
+                    break;
+            case 4: cost = licenseType.getPrice3();
+                    break;
+            case 5: cost = licenseType.getPrice4();
+                    break;
+        }
+        cost += 8;
+        return cost;
     }
 
     public LicenseType findLicenseTypeById(String id){
