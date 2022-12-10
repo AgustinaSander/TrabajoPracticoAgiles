@@ -22,8 +22,9 @@ public class LicenseDto {
     UserDto userDto;
     LocalDate expirationDate;
     LocalDate fromDate;
+    double cost;
 
-    public LicenseDto(String state, LicenseHolderDto licenseHolderDto, LicenseTypeDto licenseTypeDto, String comments, UserDto userDto, LocalDate fromDate, LocalDate expirationDate){
+    public LicenseDto(String state, LicenseHolderDto licenseHolderDto, LicenseTypeDto licenseTypeDto, String comments, UserDto userDto, LocalDate fromDate, LocalDate expirationDate, double cost){
         this.state = state;
         this.licenseHolderDto = licenseHolderDto;
         this.licenseTypeDto = licenseTypeDto;
@@ -31,9 +32,10 @@ public class LicenseDto {
         this.userDto = userDto;
         this.expirationDate = expirationDate;
         this.fromDate = fromDate;
+        this.cost = cost;
     }
 
     public License convertLicenseObject() {
-        return new License(id, EnumState.valueOf(state), licenseHolderDto.convertLicenseHolderObject(), licenseTypeDto.convertLicenseTypeObject(),comments, userDto.convertUserObject(), fromDate, expirationDate);
+        return new License(id, EnumState.valueOf(state), licenseHolderDto.convertLicenseHolderObject(), licenseTypeDto.convertLicenseTypeObject(),comments, userDto.convertUserObject(), fromDate, expirationDate, cost);
     }
 }

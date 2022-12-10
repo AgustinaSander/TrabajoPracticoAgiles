@@ -58,7 +58,7 @@ public class TestGestorLicencia {
         LocalDate expirationDate = LocalDate.now();
         when(gestorLicencia.generateExpirationDate(ArgumentMatchers.any())).thenReturn(expirationDate);
         String comments = "Comments in license";
-        License expectedLicense = new License(EnumState.VIGENTE, licenseHolder, licenseType, comments, user, LocalDate.now(), expirationDate);
+        License expectedLicense = new License(EnumState.VIGENTE, licenseHolder, licenseType, comments, user, LocalDate.now(), expirationDate, 0);
         License actualLicense = gestorLicencia.emitLicense(1,1,"1",comments);
         assertThat(expectedLicense).isEqualTo(actualLicense);
     }
