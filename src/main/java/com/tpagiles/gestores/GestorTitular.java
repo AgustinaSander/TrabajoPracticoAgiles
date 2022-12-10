@@ -9,12 +9,9 @@ import com.tpagiles.models.*;
 import com.tpagiles.models.dto.AddressDto;
 import com.tpagiles.models.dto.LicenseHolderDto;
 import com.tpagiles.models.dto.PersonFilter;
-import com.tpagiles.repositories.LicenseTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EnumType;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -132,7 +129,7 @@ public class GestorTitular {
                 List<License> previousLicenses = licenseDAO.findLicensesByTypeByHolderId(licenseHolder.getId(), idTypeB);
                 if(previousLicenses.size() == 0){
                     licenseTypesAllow = licenseTypesAllow.stream()
-                            .filter(l -> l.getName().equals("C") || l.getName().equals("D") || l.getName().equals("E"))
+                            .filter(l -> !l.getName().equals("C") && !l.getName().equals("D") && !l.getName().equals("E"))
                             .collect(Collectors.toList());
                 }
             }

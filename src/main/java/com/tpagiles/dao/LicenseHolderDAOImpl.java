@@ -1,11 +1,13 @@
 package com.tpagiles.dao;
 
+import com.tpagiles.models.License;
 import com.tpagiles.models.LicenseHolder;
 import com.tpagiles.models.User;
 import com.tpagiles.repositories.LicenseHolderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 

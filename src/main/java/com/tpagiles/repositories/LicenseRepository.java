@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface LicenseRepository extends CrudRepository<License, Integer>{
 
-    @Query("SELECT l FROM License l WHERE l.licenseHolder = :idLicenseHolder AND l.type = :idLicenseType")
+    @Query("SELECT l FROM License l WHERE l.licenseHolder.id = :idLicenseHolder AND l.type.id = :idLicenseType")
     List<License> findLicensesByTypeByHolderId(int idLicenseHolder, int idLicenseType);
 
     @Query("SELECT l FROM License l WHERE l.licenseHolder.id = :idLicenseHolder")

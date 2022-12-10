@@ -6,9 +6,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 const fields = document.querySelector("#fields_to_complete");
 const inputs = document.querySelectorAll("#fields_to_complete input");
+let licenseHolders;
 
 document.getElementById("button").addEventListener('click', (e) =>{
     e.preventDefault();
+    if(!document.getElementById("buttonEmitir").classList.contains("disabled")){
+        document.getElementById("buttonEmitir").classList.add("disabled");
+    }
     searchLicenseHolders();
 });
 
@@ -28,8 +32,8 @@ async function searchLicenseHolders(){
     });
 
     if(request.ok){
-        let licenseholders = await request.json();
-        updateLicenseHoldersList(licenseholders);
+        licenseHolders = await request.json();
+        updateLicenseHoldersList(licenseHolders);
     }
 }
 
@@ -49,7 +53,6 @@ function updateLicenseHoldersList(licenseholders){
 }
 
 async function selectLicenseHolder(idLicenseHolder){
-
     //CARGAR OPCIONES
     const request = await fetch("http://localhost:8080/api/licenseholder/types/"+idLicenseHolder,{
             method: 'GET',
@@ -72,7 +75,7 @@ async function selectLicenseHolder(idLicenseHolder){
                 selectTypes.innerHTML += `<option value="${l.id}">CLASE ${l.name}</option>`
             }
 
-            defineEmitEvent(idLicenseHolder);
+            defineEmitEvent(licenseHolders.find(l => l.id == idLicenseHolder));
         }
     }
 }
@@ -82,7 +85,7 @@ document.getElementById("logout").addEventListener("click",(e)=>{
     window.location.href = "/TpAgiles/static/login.html";
 });
 
-function defineEmitEvent(idLicenseHolder){
+function defineEmitEvent(licenseHolder){
     document.getElementById("buttonEmitir").classList.remove("disabled");
 
     document.getElementById("buttonEmitir").addEventListener("click",(e)=>{
@@ -97,17 +100,17 @@ function defineEmitEvent(idLicenseHolder){
 
         let licenseInfo = {
             idUser: localStorage.idUser,
-            idLicenseHolder: idLicenseHolder.toString(),
+            idLicenseHolder: licenseHolder.id.toString(),
             nameTypeLicense: document.getElementById("type_license").value,
             comments: message
         }
 
-        emitLicense(licenseInfo);
+        emitLicense(licenseInfo, licenseHolder);
 
     });
 }
 
-async function emitLicense(licenseInfo){
+async function emitLicense(licenseInfo, licenseHolder){
     const request = await fetch("http://localhost:8080/api/license",{
             method: 'POST',
             headers: {
@@ -120,8 +123,36 @@ async function emitLicense(licenseInfo){
         let license = await request.json();
         createPDF(license);
         createPayment(license);
-        fields.reset();
+        $('#emitModal').modal('show');
+        resetAll();
+    } else {
+        showErrorModal(licenseInfo, licenseHolder);
     }
+}
+
+function resetAll(){
+    fields.reset();
+
+    let selectTypes = document.getElementById("type_license");
+    selectTypes.innerHTML = "";
+
+    let checkboxs = document.querySelectorAll(".checkboxGroup input");
+    for(c of checkboxs){
+       c.checked = false;
+    }
+
+    updateLicenseHoldersList(licenseHolders);
+}
+
+function showErrorModal(licenseInfo, licenseHolder){
+    document.getElementById("errorModal-name").innerHTML = "";
+    document.getElementById("errorModal-type").innerHTML = "";
+    document.getElementById("errorModal-identification").innerHTML = "";
+    document.getElementById("errorModal-name").innerHTML = `${licenseHolder.name} ${licenseHolder.surname}`;
+    document.getElementById("errorModal-type").innerHTML = `${licenseHolder.type}`;
+    document.getElementById("errorModal-identification").innerHTML = `${licenseHolder.identification}`;
+
+    $('#errorModal').modal('show');
 }
 
 document.getElementById("goProfile").addEventListener("click",(e)=>{

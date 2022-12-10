@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GestorLicencia {
@@ -22,12 +23,20 @@ public class GestorLicencia {
     GestorTitular gestorTitular;
 
     public License emitLicense(int idLicenseHolder, int idUser, String idTypeLicense, String comments) throws Exception {
-        User user = gestorUser.findById(idUser);
-        LicenseHolder licenseHolder = gestorTitular.findById(idLicenseHolder);
-        LicenseType licenseType = findLicenseTypeById(idTypeLicense);
-        LocalDate expirationDate = generateExpirationDate(licenseHolder);
-        License license = new License(EnumState.VIGENTE, licenseHolder, licenseType, comments, user, LocalDate.now(), expirationDate);
-        return licenseDAO.createLicense(license);
+        List<License> currentLicenses = findLicensesByHolderId(idLicenseHolder);
+        List<License> licensesWithType = currentLicenses.stream()
+                .filter(l -> l.getType().getId()==Integer.parseInt(idTypeLicense))
+                .collect(Collectors.toList());
+        if(licensesWithType.size()>0){
+            throw new Exception("The license holder with id " + idLicenseHolder + " already has a current license of type "+idTypeLicense);
+        } else {
+            User user = gestorUser.findById(idUser);
+            LicenseHolder licenseHolder = gestorTitular.findById(idLicenseHolder);
+            LicenseType licenseType = findLicenseTypeById(idTypeLicense);
+            LocalDate expirationDate = generateExpirationDate(licenseHolder);
+            License license = new License(EnumState.VIGENTE, licenseHolder, licenseType, comments, user, LocalDate.now(), expirationDate);
+            return licenseDAO.createLicense(license);
+        }
     }
 
     public LicenseType findLicenseTypeById(String id){
