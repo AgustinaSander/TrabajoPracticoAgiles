@@ -14,6 +14,6 @@ public interface LicenseRepository extends CrudRepository<License, Integer>{
     @Query("SELECT l FROM License l WHERE l.licenseHolder = :idLicenseHolder AND l.type = :idLicenseType")
     List<License> findLicensesByTypeByHolderId(int idLicenseHolder, int idLicenseType);
 
-    @Query("SELECT l FROM License l WHERE l.licenseHolder = :idLicenseHolder")
+    @Query("SELECT l FROM License l WHERE l.licenseHolder.id = :idLicenseHolder")
     List<License> findByHolderId(int idLicenseHolder);
 }

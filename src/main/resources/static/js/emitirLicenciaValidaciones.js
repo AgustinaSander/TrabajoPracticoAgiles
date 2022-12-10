@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-    if(localStorage.token == undefined){
+    if(!(localStorage.token != undefined && localStorage.idUser != undefined)){
         window.location.href = "/TpAgiles/static/login.html";
     }
 });
@@ -21,7 +21,9 @@ async function searchLicenseHolders(){
 
     const request = await fetch("http://localhost:8080/api/licenseholders",{
         method: 'POST',
-        headers: {'Content-Type':'application/json; charset=UTF-8'},
+        headers: {'Content-Type':'application/json; charset=UTF-8',
+                  'Authorization': localStorage.token
+        },
         body: JSON.stringify(filters)
     });
 
@@ -95,7 +97,7 @@ function defineEmitEvent(idLicenseHolder){
 
         let licenseInfo = {
             idUser: localStorage.idUser,
-            idLicenseHolder: idLicenseHolder,
+            idLicenseHolder: idLicenseHolder.toString(),
             nameTypeLicense: document.getElementById("type_license").value,
             comments: message
         }
