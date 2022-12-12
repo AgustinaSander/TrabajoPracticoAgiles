@@ -2,11 +2,8 @@ package com.tpagiles.controllers;
 
 import com.tpagiles.gestores.GestorLicencia;
 import com.tpagiles.models.License;
+import com.tpagiles.models.dto.LicenseFilter;
 import com.tpagiles.models.LicenseInfo;
-import com.tpagiles.models.User;
-import com.tpagiles.models.dto.LicenseTypeDto;
-import com.tpagiles.models.dto.PersonFilter;
-import com.tpagiles.models.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,9 +32,9 @@ public class LicenseController {
         return gestorLicencia.findAll();
     }
 
-    /*@PostMapping("api/license")
-    public List<License> getFilteredUsers(){
-        return gestorLicencia.findAllExpiredLicense();
-    }*/
+    @PostMapping("api/licenses")
+    public List<License> getFilteredLicenses(@RequestBody LicenseFilter filters){
+        return gestorLicencia.findAllFilteredLicenses(filters);
+    }
 
 }

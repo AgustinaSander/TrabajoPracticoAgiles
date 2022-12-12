@@ -20,9 +20,9 @@ public class LicenseHolder extends Person{
     private EnumBloodType bloodType;
     @Enumerated(EnumType.STRING)
     private EnumRHFactor rhFactor;
-    private boolean isOrganDonor;
+    private Boolean isOrganDonor;
 
-    public LicenseHolder(int id, String name, String surname, String email, EnumTypeIdentification type, String identification, LocalDate birthDate, Address address, EnumBloodType bloodType, EnumRHFactor rhFactor, boolean isOrganDonor){
+    public LicenseHolder(int id, String name, String surname, String email, EnumTypeIdentification type, String identification, LocalDate birthDate, Address address, EnumBloodType bloodType, EnumRHFactor rhFactor, Boolean isOrganDonor){
         super(id, name, surname, email, type, identification);
         this.birthDate = birthDate;
         this.address = address;
@@ -31,7 +31,7 @@ public class LicenseHolder extends Person{
         this.isOrganDonor = isOrganDonor;
     }
 
-    public LicenseHolder(String name, String surname, String email, EnumTypeIdentification type, String identification, LocalDate birthDate, Address address, EnumBloodType bloodType, EnumRHFactor rhFactor, boolean isOrganDonor){
+    public LicenseHolder(String name, String surname, String email, EnumTypeIdentification type, String identification, LocalDate birthDate, Address address, EnumBloodType bloodType, EnumRHFactor rhFactor, Boolean isOrganDonor){
         super(name, surname, email, type, identification);
         this.birthDate = birthDate;
         this.address = address;

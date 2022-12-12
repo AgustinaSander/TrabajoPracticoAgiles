@@ -4,6 +4,7 @@ import com.tpagiles.dao.LicenseDAOImpl;
 import com.tpagiles.dao.LicenseTypeDAOImpl;
 import com.tpagiles.models.*;
 
+import com.tpagiles.models.dto.LicenseFilter;
 import com.tpagiles.models.dto.PersonFilter;
 import org.apache.tomcat.jni.Local;
 
@@ -105,15 +106,39 @@ public class GestorLicencia {
         return licenseTypeDAO.getMinAgeByType(type);
     }
 
-    //Busco todas las licencias
     public List<License> findAll() { return licenseDAO.findAllLicenses();}
 
     //Me quedo solo con las licencias expiradas
-    public List<License> findAllExpiredLicense() {
+   /* public List<License> findAllExpiredLicense() {
         List<License> licenses = findAll();
         LocalDate dateToday = LocalDate.now();
         licenses = licenses.stream().filter(l -> l.getExpirationDate().isBefore(dateToday)).collect(Collectors.toList());
 
+        return licenses;
+    }*/
+
+    public List<License> findAllFilteredLicenses(LicenseFilter filters) {
+        List<License> licenses = findAll();
+        if(filters.getName() != null){
+            licenses = licenses.stream().filter(u -> u.getLicenseHolder().getName().equals(filters.getName()))
+                    .collect(Collectors.toList());
+        }
+        if(filters.getSurname() != null){
+            licenses = licenses.stream().filter(u -> u.getLicenseHolder().getSurname().equals(filters.getSurname()))
+                    .collect(Collectors.toList());
+        }
+        if(filters.getBloodType() != null){
+            licenses = licenses.stream().filter(u -> u.getLicenseHolder().getBloodType().name().equals(filters.getBloodType()))
+                    .collect(Collectors.toList());
+        }
+        if(filters.getRhFactor() != null){
+            licenses = licenses.stream().filter(u -> u.getLicenseHolder().getRhFactor().name().equals(filters.getRhFactor()))
+                    .collect(Collectors.toList());
+        }
+        if(filters.getDonor() != null){
+            licenses = licenses.stream().filter(u -> u.getLicenseHolder().getIsOrganDonor().equals(filters.getDonor()))
+                    .collect(Collectors.toList());
+        }
         return licenses;
     }
 }

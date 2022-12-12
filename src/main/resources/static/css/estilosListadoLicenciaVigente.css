@@ -23,7 +23,7 @@ body{
 }
 
 .container{
-  width: 60%;
+  width: fit-content;
   height: auto;
   margin: auto;
   background-color: var(--light);
@@ -130,7 +130,7 @@ text-transform: uppercase;
 
 /*Estilos para los resultados*/
 .container_filter{
-  width: 60%;
+  width: 100%;
   display: grid;
   grid-gap: 10px;
   margin-left: auto;
@@ -164,17 +164,13 @@ transition: 0.5s;
 }
 
 .show_results{
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 20px;
+  margin: 20px;
   display:none;
 }
+
 .table_column th{
     text-align:center;
     vertical-align: middle;
-   /* border: 2px solid var(--red);
-    background-color:var(--blue);*/
 }
 
 .container_filter_active{
