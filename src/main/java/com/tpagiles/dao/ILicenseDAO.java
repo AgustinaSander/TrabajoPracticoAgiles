@@ -10,5 +10,8 @@ public interface ILicenseDAO {
 
     List<License> findLicensesByTypeByHolderId(int idLicenseHolder, int idLicenseType);
 
+
     List<License> findLicensesByHolderId(int idLicenseHolder);
+
+    List<License> findAllLicenses();
 }
