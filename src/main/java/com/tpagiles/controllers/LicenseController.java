@@ -5,6 +5,7 @@ import com.tpagiles.models.License;
 import com.tpagiles.models.LicenseInfo;
 import com.tpagiles.models.User;
 import com.tpagiles.models.dto.LicenseTypeDto;
+import com.tpagiles.models.dto.PersonFilter;
 import com.tpagiles.models.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,16 @@ public class LicenseController {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
         return ResponseEntity.ok(license);
+    }
+
+    @GetMapping("api/license")
+    public List<License> getLicenses(){
+        return gestorLicencia.findAll();
+    }
+
+    @PostMapping("api/license")
+    public List<License> getFilteredUsers(){
+        return gestorLicencia.findAllExpiredLicense();
     }
 
 }
