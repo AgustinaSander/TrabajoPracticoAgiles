@@ -1,4 +1,5 @@
 function createPDF(license){
+    console.log("CREANDO PDF")
     const licenseHTML = document.getElementById("license-container");
     setValues(license);
 

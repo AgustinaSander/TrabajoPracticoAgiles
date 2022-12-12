@@ -23,7 +23,7 @@ async function searchLicenseHolders(){
     if(document.getElementById("type_document").value != "SELECCIONE") filters.type = document.getElementById("type_document").value;
     if(inputs[2].value != "") filters.identification = inputs[2].value;
 
-    const request = await fetch("http://localhost:8080/api/licenseholders",{
+    let request = await fetch("http://localhost:8080/api/licenseholders",{
         method: 'POST',
         headers: {'Content-Type':'application/json; charset=UTF-8',
                   'Authorization': localStorage.token
@@ -40,7 +40,7 @@ async function searchLicenseHolders(){
 function updateLicenseHoldersList(licenseholders){
     let tbody = document.getElementById('list-licenseholders');
     tbody.innerHTML = '';
-    for(const [index, l] of licenseholders.entries()){
+    for(let [index, l] of licenseholders.entries()){
         tbody.innerHTML += `<tr>
            <td><input type="radio" name="radio_holders" onclick="selectLicenseHolder(`+l.id+`)"></input></td>
            <td>${l.name}</td>
@@ -53,8 +53,9 @@ function updateLicenseHoldersList(licenseholders){
 }
 
 async function selectLicenseHolder(idLicenseHolder){
+    console.log("SELECCION TITULAR")
     //CARGAR OPCIONES
-    const request = await fetch("http://localhost:8080/api/licenseholder/types/"+idLicenseHolder,{
+    let request = await fetch("http://localhost:8080/api/licenseholder/types/"+idLicenseHolder,{
             method: 'GET',
             headers: {'Content-Type':'application/json; charset=UTF-8'},
     });
@@ -85,7 +86,8 @@ document.getElementById("logout").addEventListener("click",(e)=>{
     window.location.href = "/TpAgiles/static/login.html";
 });
 
-function defineEmitEvent(licenseHolder){
+async function defineEmitEvent(licenseHolder){
+console.log("DEFINIENDO EVENTO EMITIR")
     document.getElementById("buttonEmitir").classList.remove("disabled");
 
     document.getElementById("buttonEmitir").addEventListener("click",(e)=>{
@@ -111,7 +113,8 @@ function defineEmitEvent(licenseHolder){
 }
 
 async function emitLicense(licenseInfo, licenseHolder){
-    const request = await fetch("http://localhost:8080/api/license",{
+    console.log("EMITIENDO LICENCIA")
+    let request = await fetch("http://localhost:8080/api/license",{
             method: 'POST',
             headers: {
                 'Content-Type':'application/json; charset=UTF-8'
@@ -120,17 +123,21 @@ async function emitLicense(licenseInfo, licenseHolder){
     });
 
     if(request.ok){
+        console.log("LICENCIA EMITIDA")
         let license = await request.json();
         createPDF(license);
         createPayment(license);
         $('#emitModal').modal('show');
         resetAll();
     } else {
+        console.log("NO SE PUDO EMITIR")
         showErrorModal(licenseInfo, licenseHolder);
+        resetAll();
     }
 }
 
 function resetAll(){
+    console.log("RESETEAR")
     fields.reset();
 
     let selectTypes = document.getElementById("type_license");
@@ -145,6 +152,7 @@ function resetAll(){
 }
 
 function showErrorModal(licenseInfo, licenseHolder){
+    console.log("MOSTRAR ERROR")
     document.getElementById("errorModal-name").innerHTML = "";
     document.getElementById("errorModal-type").innerHTML = "";
     document.getElementById("errorModal-identification").innerHTML = "";
@@ -162,6 +170,7 @@ document.getElementById("goProfile").addEventListener("click",(e)=>{
 });
 
 function createPayment(license){
+    console.log("CREANDO PAGO")
     let payment = `<div>
         <h1 style="font-weight: bold; text-align:center;font-size:18px;margin-bottom:50px;">Comprobante de Pago de Licencia</h1>
         Nombre y Apellido: <b>${license.licenseHolder.name} ${license.licenseHolder.surname}</b> <br>

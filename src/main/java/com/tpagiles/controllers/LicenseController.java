@@ -35,9 +35,9 @@ public class LicenseController {
         return gestorLicencia.findAll();
     }
 
-    @PostMapping("api/license")
+    /*@PostMapping("api/license")
     public List<License> getFilteredUsers(){
         return gestorLicencia.findAllExpiredLicense();
-    }
+    }*/
 
 }
