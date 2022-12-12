@@ -1,6 +1,7 @@
 package com.tpagiles.dao;
 
 import com.tpagiles.models.License;
+import com.tpagiles.models.User;
 import com.tpagiles.repositories.LicenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,11 @@ public class LicenseDAOImpl implements ILicenseDAO{
     @Override
     public List<License> findLicensesByHolderId(int idLicenseHolder) {
         return licenseRepository.findByHolderId(idLicenseHolder);
+    }
+
+    //Traigo del repository todas las licencias
+    public List<License> findAllLicenses() {
+        return (List<License>) licenseRepository.findAll();
+
     }
 }
