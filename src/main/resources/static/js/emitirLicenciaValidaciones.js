@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     if(!(localStorage.token != undefined && localStorage.idUser != undefined)){
         window.location.href = "/TpAgiles/static/login.html";
     }
+    updateStates();
 });
 
 const fields = document.querySelector("#fields_to_complete");
