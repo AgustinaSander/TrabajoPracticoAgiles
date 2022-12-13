@@ -80,12 +80,17 @@ function updateLicenseHoldersList(licenseholders){
            <td>${l.type}</td>
            <td>${l.identification}</td>
            <td><button class="btn btn-primary" style="float:right;" onclick="updateLicenseHolder(`+l.id+`)"><i class="fa-regular fa-pen-to-square"></i></button></td>
+           <td><button class="btn btn-primary" style="float:right;" onclick="showLicensesRecord(`+l.id+`)">HISTORIAL</button></td>
        </tr>`;
     }
 }
 
 function updateLicenseHolder(id){
     window.location.href = "/TpAgiles/static/modificarTitularUI.html?id="+id;
+}
+
+function showLicensesRecord(id){
+    window.location.href = "/TpAgiles/static/historial.html?id="+id;
 }
 
 document.getElementById("logout").addEventListener("click",(e)=>{
