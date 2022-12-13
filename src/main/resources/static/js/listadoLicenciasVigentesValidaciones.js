@@ -16,6 +16,7 @@ function resetSecondaryFilters(){
     document.getElementById("since").value = "";
     document.getElementById("until").value = "";
     document.getElementById("type_license").value = "SELECCIONE";
+    filteredLicenses = null;
 }
 
 let licenses;
@@ -25,10 +26,12 @@ async function searchLicenses(){
     let filters = {};
     if(inputs[0].value != "") filters.name = inputs[0].value;
     if(inputs[1].value != "") filters.surname = inputs[1].value;
-    if(document.getElementById("type_blood").value != "SELECCIONE") filters.bloodType = document.getElementById("type_blood").value;
-    if(document.getElementById("type_rh").value != "SELECCIONE") filters.rhType = document.getElementById("type_rh").value;
-    if(document.getElementById("donor").value != "SELECCIONE") filters.donor = document.getElementById("donor").value;
-
+    if(document.getElementById("type_blood").value != "SELECCIONE") filters.typeBlood = document.getElementById("type_blood").value;
+    if(document.getElementById("type_rh").value != "SELECCIONE") filters.typeRh = document.getElementById("type_rh").value;
+    if(document.getElementById("donor").value != "SELECCIONE") {
+        filters.donor = document.getElementById("donor").value == "SI";
+    }
+    
     let request = await fetch("http://localhost:8080/api/licenses",{
         method: 'POST',
         headers: {'Content-Type':'application/json; charset=UTF-8',
@@ -91,7 +94,7 @@ function filterLicenses(){
     if(filters.type != "" && filters.type != "SELECCIONE"){
         filteredLicenses = filterByTypeLicense(filters.type, filteredLicenses);
     }
-    
+
     updateLicenses(filteredLicenses);
 }
 

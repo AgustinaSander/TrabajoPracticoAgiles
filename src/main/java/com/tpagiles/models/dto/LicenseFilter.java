@@ -13,7 +13,7 @@ import lombok.Setter;
 public class LicenseFilter {
     private String name;
     private String surname;
-    private String bloodType;
-    private String rhFactor;
+    private String typeBlood;
+    private String typeRh;
     private Boolean donor;
 }

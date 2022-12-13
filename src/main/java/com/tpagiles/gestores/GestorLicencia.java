@@ -127,12 +127,12 @@ public class GestorLicencia {
             licenses = licenses.stream().filter(u -> u.getLicenseHolder().getSurname().equals(filters.getSurname()))
                     .collect(Collectors.toList());
         }
-        if(filters.getBloodType() != null){
-            licenses = licenses.stream().filter(u -> u.getLicenseHolder().getBloodType().name().equals(filters.getBloodType()))
+        if(filters.getTypeBlood() != null){
+            licenses = licenses.stream().filter(u -> u.getLicenseHolder().getBloodType().name().equals(filters.getTypeBlood()))
                     .collect(Collectors.toList());
         }
-        if(filters.getRhFactor() != null){
-            licenses = licenses.stream().filter(u -> u.getLicenseHolder().getRhFactor().name().equals(filters.getRhFactor()))
+        if(filters.getTypeRh() != null){
+            licenses = licenses.stream().filter(u -> u.getLicenseHolder().getRhFactor().name().equals(filters.getTypeRh()))
                     .collect(Collectors.toList());
         }
         if(filters.getDonor() != null){
