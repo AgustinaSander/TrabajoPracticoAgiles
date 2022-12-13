@@ -34,3 +34,7 @@ function loadLicenseHolderData(licenseholder){
     document.getElementById("identification").innerHTML = licenseholder.identification;
     document.getElementById("type").innerHTML = licenseholder.type;
 }
+
+function goToUpdateLicenseHolder(){
+    window.location.href = "/TpAgiles/static/modificarTitularUI.html?id="+new URLSearchParams(window.location.search).get("id");
+}

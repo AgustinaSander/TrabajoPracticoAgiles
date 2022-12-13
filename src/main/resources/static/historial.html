@@ -82,33 +82,36 @@
     </div>
 </nav>
 
-<section class="container">
-    <h2>Historial de Licencias</h2>
-    <b class="m-4 h4">Datos del titular</b>
-    <div class="m-4 d-flex justify-content-between">
-        <div>
-            <p>Nombre: <b id="name"></b>
-            <p>Apellido: <b id="surname"></b></p>
-        </div>
-        <div>
-            <p>Tipo N° documento: <b id="type"></b></p>
-            <p>N° documento: <b id="identification"></b></p>
-        </div>
+<section class="container p-4">
+    <h2 class="mb-4">Historial de Licencias</h2>
+    <b class="h4">Datos del titular</b>
+    <div class="mr-4 mt-4 d-flex justify-content-between align-items-center">
+        <p>Nombre: <b id="name"></b></p>
+        <p>Apellido: <b id="surname"></b></p>
+        <p>Tipo N° documento: <b id="type"></b></p>
+        <p>N° documento: <b id="identification"></b></p>
     </div>
-    <div class="show_results" id="show_results">
-        <h4>Resultados de la búsqueda: Seleccione un titular </h4>
-        <table class="table">
+    <div class="mx-auto" style="width: fit-content;">
+        <button class="btn btn-primary" onclick="goToUpdateLicenseHolder()">
+            <i class="fa-regular fa-pen-to-square" style="margin-right:10px;"></i>Modificar titular
+        </button>
+    </div>
+    <hr>
+    <div>
+        <b class="h4">Historial de Licencias</b>
+        <table class="table mt-4">
             <thead>
             <tr>
-                <th>#</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Tipo N° documento</th>
-                <th>N° documento</th>
-                <th></th>
+                <th>Tipo de clase</th>
+                <th>Estado</th>
+                <th>Observaciones</th>
+                <th>Fecha de emisión</th>
+                <th>Fecha de expiración</th>
+                <th>Costo</th>
+                <th>Creada por</th>
             </tr>
             </thead>
-            <tbody id="list-licenseholders">
+            <tbody id="list-licenses">
             </tbody>
         </table>
     </div>
