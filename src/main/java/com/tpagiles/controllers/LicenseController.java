@@ -2,6 +2,7 @@ package com.tpagiles.controllers;
 
 import com.tpagiles.gestores.GestorLicencia;
 import com.tpagiles.models.License;
+import com.tpagiles.models.LicenseType;
 import com.tpagiles.models.dto.LicenseFilter;
 import com.tpagiles.models.LicenseInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,4 +43,8 @@ public class LicenseController {
         gestorLicencia.updateStates();
     }
 
+    @GetMapping("api/licenses/{id}")
+    public List<License> findLicensesForHolder(@PathVariable int id){
+        return gestorLicencia.findLicensesForHolder(id);
+    }
 }
