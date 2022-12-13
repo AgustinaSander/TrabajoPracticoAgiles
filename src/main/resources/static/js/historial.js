@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     loadLicenseHolder();
 });
 
+let licenses;
+
 async function loadLicenseHolder(){
     let idLicenseHolder = new URLSearchParams(window.location.search).get("id");
     if(localStorage.idUser != null){
@@ -50,9 +52,16 @@ async function loadRecords(idHolder){
     });
 
     if(request.ok){
-        let licenses = await request.json();
+        licenses = await request.json();
         showLicenses(licenses);
     }
+}
+
+function doCopyLicense(idLicense){
+    let license = licenses.find(l => l.id == idLicense);
+    console.log(license)
+    createPDF(license);
+    $('#detailModal').modal('show');
 }
 
 function showLicenses(licenses){
@@ -60,13 +69,23 @@ function showLicenses(licenses){
     list.innerHTML = "";
     for(let [index, l] of licenses.entries()){
         list.innerHTML += `<tr>
-                       <td>${l.type.name}</td>
-                       <td>${l.state}</td>
-                       <td>${l.comments}</td>
-                       <td>${l.fromDate}</td>
-                       <td>${l.expirationDate}</td>
-                       <td>$ ${l.cost}</td>
-                       <td style="text-transform: lowercase;">${l.user.email}</td>
+                        <td>${l.type.name}</td>
+                        <td>${l.state}</td>
+                        <td>${l.comments}</td>
+                        <td>${l.fromDate}</td>
+                        <td>${l.expirationDate}</td>
+                        <td>$ ${l.cost}</td>
+                        <td style="text-transform: lowercase;">${l.user.email}</td>
+                        <td>
+                            <button class="btn btn-primary" onclick="goToRenew(`+l.id+`)">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" onclick="doCopyLicense(`+l.id+`)">
+                                <i class="fa-solid fa-print"></i>
+                            </button>
+                        </td>
                     </tr>`;
     }
 

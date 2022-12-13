@@ -15,11 +15,14 @@
     <!--CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/historial.css" />
+    <link rel="stylesheet" href="./css/formatoLicencia.css" />
     <!--FontAwesome-->
     <script
             src="https://kit.fontawesome.com/0ab9ff7f01.js"
             crossorigin="anonymous"
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 <body>
 
@@ -101,7 +104,7 @@
         <b class="h4">Historial de Licencias</b>
         <table class="table mt-4">
             <thead>
-            <tr>
+            <tr class="text-center">
                 <th>Tipo de clase</th>
                 <th>Estado</th>
                 <th>Observaciones</th>
@@ -109,6 +112,8 @@
                 <th>Fecha de expiración</th>
                 <th>Costo</th>
                 <th>Creada por</th>
+                <th>Renovar</th>
+                <th>Hacer Copia</th>
             </tr>
             </thead>
             <tbody id="list-licenses" class="text-center">
@@ -116,11 +121,73 @@
         </table>
     </div>
 </section>
+
+<div style="display:none;">
+    <div id="license-container" class="license-container">
+        <div class="license-header">
+            <h4>Licencia Nacional de Conducir</h4>
+            <p>Santa Fe Capital</p>
+        </div>
+        <hr>
+        <div class="license-body" id="license-format">
+            <div class="img-container">
+                <img src="img/profile.png">
+                <p style="text-align: center;">CLASE <span class="info-license" id="license-type"></span><br><br>
+                    Grupo y Factor / <span class="english-info">Blood Type</span><br><span class="info-license" id="license-blood"></span>
+                    <br>Donante: <span class="info-license" id="license-donor"></span></p>
+            </div>
+            <div class="license-info">
+                <div class="flex-container">
+                    <p>Tipo N° <span class="info-license" id="license-typeid"></span></p>
+                    <p>N° Identificacion <span class="info-license" id="license-identification"></span></p>
+                </div>
+                <div class="flex-container">
+                    <p>Apellido / <span class="english-info">Last name</span><br><span class="info-license" id="license-surname"></span>
+                    <p>Nombre / <span class="english-info">First name</span><br><span class="info-license" id="license-name"></span></p>
+                </div>
+                <p>Domicilio / <span class="english-info">Address</span><br><span class="info-license" id="license-address"></span>
+                <p>Fecha de Nac. / <span class="english-info">Date of Birth</span><br><span class="info-license" id="license-birth"></span></p>
+                <div class="flex-container">
+                    <p>Otorgamiento / <span class="english-info">Date of issue</span><br><span class="info-license" id="license-issue"></span></p>
+                    <p>Vencimiento / <span class="english-info">Expires</span><br><span class="info-license" id="license-expires"></span></p>
+                </div>
+            </div>
+        </div>
+        <p id="comments">Observaciones: <span class="info-license" id="license-comments"></span></p>
+        <hr>
+        <div class="license-footer flex-container">
+            <div>
+                <p>SEGURIDAD<br>VIAL</p>
+            </div>
+            <div>
+                <p>Ministerio de Transporte <br> Republica Argentina</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="detailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Copia de Licencia</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div style="text-align:center; margin-right:20px;">
+                    <embed id="license-pdf" src="" type="application/pdf" width="400px" height="500px"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Footer -->
 <footer class="text-center"> 2022 © | Design by TripleA</footer>
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script> -->
+<script src="js/generarPDF.js"></script>
 <script src="js/updateLicenseStates.js"></script>
 <script src="js/historial.js"></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
 <!--Bootstrap js-->
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
