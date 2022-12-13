@@ -28,13 +28,18 @@ public class LicenseController {
     }
 
     @GetMapping("api/license")
-    public List<License> getLicenses(){
-        return gestorLicencia.findAll();
+    public List<License> getCurrentLicenses(){
+        return gestorLicencia.findAllCurrent();
     }
 
     @PostMapping("api/licenses")
     public List<License> getFilteredLicenses(@RequestBody LicenseFilter filters){
         return gestorLicencia.findAllFilteredLicenses(filters);
+    }
+
+    @PostMapping("api/update")
+    public void updateLicenseStates(){
+        gestorLicencia.updateStates();
     }
 
 }

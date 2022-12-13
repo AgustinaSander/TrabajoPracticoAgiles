@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function(event) {
+    updateStates();
+});
+
 document.getElementById("button").addEventListener('click', (e) =>{
     e.preventDefault();
     resetSecondaryFilters();
@@ -31,7 +35,7 @@ async function searchLicenses(){
     if(document.getElementById("donor").value != "SELECCIONE") {
         filters.donor = document.getElementById("donor").value == "SI";
     }
-    
+
     let request = await fetch("http://localhost:8080/api/licenses",{
         method: 'POST',
         headers: {'Content-Type':'application/json; charset=UTF-8',
