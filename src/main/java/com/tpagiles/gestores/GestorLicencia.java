@@ -153,4 +153,8 @@ public class GestorLicencia {
     private void updateLicenseState(int idLicense) {
         licenseDAO.updateLicense(idLicense);
     }
+
+    public List<License> findLicensesForHolder(int id) {
+        return licenseDAO.findLicensesByHolderId(id);
+    }
 }

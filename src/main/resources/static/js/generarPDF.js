@@ -1,11 +1,10 @@
 function createPDF(license){
-    console.log("CREANDO PDF")
     const licenseHTML = document.getElementById("license-container");
     setValues(license);
 
     var opt = {
       margin:       1,
-      filename:     'license.pdf', //VER NOMBRE
+      filename:     'license.pdf',
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2 },
       jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }

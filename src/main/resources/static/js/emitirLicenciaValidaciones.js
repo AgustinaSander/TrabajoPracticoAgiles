@@ -171,7 +171,7 @@ document.getElementById("goProfile").addEventListener("click",(e)=>{
 });
 
 function createPayment(license){
-    console.log("CREANDO PAGO")
+    console.log("CREANDO PAGO");
     let payment = `<div>
         <h1 style="font-weight: bold; text-align:center;font-size:18px;margin-bottom:50px;">Comprobante de Pago de Licencia</h1>
         Nombre y Apellido: <b>${license.licenseHolder.name} ${license.licenseHolder.surname}</b> <br>
