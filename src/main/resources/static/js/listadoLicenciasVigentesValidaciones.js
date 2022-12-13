@@ -19,6 +19,7 @@ function resetSecondaryFilters(){
 }
 
 let licenses;
+let filteredLicenses;
 
 async function searchLicenses(){
     let filters = {};
@@ -38,13 +39,13 @@ async function searchLicenses(){
 
     if(request.ok){
         licenses = await request.json();
+        filteredLicenses = licenses;
         updateLicenses(licenses);
     }
 }
 
 
 function updateLicenses(licenses){
-    console.log(licenses);
     let tbody = document.getElementById('list-licenses');
     tbody.innerHTML = '';
     for(let [index, l] of licenses.entries()){
@@ -59,5 +60,53 @@ function updateLicenses(licenses){
            <td>${l.state}</td>
         </tr>`;
     }
-
 }
+
+let filters = {
+    since: "",
+    until: "",
+    type: ""
+}
+
+function filterBySince(since, licensesList){
+    return licensesList.filter(l => new Date(l.fromDate).getTime() >= new Date(since).getTime());
+}
+
+function filterByUntil(until, licensesList){
+    return licensesList.filter(l => new Date(l.expirationDate).getTime() <= new Date(until).getTime());
+}
+
+function filterByTypeLicense(type, licensesList){
+    return licensesList.filter(l => l.type.name == type);
+}
+
+function filterLicenses(){
+    filteredLicenses = licenses;
+    if(filters.since != ""){
+        filteredLicenses = filterBySince(filters.since, filteredLicenses);
+    }
+    if(filters.until != ""){
+        filteredLicenses = filterByUntil(filters.until, filteredLicenses);
+    }
+    if(filters.type != "" && filters.type != "SELECCIONE"){
+        filteredLicenses = filterByTypeLicense(filters.type, filteredLicenses);
+    }
+    
+    updateLicenses(filteredLicenses);
+}
+
+document.getElementById("since").addEventListener("change", () => {
+    filters.since = document.getElementById("since").value;
+    filterLicenses();
+})
+
+document.getElementById("until").addEventListener("change", () => {
+    filters.until = document.getElementById("until").value;
+    filterLicenses();
+})
+
+document.getElementById("type_license").addEventListener("change", () => {
+    filters.type = document.getElementById("type_license").value;
+    filterLicenses();
+})
+
