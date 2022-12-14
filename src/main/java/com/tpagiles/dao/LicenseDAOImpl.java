@@ -43,5 +43,10 @@ public class LicenseDAOImpl implements ILicenseDAO{
     }
 
     @Override
-    public List<License> findAll() { return licenseRepository.findAll(); }
+    public List<License> findAll() { return (List<License>) licenseRepository.findAll(); }
+
+    @Override
+    public List<License> findAllExpiredLicense() {
+        return licenseRepository.findAllExpiredLicenses();
+    }
 }

@@ -19,5 +19,7 @@ public interface ILicenseDAO {
     List<License> findCurrentLicensesByHolderId(int idLicenseHolder);
 
     List<License> findAll();
+
+    List<License> findAllExpiredLicense();
 }
 

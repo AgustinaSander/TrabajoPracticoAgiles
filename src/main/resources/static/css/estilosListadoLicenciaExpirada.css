@@ -23,7 +23,7 @@ body{
 }
 
 .container{
-  width: 60%;
+  width: fit-content;
   height: auto;
   margin: auto;
   background-color: var(--light);
