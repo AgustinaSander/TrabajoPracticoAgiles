@@ -112,14 +112,6 @@ public class GestorLicencia {
 
     public List<License> findAllCurrent() { return licenseDAO.findAllCurrentLicenses();}
 
-    //Me quedo solo con las licencias expiradas
-   /* public List<License> findAllExpiredLicense() {
-        List<License> licenses = findAll();
-        LocalDate dateToday = LocalDate.now();
-        licenses = licenses.stream().filter(l -> l.getExpirationDate().isBefore(dateToday)).collect(Collectors.toList());
-
-        return licenses;
-    }*/
 
     public List<License> findAllFilteredLicenses(LicenseFilter filters) {
         List<License> licenses = findAllCurrent();
@@ -160,5 +152,14 @@ public class GestorLicencia {
 
     public List<License> findLicensesForHolder(int id) {
         return licenseDAO.findLicensesByHolderId(id);
+    }
+
+    public  List<License> findAll() {return licenseDAO.findAll();}
+    public List<License> findAllExpiredLicense() {
+        List<License> licenses = findAll();
+        LocalDate dateToday = LocalDate.now();
+        licenses = licenses.stream().filter(l -> l.getExpirationDate().isBefore(dateToday)).collect(Collectors.toList());
+
+        return licenses;
     }
 }
