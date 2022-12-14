@@ -81,7 +81,7 @@
     <section class="container">
         <h2>Listado licencias expiradas</h2>
         <h4>Este es un listado de todas las licencias expiradas al dia de la fecha.<br> Ingrese un rango de fechas o un tipo de licencia para filtrar</h4>
-        <div class="container_filter">
+        <div class="container_filter" >
             <div class="fields" id="field_since">
                 <label for="since" class="field_label">Fecha desde:</label>
                 <br>
@@ -93,7 +93,7 @@
                 <input id="until" class="field_input" type="date" name="until" min="1920-01-01" max="2999-12-31"/>
             </div>
             <div class="fields">
-                <label for="type_license" class="field_label">Tipo de licencia</label>
+                <label for="type_license" class="field_label d-block">Tipo de licencia</label>
                 <select class="field_input" name="lenguajes" id="type_license">
                     <option value="SELECCIONE" selected>SELECCIONE</option>
                     <option value="A">A</option>
@@ -103,6 +103,14 @@
                     <option value="E">E</option>
                     <option value="F">F</option>
                     <option value="G">G</option>
+                </select>
+            </div>
+            <div class="fields" id="field_order">
+                <label for="order" class="field_label">Ordenar:</label>
+                <br>
+                <select id="order" class="field_input" type="text" name="order">
+                    <option value="Ascendentemente">Ascendentemente</option>
+                    <option value="Descendentemente">Descendentemente</option>
                 </select>
             </div>
         </div>

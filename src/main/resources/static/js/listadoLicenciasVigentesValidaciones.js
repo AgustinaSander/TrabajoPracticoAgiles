@@ -51,10 +51,10 @@ async function searchLicenses(){
     }
 }
 
-function updateLicenses(licenses){
+function updateLicenses(listLicenses){
     let tbody = document.getElementById('list-licenses');
     tbody.innerHTML = '';
-    for(let [index, l] of licenses.entries()){
+    for(let [index, l] of listLicenses.entries()){
         tbody.innerHTML += `<tr>
           <td>${index+1}</td>
           <td>${l.licenseHolder.name}</td>
@@ -93,21 +93,24 @@ function filterLicenses(){
     if(filters.since != ""){
         filteredLicenses = filterBySince(filters.since, filteredLicenses);
     }
+
     if(filters.until != ""){
         filteredLicenses = filterByUntil(filters.until, filteredLicenses);
     }
+
     if(filters.type != "" && filters.type != "SELECCIONE"){
         filteredLicenses = filterByTypeLicense(filters.type, filteredLicenses);
     }
-    if(filter.order != "" && filters.order != "SELECCIONE"){
-        if(filters.order == "Ascendente"){
+
+    if(filters.order == "Ascendentemente"){
         filteredLicenses = orderLicensesAscending(filteredLicenses);
-        }else{
-        filterLicenses = orderLicensesDescending(filteredLicenses);
-        }
+    } else {
+        filteredLicenses = orderLicensesDescending(filteredLicenses);
     }
+
     updateLicenses(filteredLicenses);
 }
+
 function orderLicensesAscending(licenses){
     return (licenses.sort((a,b) => {
                 if(a.expirationDate == b.expirationDate){
@@ -133,22 +136,22 @@ function orderLicensesDescending(licenses){
 document.getElementById("since").addEventListener("change", () => {
     filters.since = document.getElementById("since").value;
     filterLicenses();
-})
+});
 
 document.getElementById("until").addEventListener("change", () => {
     filters.until = document.getElementById("until").value;
     filterLicenses();
-})
+});
 
 document.getElementById("type_license").addEventListener("change", () => {
     filters.type = document.getElementById("type_license").value;
     filterLicenses();
-})
+});
 
 document.getElementById("order").addEventListener("change", () => {
     filters.order = document.getElementById("order").value;
     filterLicenses();
-})
+});
 
 document.getElementById("goProfile").addEventListener("click",(e)=>{
     e.preventDefault();

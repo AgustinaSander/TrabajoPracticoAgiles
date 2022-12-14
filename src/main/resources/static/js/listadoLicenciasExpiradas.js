@@ -78,7 +78,35 @@ function filterLicenses(){
         filteredLicenses = filterByTypeLicense(filters.type, filteredLicenses);
     }
 
+    if(filters.order == "Ascendentemente"){
+        filteredLicenses = orderLicensesAscending(filteredLicenses);
+    } else {
+        filteredLicenses = orderLicensesDescending(filteredLicenses);
+    }
     updateLicenses(filteredLicenses);
+}
+
+
+function orderLicensesAscending(licenses){
+    return (licenses.sort((a,b) => {
+                if(a.expirationDate == b.expirationDate){
+                return 0; }
+                if(a.expirationDate < b.expirationDate){
+                return -1; }
+                if(a.expirationDate > b.expirationDate){
+                return 1; }
+    }))
+}
+
+function orderLicensesDescending(licenses){
+    return (licenses.sort((a,b) => {
+               if(a.expirationDate == b.expirationDate){
+               return 0; }
+               if(a.expirationDate < b.expirationDate){
+               return 1; }
+               if(a.expirationDate > b.expirationDate){
+               return -1; }
+           }))
 }
 
 document.getElementById("since").addEventListener("change", () => {
@@ -95,6 +123,11 @@ document.getElementById("type_license").addEventListener("change", () => {
     filters.type = document.getElementById("type_license").value;
     filterLicenses();
 })
+
+document.getElementById("order").addEventListener("change", () => {
+    filters.order = document.getElementById("order").value;
+    filterLicenses();
+});
 
 document.getElementById("goProfile").addEventListener("click",(e)=>{
     e.preventDefault();
