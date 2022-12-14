@@ -32,7 +32,13 @@ public class LicenseDAOImpl implements ILicenseDAO{
         return licenseRepository.findAllCurrentLicenses();
     }
 
+    @Override
     public void updateLicense(int id) {
         licenseRepository.updateLicense(id);
+    }
+
+    @Override
+    public List<License> findCurrentLicensesByHolderId(int idLicenseHolder) {
+        return licenseRepository.findCurrentByHolderId(idLicenseHolder);
     }
 }

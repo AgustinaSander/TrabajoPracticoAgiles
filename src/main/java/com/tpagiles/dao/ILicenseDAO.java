@@ -13,5 +13,9 @@ public interface ILicenseDAO {
     List<License> findLicensesByHolderId(int idLicenseHolder);
 
     List<License> findAllCurrentLicenses();
+
+    void updateLicense(int id);
+
+    List<License> findCurrentLicensesByHolderId(int idLicenseHolder);
 }
 

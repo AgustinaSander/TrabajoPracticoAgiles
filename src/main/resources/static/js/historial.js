@@ -7,9 +7,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 let licenses;
+let idLicenseHolder;
 
 async function loadLicenseHolder(){
-    let idLicenseHolder = new URLSearchParams(window.location.search).get("id");
+    idLicenseHolder = new URLSearchParams(window.location.search).get("id");
     if(localStorage.idUser != null){
         const request = await fetch("http://localhost:8080/api/licenseholder/"+idLicenseHolder,{
             method: 'GET',
@@ -36,15 +37,15 @@ function loadLicenseHolderData(licenseholder){
     document.getElementById("identification").innerHTML = licenseholder.identification;
     document.getElementById("type").innerHTML = licenseholder.type;
 
-    loadRecords(licenseholder.id);
+    loadRecords();
 }
 
 function goToUpdateLicenseHolder(){
-    window.location.href = "/TpAgiles/static/modificarTitularUI.html?id="+new URLSearchParams(window.location.search).get("id");
+    window.location.href = "/TpAgiles/static/modificarTitularUI.html?id="+idLicenseHolder;
 }
 
-async function loadRecords(idHolder){
-    let request = await fetch("http://localhost:8080/api/licenses/"+idHolder,{
+async function loadRecords(){
+    let request = await fetch("http://localhost:8080/api/licenses/"+idLicenseHolder,{
         method: 'GET',
         headers: {'Content-Type':'application/json; charset=UTF-8',
                   'Authorization': localStorage.token
@@ -59,9 +60,35 @@ async function loadRecords(idHolder){
 
 function doCopyLicense(idLicense){
     let license = licenses.find(l => l.id == idLicense);
-    console.log(license)
     createPDF(license);
     $('#detailModal').modal('show');
+}
+
+async function expireLicense(idLicense){
+    const request = await fetch("http://localhost:8080/api/expire",{
+        method: 'POST',
+        headers: {
+            'Content-Type':'application/json; charset=UTF-8'
+        },
+        body: idLicense
+    });
+    if(request.ok){
+        $('#expireModal').modal('show');
+    }
+}
+
+function goToRenew(idLicense){
+    $('#renewModal').modal('show');
+    let license = licenses.find(l => l.id == idLicense);
+    if(license.state == "VIGENTE"){
+        document.getElementById("modifyBtn").addEventListener('click', ()=>{
+            $('#renewModal').modal('hide');
+            expireLicense(idLicense);
+        })
+    } else {
+        window.location.href = "/TpAgiles/static/emitirLicenciaUI.html";
+    }
+
 }
 
 function showLicenses(licenses){

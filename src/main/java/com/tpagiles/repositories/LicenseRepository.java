@@ -23,6 +23,9 @@ public interface LicenseRepository extends CrudRepository<License, Integer>{
     @Query("SELECT l FROM License l WHERE l.state = 'VIGENTE'")
     List<License> findAllCurrentLicenses();
 
+    @Query("SELECT l FROM License l WHERE l.licenseHolder.id = :idLicenseHolder AND l.state = 'VIGENTE'")
+    List<License> findCurrentByHolderId(int idLicenseHolder);
+
     @Modifying
     @Query("UPDATE License l SET l.state = 'EXPIRADA' WHERE l.id = :idLicense")
     void updateLicense(int idLicense);

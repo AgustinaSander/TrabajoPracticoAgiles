@@ -28,7 +28,7 @@ public class GestorLicencia {
     GestorTitular gestorTitular;
 
     public License emitLicense(int idLicenseHolder, int idUser, String idTypeLicense, String comments) throws Exception {
-        List<License> currentLicenses = findLicensesByHolderId(idLicenseHolder);
+        List<License> currentLicenses = findCurrentLicensesByHolderId(idLicenseHolder);
         List<License> licensesWithType = currentLicenses.stream()
                 .filter(l -> l.getType().getId()==Integer.parseInt(idTypeLicense))
                 .collect(Collectors.toList());
@@ -44,6 +44,10 @@ public class GestorLicencia {
             License license = new License(EnumState.VIGENTE, licenseHolder, licenseType, comments, user, LocalDate.now(), expirationDate, cost);
             return licenseDAO.createLicense(license);
         }
+    }
+
+    private List<License> findCurrentLicensesByHolderId(int idLicenseHolder) {
+        return licenseDAO.findCurrentLicensesByHolderId(idLicenseHolder);
     }
 
     private double calculateLicenseCost(int yearPermission, LicenseType licenseType) {
@@ -150,7 +154,7 @@ public class GestorLicencia {
         });
     }
 
-    private void updateLicenseState(int idLicense) {
+    public void updateLicenseState(int idLicense) {
         licenseDAO.updateLicense(idLicense);
     }
 

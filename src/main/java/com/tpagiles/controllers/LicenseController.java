@@ -47,4 +47,9 @@ public class LicenseController {
     public List<License> findLicensesForHolder(@PathVariable int id){
         return gestorLicencia.findLicensesForHolder(id);
     }
+
+    @PostMapping("api/expire")
+    public void expireLicense(@RequestBody int id){
+        gestorLicencia.updateLicenseState(id);
+    }
 }
