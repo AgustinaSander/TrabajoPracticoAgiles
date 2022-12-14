@@ -92,30 +92,38 @@ function goToRenew(idLicense){
 }
 
 function showLicenses(licenses){
-    let list = document.getElementById("list-licenses");
-    list.innerHTML = "";
-    for(let [index, l] of licenses.entries()){
-        list.innerHTML += `<tr>
-                        <td>${l.type.name}</td>
-                        <td>${l.state}</td>
-                        <td>${l.comments}</td>
-                        <td>${l.fromDate}</td>
-                        <td>${l.expirationDate}</td>
-                        <td>$ ${l.cost}</td>
-                        <td style="text-transform: lowercase;">${l.user.email}</td>
-                        <td>
-                            <button class="btn btn-primary" onclick="goToRenew(`+l.id+`)">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn btn-primary" onclick="doCopyLicense(`+l.id+`)">
-                                <i class="fa-solid fa-print"></i>
-                            </button>
-                        </td>
-                    </tr>`;
+    if(licenses.length == 0 ){
+        document.getElementById("list-licenses").classList.add("d-none");
+        document.getElementById("error-msg").classList.remove("d-none");
     }
+    else{
+        document.getElementById("list-licenses").classList.remove("d-none");
+        document.getElementById("error-msg").classList.add("d-none");
 
+        let list = document.getElementById("list-licenses");
+        list.innerHTML = "";
+        for(let [index, l] of licenses.entries()){
+            list.innerHTML += `<tr>
+                            <td>${l.type.name}</td>
+                            <td>${l.state}</td>
+                            <td>${l.comments}</td>
+                            <td>${l.fromDate}</td>
+                            <td>${l.expirationDate}</td>
+                            <td>$ ${l.cost}</td>
+                            <td style="text-transform: lowercase;">${l.user.email}</td>
+                            <td>
+                                <button class="btn btn-primary" onclick="goToRenew(`+l.id+`)">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" onclick="doCopyLicense(`+l.id+`)">
+                                    <i class="fa-solid fa-print"></i>
+                                </button>
+                            </td>
+                        </tr>`;
+        }
+    }
 }
 
 document.getElementById("goProfile").addEventListener("click",(e)=>{

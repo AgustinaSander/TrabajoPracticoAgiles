@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 const fields = document.querySelector("#fields_to_complete");
 const inputs = document.querySelectorAll("#fields_to_complete input");
 let licenseHolders;
+let idLicenseHolder;
 
 document.getElementById("button").addEventListener('click', (e) =>{
     e.preventDefault();
@@ -53,10 +54,11 @@ function updateLicenseHoldersList(licenseholders){
 
 }
 
-async function selectLicenseHolder(idLicenseHolder){
-    console.log("SELECCION TITULAR")
+async function selectLicenseHolder(id){
+    idLicenseHolder = id;
+
     //CARGAR OPCIONES
-    let request = await fetch("http://localhost:8080/api/licenseholder/types/"+idLicenseHolder,{
+    let request = await fetch("http://localhost:8080/api/licenseholder/types/"+id,{
             method: 'GET',
             headers: {'Content-Type':'application/json; charset=UTF-8'},
     });
@@ -77,7 +79,7 @@ async function selectLicenseHolder(idLicenseHolder){
                 selectTypes.innerHTML += `<option value="${l.id}">CLASE ${l.name}</option>`
             }
 
-            defineEmitEvent(licenseHolders.find(l => l.id == idLicenseHolder));
+            document.getElementById("buttonEmitir").classList.remove("disabled");
         }
     }
 }
@@ -87,34 +89,28 @@ document.getElementById("logout").addEventListener("click",(e)=>{
     window.location.href = "/TpAgiles/static/login.html";
 });
 
-async function defineEmitEvent(licenseHolder){
-console.log("DEFINIENDO EVENTO EMITIR")
-    document.getElementById("buttonEmitir").classList.remove("disabled");
-
-    document.getElementById("buttonEmitir").addEventListener("click",(e)=>{
-        let checkboxs = document.querySelectorAll(".checkboxGroup input");
-        let message = ""
-        for(c of checkboxs){
-            if(c.checked){
-                let msg = "/ "+ c.value;
-                message += msg;
-            }
+document.getElementById("buttonEmitir").addEventListener("click",(e)=>{
+    let checkboxs = document.querySelectorAll(".checkboxGroup input");
+    let message = ""
+    for(c of checkboxs){
+        if(c.checked){
+            let msg = "/ "+ c.value;
+            message += msg;
         }
+    }
 
-        let licenseInfo = {
-            idUser: localStorage.idUser,
-            idLicenseHolder: licenseHolder.id.toString(),
-            nameTypeLicense: document.getElementById("type_license").value,
-            comments: message
-        }
+    let licenseInfo = {
+        idUser: localStorage.idUser,
+        idLicenseHolder: idLicenseHolder.toString(),
+        nameTypeLicense: document.getElementById("type_license").value,
+        comments: message
+    }
 
-        emitLicense(licenseInfo, licenseHolder);
+    emitLicense(licenseInfo);
 
-    });
-}
+});
 
-async function emitLicense(licenseInfo, licenseHolder){
-    console.log("EMITIENDO LICENCIA")
+async function emitLicense(licenseInfo){
     let request = await fetch("http://localhost:8080/api/license",{
             method: 'POST',
             headers: {
@@ -124,21 +120,19 @@ async function emitLicense(licenseInfo, licenseHolder){
     });
 
     if(request.ok){
-        console.log("LICENCIA EMITIDA")
         let license = await request.json();
         createPDF(license);
         createPayment(license);
         $('#emitModal').modal('show');
         resetAll();
     } else {
-        console.log("NO SE PUDO EMITIR")
+        let licenseHolder = licenseHolders.find(l => l.id == idLicenseHolder);
         showErrorModal(licenseInfo, licenseHolder);
         resetAll();
     }
 }
 
 function resetAll(){
-    console.log("RESETEAR")
     fields.reset();
 
     let selectTypes = document.getElementById("type_license");
@@ -153,7 +147,6 @@ function resetAll(){
 }
 
 function showErrorModal(licenseInfo, licenseHolder){
-    console.log("MOSTRAR ERROR")
     document.getElementById("errorModal-name").innerHTML = "";
     document.getElementById("errorModal-type").innerHTML = "";
     document.getElementById("errorModal-identification").innerHTML = "";
@@ -171,7 +164,6 @@ document.getElementById("goProfile").addEventListener("click",(e)=>{
 });
 
 function createPayment(license){
-    console.log("CREANDO PAGO");
     let payment = `<div>
         <h1 style="font-weight: bold; text-align:center;font-size:18px;margin-bottom:50px;">Comprobante de Pago de Licencia</h1>
         Nombre y Apellido: <b>${license.licenseHolder.name} ${license.licenseHolder.surname}</b> <br>
