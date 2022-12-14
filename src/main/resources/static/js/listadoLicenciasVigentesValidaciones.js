@@ -51,7 +51,6 @@ async function searchLicenses(){
     }
 }
 
-
 function updateLicenses(licenses){
     let tbody = document.getElementById('list-licenses');
     tbody.innerHTML = '';
@@ -73,7 +72,8 @@ function updateLicenses(licenses){
 let filters = {
     since: "",
     until: "",
-    type: ""
+    type: "",
+    order: ""
 }
 
 function filterBySince(since, licensesList){
@@ -99,8 +99,35 @@ function filterLicenses(){
     if(filters.type != "" && filters.type != "SELECCIONE"){
         filteredLicenses = filterByTypeLicense(filters.type, filteredLicenses);
     }
-
+    if(filter.order != "" && filters.order != "SELECCIONE"){
+        if(filters.order == "Ascendente"){
+        filteredLicenses = orderLicensesAscending(filteredLicenses);
+        }else{
+        filterLicenses = orderLicensesDescending(filteredLicenses);
+        }
+    }
     updateLicenses(filteredLicenses);
+}
+function orderLicensesAscending(licenses){
+    return (licenses.sort((a,b) => {
+                if(a.expirationDate == b.expirationDate){
+                return 0; }
+                if(a.expirationDate < b.expirationDate){
+                return -1; }
+                if(a.expirationDate > b.expirationDate){
+                return 1; }
+    }))
+}
+
+function orderLicensesDescending(licenses){
+    return (licenses.sort((a,b) => {
+               if(a.expirationDate == b.expirationDate){
+               return 0; }
+               if(a.expirationDate < b.expirationDate){
+               return 1; }
+               if(a.expirationDate > b.expirationDate){
+               return -1; }
+           }))
 }
 
 document.getElementById("since").addEventListener("change", () => {
@@ -115,6 +142,11 @@ document.getElementById("until").addEventListener("change", () => {
 
 document.getElementById("type_license").addEventListener("change", () => {
     filters.type = document.getElementById("type_license").value;
+    filterLicenses();
+})
+
+document.getElementById("order").addEventListener("change", () => {
+    filters.order = document.getElementById("order").value;
     filterLicenses();
 })
 
