@@ -2,9 +2,11 @@ package com.tpagiles.controllers;
 
 import com.tpagiles.gestores.GestorLicencia;
 import com.tpagiles.models.License;
+import com.tpagiles.models.LicenseHolder;
 import com.tpagiles.models.LicenseType;
 import com.tpagiles.models.dto.LicenseFilter;
 import com.tpagiles.models.LicenseInfo;
+import com.tpagiles.models.dto.PersonFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,5 +53,15 @@ public class LicenseController {
     @PostMapping("api/expire")
     public void expireLicense(@RequestBody int id){
         gestorLicencia.updateLicenseState(id);
+    }
+
+    @GetMapping("api/licenses")
+    public List<License> getLicenses(){
+        return gestorLicencia.findAll();
+    }
+
+    @PostMapping("api/licenses")
+    public List<License> getExpiredLicenses(){
+        return gestorLicencia.findAllExpiredLicense();
     }
 }

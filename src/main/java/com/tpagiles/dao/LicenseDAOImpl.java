@@ -41,4 +41,7 @@ public class LicenseDAOImpl implements ILicenseDAO{
     public List<License> findCurrentLicensesByHolderId(int idLicenseHolder) {
         return licenseRepository.findCurrentByHolderId(idLicenseHolder);
     }
+
+    @Override
+    public List<License> findAll() { return licenseRepository.findAll(); }
 }

@@ -78,7 +78,6 @@ align-content:start;
 .fields .field_label{
 height: auto;
 text-align: left;
-/* background-color: violet; */
 font-weight: 600;
 color: var(--dark);
 }

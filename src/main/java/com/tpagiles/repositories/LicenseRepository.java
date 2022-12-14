@@ -29,4 +29,7 @@ public interface LicenseRepository extends CrudRepository<License, Integer>{
     @Modifying
     @Query("UPDATE License l SET l.state = 'EXPIRADA' WHERE l.id = :idLicense")
     void updateLicense(int idLicense);
+
+    @Query("SELECT * FROM `license` WHERE 1;")
+    List<License> findAll();
 }
