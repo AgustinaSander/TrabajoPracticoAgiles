@@ -20,25 +20,6 @@ import static org.mockito.Mockito.doReturn;
 public class TestGestorLicencia {
     @Autowired
     public GestorLicencia gestorLicencia;
-   /* public LocalDate generateExpirationDate(LicenseHolder licenseHolder){
-        int expirationDay = licenseHolder.getBirthDate().getDayOfMonth();
-        int expirationMonth = licenseHolder.getBirthDate().getMonthValue();
-        int expirationYear;
-        int age = licenseHolder.getAge();
-        if(age > 70)
-            expirationYear = LocalDate.now().getYear()+1;
-        else if(age<=70 && age>=61)
-            expirationYear = LocalDate.now().getYear()+3;
-        else if(age<=60 && age>=47)
-            expirationYear = LocalDate.now().getYear()+4;
-        else if(age<=46 && age>=21)
-            expirationYear = LocalDate.now().getYear()+5;
-        else {
-            expirationYear = isFirstTimeGettingLicense(licenseHolder) ? LocalDate.now().getYear()+1 : LocalDate.now().getYear()+3;
-        }
-
-        return LocalDate.of(expirationYear, expirationMonth, expirationDay);
-    }*/
 
     @Test
     @DisplayName("Should return expiration date for 1 year")
