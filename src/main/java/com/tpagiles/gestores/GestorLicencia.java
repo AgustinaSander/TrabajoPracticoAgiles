@@ -102,7 +102,7 @@ public class GestorLicencia {
         return LocalDate.of(expirationYear, expirationMonth, expirationDay);
     }
 
-    private boolean isFirstTimeGettingLicense(LicenseHolder licenseHolder) {
+    public boolean isFirstTimeGettingLicense(LicenseHolder licenseHolder) {
         return findLicensesByHolderId(licenseHolder.getId()).size()==0;
     }
 
