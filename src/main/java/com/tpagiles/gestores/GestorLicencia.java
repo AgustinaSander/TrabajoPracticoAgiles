@@ -46,11 +46,11 @@ public class GestorLicencia {
         }
     }
 
-    private List<License> findCurrentLicensesByHolderId(int idLicenseHolder) {
+    public List<License> findCurrentLicensesByHolderId(int idLicenseHolder) {
         return licenseDAO.findCurrentLicensesByHolderId(idLicenseHolder);
     }
 
-    private double calculateLicenseCost(int yearPermission, LicenseType licenseType) {
+    public double calculateLicenseCost(int yearPermission, LicenseType licenseType) {
         double cost = 0;
         switch (yearPermission){
             case 1: cost = licenseType.getPrice1();
@@ -102,7 +102,7 @@ public class GestorLicencia {
         return LocalDate.of(expirationYear, expirationMonth, expirationDay);
     }
 
-    private boolean isFirstTimeGettingLicense(LicenseHolder licenseHolder) {
+    public boolean isFirstTimeGettingLicense(LicenseHolder licenseHolder) {
         return findLicensesByHolderId(licenseHolder.getId()).size()==0;
     }
 
