@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -138,16 +139,18 @@ public class GestorLicencia {
         return licenses;
     }
 
-    public void updateStates() {
+    public List<License> updateStates() {
         List<License> currentLicenses = findAllCurrent();
+        List<License> updatedLicenses = new ArrayList<>();
         currentLicenses.forEach(l -> {
             if(l.getExpirationDate().isBefore(LocalDate.now()))
-                updateLicenseState(l.getId());
+                updatedLicenses.add(updateLicenseState(l.getId()));
         });
+        return updatedLicenses;
     }
 
-    public void updateLicenseState(int idLicense) {
-        licenseDAO.updateLicense(idLicense);
+    public License updateLicenseState(int idLicense) {
+        return licenseDAO.updateLicense(idLicense);
     }
 
     public List<License> findLicensesForHolder(int id) {

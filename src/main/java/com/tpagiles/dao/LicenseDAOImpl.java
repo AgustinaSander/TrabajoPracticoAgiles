@@ -33,8 +33,9 @@ public class LicenseDAOImpl implements ILicenseDAO{
     }
 
     @Override
-    public void updateLicense(int id) {
+    public License updateLicense(int id) {
         licenseRepository.updateLicense(id);
+        return licenseRepository.findById(id).get();
     }
 
     @Override
