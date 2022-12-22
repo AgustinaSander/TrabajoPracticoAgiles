@@ -40,10 +40,10 @@ function setValues(license){
     let address = document.getElementById("license-address");
     let addressInfo = license.licenseHolder.address;
     let addressString = `${addressInfo.street} ${addressInfo.number}`;
-    if(addressInfo.department != ""){
+    if(addressInfo.department != "" && addressInfo.department != null){
         addressString += ` Depto.${addressInfo.department}`;
     }
-    if(addressInfo.floor != ""){
+    if(addressInfo.floor != null && addressInfo.floor != ""){
         addressString += ` Piso ${addressInfo.floor}`;
     }
     address.innerHTML = `${addressString} - ${addressInfo.locality}`;

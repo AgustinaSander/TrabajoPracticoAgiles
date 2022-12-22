@@ -1,7 +1,6 @@
 package com.tpagiles.dao;
 
 import com.tpagiles.models.License;
-import com.tpagiles.models.User;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ public interface ILicenseDAO {
 
     List<License> findAllCurrentLicenses();
 
-    void updateLicense(int id);
+    License updateLicense(int id);
 
     List<License> findCurrentLicensesByHolderId(int idLicenseHolder);
 

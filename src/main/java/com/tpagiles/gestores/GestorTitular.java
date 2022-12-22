@@ -61,7 +61,7 @@ public class GestorTitular {
             licenseHolder.setName(licenseHolderDto.getName());
             licenseHolder.setSurname(licenseHolderDto.getSurname());
             licenseHolder.setEmail(licenseHolderDto.getEmail());
-            licenseHolder.setIsOrganDonor(licenseHolderDto.isOrganDonor());
+            licenseHolder.setIsOrganDonor(licenseHolderDto.getIsOrganDonor());
             licenseHolder.setBirthDate(licenseHolderDto.getBirthDate());
             licenseHolder.setType(EnumTypeIdentification.valueOf(licenseHolderDto.getType()));
             licenseHolder.setIdentification(licenseHolderDto.getIdentification());

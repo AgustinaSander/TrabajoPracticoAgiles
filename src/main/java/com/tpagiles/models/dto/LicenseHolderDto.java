@@ -23,9 +23,9 @@ public class LicenseHolderDto {
     private AddressDto addressDto;
     private String bloodType;
     private String rhFactor;
-    private boolean isOrganDonor;
+    private Boolean isOrganDonor;
 
-    public LicenseHolderDto(String name, String surname, String email, String type, String identification, LocalDate birthDate, AddressDto address, String bloodType, String rhFactor, boolean isOrganDonor){
+    public LicenseHolderDto(String name, String surname, String email, String type, String identification, LocalDate birthDate, AddressDto address, String bloodType, String rhFactor, Boolean isOrganDonor){
         this.name = name;
         this.surname = surname;
         this.email = email;
